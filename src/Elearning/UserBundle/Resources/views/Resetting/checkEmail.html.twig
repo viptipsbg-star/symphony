@@ -1,0 +1,7 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<p>
+{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
+</p>
+{% endblock %}

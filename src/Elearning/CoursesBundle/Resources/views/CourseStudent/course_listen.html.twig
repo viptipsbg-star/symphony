@@ -1,0 +1,141 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <h1>{{ course.getName() }}</h1>
+    <div class="content-container">
+        <div class="row course-player equal-height">
+            <div class="col-lg-3 chapters-col full-height-col">
+                <div class="chapters">
+                    {% if chapters %}
+                        <h2><span>{{ "new_course.editor.chapters.list"|trans }}</span></h2>
+                    {% endif %}
+
+                    <div class="dd" id="chapters-list">
+                        <ul class="dd-list">
+                            {% for chapter in chapters %}
+                                <li class="dd-item {{ (chapter.id in completedChapterIds) ? "completed" : "" }} {{ (chapter.id == currentchapter.id) ? "current" : "" }} {{ (startedchapter and chapter in startedchapter) or (course.flexibleOrder) ? "started": "" }}"
+                                    data-chapter-id="{{ chapter.getId() }}" id="chapter_{{ chapter.getId() }}"
+                                    data-type="{{ chapter.getType() }}">
+                                    <div class="type-icon">
+                                        {% if chapter.getType() == "video" or chapter.getType() == "video_files" %}
+                                            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "quiz" %}
+                                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "connect" %}
+                                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "lesson" %}
+                                            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "exam" %}
+                                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "feedback" %}
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "material" %}
+                                            <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                                        {% elseif chapter.getType() == "slides" %}
+                                            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="ch_item loadChapter">
+                                        <div class="dd-content">
+                                            <span class="title">{{ chapter.getName() }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 chapter-content-col">
+                <div class="course-content">
+                    <div class="chapter-title">
+                        <h2>{{ currentchapter.getName() }}</h2>
+                    </div>
+                    {% block chaptercontent %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display:none">
+        <div id="chapter-skip-alert-popup" class="popup-content">
+            <h2>{{ "student_courses.course_listen.skip_chapter_forbidden"|trans }}</h2>
+            <div class="message">
+                {% if currentchapter.type == "video" %}
+                    {{ "student_courses.course_listen.listen_chapter"|trans|raw }}
+                {% else %}
+                    {{ "student_courses.course_listen.listen_chapter_and_click_continue"|trans|raw }}
+                {% endif %}
+            </div>
+        </div>
+        <div id="exam-in-progress-alert-popup" class="popup-content">
+            <h2>{{ "student_courses.course_listen.exam_in_progress"|trans }}</h2>
+            <div class="message">
+                {{ "student_courses.course_listen.not_allowed_to_change_chapter_during_exam"|trans|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '../app/Resources/public/js/jquery.magnific-popup.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% if currentchapter.type != "exam" %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        <script>
+            $(function () {
+                $('#chapters-list .dd-list .dd-item, #chapters-list .dd-list .dd-item').on('click', function (e) {
+                    e.preventDefault();
+                    if ($(this).is(':not(.completed)') && $(this).is(':not(.started)')) {
+                        $.magnificPopup.open({
+                            items: {
+                                src: "#chapter-skip-alert-popup",
+                                type: "inline"
+                            }
+                        });
+                        return false;
+                    }
+                    if ($(this).data('type') == "exam") {
+                        return false;
+                    }
+                    var chapter_id = $(this).data('chapter-id');
+                    window.location = Routing.generate("elearning_course_listen", {
+                        'listening_id':{{ listening.id }},
+                        'next': chapter_id
+                    });
+                });
+            });
+        </script>
+    {% else %}
+        <script>
+            $(function () {
+                $('#chapters-list .dd-list .dd-item, #chapters-list .dd-list .dd-item').on('click', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.open({
+                        items: {
+                            src: "#exam-in-progress-alert-popup",
+                            type: "inline"
+                        }
+                    });
+                    return false;
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets
+    '../app/Resources/public/css/magnific-popup.css'
+    '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+
+

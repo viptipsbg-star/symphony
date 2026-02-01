@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyclass %}frontpage{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="container">
+            <div class="head-info">
+                <div class="logo">
+                    {% for image in company_info.logo_images %}
+                        <img src="{{ asset('images/'~image) }}"/>
+                    {% endfor %}
+                </div>
+                <h1>{{ company_info.front_page.title }}</h1>
+                <p class="header-note">{{ company_info.front_page.slogan  }}</p>
+            </div>
+            <div class="login-block">
+                {{ sonata_block_render({ 'type': "elearning.user.block.login" }) }}
+            </div>
+            {% if company_info.footer.image is defined %}
+                <img src="{{ asset('images/'~company_info.footer.image) }}" style="display:block;margin-left: -250px;"/>
+            {% endif %}
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets 
+                   '@font_awesome_css'
+     %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}

@@ -1,0 +1,4 @@
+elearning_user_edit_credentials:
+    path:     /credentials
+    defaults: { _controller: ElearningUserBundle:Security:editCredentials }
+    methods: [POST, GET]

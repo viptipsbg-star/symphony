@@ -1,0 +1,531 @@
+common:
+    yes: Yes
+    no: No
+    from: from
+new_course:
+    title: Nowy kurs
+    groups: Groups
+    steps:
+        step1_information: INFORMACJA
+        step2_content: TREŚĆ
+        step3_confirmation: POTWIERDZENIE
+
+
+    form:
+        name: Tytuł kursu
+        category: Wybierz kategorię
+        duration: Czas trwania kursu (godz.)
+        listenperiod: Kurs wysłuchać w ciągu (dni)
+        description: Opis
+        image: Zdjęcie kursu
+        duration_tooltip: Czas trwania kursu
+        course_files: Pliki kursu
+        certificate_needed: Wygeneruj certyfikat
+        flexible_order: Dowolna kolejność odtwarzania rozdziałów
+        can_pause_exams: Can pause exams
+        show_on_courses_page: Pokaż na stronie kursu
+        error_uploading_image_file: Wystąpił błąd podczas wczytywania zdjęcia
+        course_files_popup:
+            title: Pliki kursu
+            filename: Nazwa
+            filesize: Wielkość
+            delete: Usunięte
+            drop_here: PRZECIĄGNIJ PLIKI TUTAJ LUB KLIKNIJ ABY IMPORTOWAĆ
+            upload_error: Wystąpił błąd podczas importowania pliku
+            file_deleted: Plik został usunięty
+        show_category: Show category
+        show_active_date_to: Show "Active to"
+        show_exams_count: Show "Exams count"
+        show_certificate_needed: Show "Issue certificate"
+        active_date_to: Active to
+
+    save_and_continue: ZACHOWAJ I KONTYNUUJ
+
+    editor:
+        ok: Dobrze
+        error: Błąd
+        create: Stwórz
+        successfully_saved: Rozdział został pomyślnie zachowany
+        exam_already_created: W tym kursie już jest utworzony jeden rozdział egzaminu. Jeden kurs nie może mieć więcej niż jeden rozdział egzaminu.
+        unsaved_changes: W danym rozdziale dokonałeś zmian, jednak nie zachowałeś ich. Czy na pewno chcesz zamknąć ten rozdział? Po wyjściu, zmiany nie będą zachowane.
+        select_chapters: Wybierz rozdział
+        types:
+            video: Wideo
+            quiz: Ankieta
+            lesson: Lekcja
+            exam: Egzamin
+            feedback: Informacja zwrotna
+            material: Pliki kursu
+            slides: Slajdy
+        chapters:
+            list: Lista rozdziałów
+            new_chapter: NOWY ROZDZIAŁ
+            new:
+                type: Typ
+                name: Nazwa
+            rename: Zmień nazwę
+            delete: Usunięte
+            rename_success: Rozdział został pomyślnie zmieniony
+
+        upload:
+            instructor: Pliki instruktora
+            slides: Pliki slajdów
+            drop_here: PRZECIĄGNIJ PLIKI TUTAJ LUB KLIKNIJ ABY IMPORTOWAĆ
+            remove: Usunięte
+            invalid_file_type: Niepoprawny format pliku
+            error: Wystąpił błąd podczas importowania pliku.
+            video_format_error: System dopuszcza importowanie wideo plików wyłącznie w formacie mp4 i webm
+            audio_format_error: System dopuszcza importowanie audio plików wyłącznie w formacie mp3
+        slides:
+            files: Slajdy
+
+        video:
+            start_synchronization: URUCHOM SYNCHRONIZACJĘ WIDEO
+            back_to_files: WRÓĆ DO PLIKÓW
+            video_editor: Wideo edytor
+            instructor_monitor: WIDOK INSTRUKTORA
+            current_slide: BIEŻĄCY SLAJD
+            next_slide: NASTĘPNY SLAJD
+            next_file: NASTĘPNY PLIK
+            instructor_progressbar: PASEK CZASU INSTRUKTORA
+            slides_progressbar: PASEK CZASU SLAJDÓW
+            clear: Wyczyść
+
+        quiz:
+            quiz: Ankieta
+            quiz_type: Rodzaj ankiety
+            type_quiz: Test
+            type_connect: Połączenie
+            file_upload:
+                new: Dodaj zdjęcie
+                update: Zmień zdjęcie
+            connect:
+                text_type: Tekst
+                image_type: Zdjęcie
+                upload: PRZECIĄGNIJ PLIKI TUTAJ LUB KLIKNIJ ABY IMPORTOWAĆ
+                add_question: DODAJ PYTANIE
+            quiz_quiz:
+                question: Pytanie
+                answer: Odpowiedź
+                correct: Poprawna
+                add_answer: DODAJ ODPOWIEDŹ
+                add_question: DODAJ PYTANIE
+            preview:
+                answer: Odpowiedź
+                incorrect: Niepoprawnie
+                correct: Poprawna
+        feedback:
+            feedback: Informacja zwrotna
+            choices: Opcje
+            question: Pytanie
+            types:
+                text: Okno tekstu
+                select: Opcje
+            add_question: Dodaj pytanie
+            add_choice: Dodaj opcje
+        exam:
+            exam: Egzamin
+            question: Pytanie
+            options_title: Ustawienia
+            questions: Pytania
+            answer: Odpowiedź
+            correct: Poprawna
+            add_answer: DODAJ ODPOWIEDŹ
+            add_question: DODAJ PYTANIE
+            options:
+                maxtime: Maksymalny czas trwania egzaminu (min.)
+                numberofretries: Liczba prób
+                waittime: Czas oczekiwania na ponowne rozpoczęcie egzaminu (godz.)
+                questionsorder: Porządek pytań
+                serial: Pytania po kolei
+                shuffle: Pomieszaj pytania
+                rules: Zasady
+                passcriteria: Kryteria zaliczenia egzaminu (proc. poprawnych odpowiedzi)
+                numberofquestions: Ilość pytań
+
+        lesson:
+            text_lesson: Lekcja
+
+
+        material:
+            title_label: Nazwa
+            add_file: Dodaj plik
+            preview: Przeglądaj
+            fill_all_fields: Wypełnij wszystkie pola
+            error_saving_files: Wystąpił błąd podczas zapisywania plików. Można importować jedynie pliki w formacie doc, docx, pdf, xls, xlsx, ppt, pptx, txt, jpg, jpeg, png, gif, mp4, webm
+
+
+        save: ZACHOWAJ
+        preview: PRZEGLĄDAJ
+
+        save_continue: ZACHOWAJ I KONTYNUUJ
+
+        confirm:
+            status: Status kursu
+            start_processing: Rozpocznij przetwarzanie
+            processing_progress: Postęp przetwarzania
+            chapters_to_process: Rozdziały
+            all: Wszystkie
+            none: Żaden
+            success: Rozdziały są dostępne
+            publish: Aktywuj
+            unpublish: Ukryj
+
+course_list:
+    title: Kursy
+    filter:
+        status: Stan
+        all: Wszystkie
+        published: Aktywne
+        unpublished: Nie publikowane
+        trash: Usunięte
+
+        filter: Filtruj
+
+    new_course: Nowy kurs
+    delete_confirm: Czy na pewno chcesz usunąć ten kurs?
+
+    course:
+        id: ID
+        name: Nazwa
+        category: Kategoria
+        status: Stan
+        questions: Pytania
+        show_questions: Pokaż pytania
+        faq: FAQ
+        feedbacks: Opinie
+        edit: Edytuj
+        publish: Publikuj
+        unpublish: Ukryj
+        trash: Usuń
+
+    states:
+        trashed: Usunięty
+        initiated: Rozpoczęty
+        published: Aktywny
+        unpublished: Nieaktywny
+        expired: Przedawniony
+
+questions:
+    title: Pytania
+
+    question:
+        question: Pytanie
+        question_date: Data pytania
+        answer_date: Data odpowiedzi
+        show: Pokaż
+        created: Stworzony
+        copy_to_faq: Przenieś do FAQ
+        faq: FAQ
+        delete: Trinti
+    no_questions: Brak pytań
+
+faq_questions:
+    title: Często zadawane pytania
+    new_question: Nowy
+
+question:
+    title: Pytanie
+    question: Pytanie
+    answer: Odpowiedź
+    save: Zachowaj
+
+
+feedbacks:
+    title: Opinie o kursie
+    no_feedbacks: Brak opinii
+
+
+student_courses:
+    available_courses:
+        title: Kursy
+        filter:
+            label: Filtruj
+        course_info: Informacja
+        course_questions_notice: Nowe odpowiedzi na pytania
+
+    course_info:
+        progress: Zrealizowany kurs
+        to_course_listen: Rozpocznij kurs
+        course_category: Kategoria kursu:
+        about_course: O kursie
+        course_files: Pliki kursu
+        frequently_asked_questions: Najczęściej zadawane pytania
+        your_questions: Twoje pytania
+        ask_question: Zadaj pytanie
+        question:
+            write_here: Wpisz tutaj
+            send: Wyślij
+        certificate_needed: Issue certificate
+        active_date_to: Active to
+        exam_count: Exams count
+        always_active: always active
+
+    my_courses:
+        title: Moje kursy
+        course_info: Informacja
+        duration_unit: godz.
+
+    no_courses: Brak kursów
+
+    course_listen:
+        skip_chapter_forbidden: Opuszczenie rozdziału jest zabronione
+        listen_chapter_and_click_continue: Prosimy obejrzeć istniejący rozdział i kliknąć na przycisk <strong>"Dalej"</strong>
+        listen_chapter: Prosimy obejrzeć dany rozdział. Po zapoznaniu się, automatycznie zostaniesz przekierowany do kolejnego rozdziału.
+        exam_in_progress: Trwa egzamin
+        not_allowed_to_change_chapter_during_exam: Podczas egzaminu nie jest dopuszczalne wejście do kolejnego rozdziału
+        quiz:
+            answer: Odpowiedz
+            wrong_answer: Odpowiedź niepoprawna, spróbuj jeszcze raz
+            correct_answer: Odpowiedź poprawna. Gratulujemy!
+            ok: Dobrze
+        text_lesson:
+            continue: Dalej
+
+        exam:
+            previous_question: Poprzednie
+            next_question: Nastepne
+            complete_exam: Zakończ egzamin
+            start_exam: Rozpocznij
+            cancel: Anuluj
+            rules: Rozpocznij egzamin
+            confirm_end: Czy na pewno chcesz zakończyć egzamin?
+            confirm_end_empty_questions: Nie odpowiedziałeś na wszystkie pytania, czy na pewno chcesz zakończyć egzamin?
+            yes: Tak
+            no: Nie
+            time_ended: Czas egzaminu dobiegł końca
+            exam_passed: Egzamin zdany
+            exam_failed: Egzamin niezdany
+            result: Wynik:
+            continue: Kontynuuj kurs
+            you_can_retry_after: Będziesz mógł spróbować od początku:
+            hours: godz.
+            course_list: Lista kursów
+            you_wont_be_able_to_retry: Nie ma możliwości powtórzenia egzaminu. Kurs został zakończony.
+            show_incorrect: Złych odpowiedzi
+            pause: Wstrzymać egzamin
+
+        feedback:
+            answer: Odpowiedz
+            note_before: Prosimy o wypełnienie ankiety odnośnie kursu
+
+        material:
+            continue: Kontynuuj
+            title: Nazwa
+            file: Plik
+            review_these_course_files: Prosimy obejrzeć i zapoznać się z danymi plikami
+
+    course_completed:
+        successfully_completed_course: Pomyślnie wysłuchałeś kursu!
+        you_can_download_certificate: Możesz pobrać certyfikat
+        certificate: Certyfikat
+
+reports:
+    extended_version: Extended
+    student_courses:
+        title: Historia zrealizowanego kursu
+        name: Nazwa
+        category: Kategoria
+        completion_date: Data zrealizowanego kursu
+        certificate: Certyfikat
+        course_hours: Liczba godzin zrealizowanego kursu
+        no_entries: Brak wpisów
+        manual_course_hours: Rzeczywista liczba godzin zrealizowanych kursów:
+        total: Ogółem godzin
+    supervisor_courses:
+        title: Raport kursu
+        no_entries: Brak wpisów
+        name: Nazwa
+        category: Kategoria
+        status: Status
+        duration: Czas (godz.)
+        students: Liczba osób zaproszonych
+        started_count: Liczba osób, które rozpoczęły
+        completed_count: Liczba osób, które zakończyły
+        faq_questions: FAQ liczba pytań
+        student_questions: Liczba pytań studentów
+        detail: Szczegółowo
+        user_name: Imię Nazwisko
+        received: Otrzymany
+        started: Rozpoczęty
+        questions_count: Liczba pytań
+        completed: Zakończony
+        avg_result: Średni uzyskany wynik
+        course_name: Nazwa szkolenia
+        exam_result: Procent poprawnych odpowiedzi
+        start_exam: Data rozpoczęcia egzaminu
+        end_exam: Data zakończenia egzaminu
+        correct: liczba odpowiedzi poprawnych
+        incorrect: liczba odpowiedzi błędnych
+        available: Aktywny/ Nieaktwny
+        employed: Zatrudniony/ Niezatrudniony
+        position: Stanowisko
+        workplace_address: Adres miejsca pracy (Miasto, Ulica)
+        number_ckk_mpk: Numer CKK/MPK
+        departament: Dział
+        region: Region
+        superior: Przełożony
+    supervisor_listening:
+        title: Raport przesłuchanych kursów
+        no_entries: Brak wpisów
+        name: Nazwa grupy
+        employees_count: Liczba Pracowników
+        managers_count: Liczba Menedżerów
+        courses_count: Ilość przypisanych kursów
+        avg_result: Średnia wynik egzaminów
+        avg_attendance: Średnia frekwencja
+        detail: Szczegółowo
+    supervisor_listening_group:
+        title: Raport zrealizowanych kursów
+        no_entries: Brak wpisów
+        name: Imię Nazwisko
+        course_count: Liczba kursów
+        completed_course_count: Liczba zakończonych kursów
+        completed_course_hours: Liczba godzin zakończonych kursów
+        real_course_hours: Rzeczywista liczba godzin zakończonych kursów
+        average_exam_result: Średni wynik egzaminu
+        last_action: Ostatnia aktywność
+        detail: Szczegółowo
+    supervisor_listening_employee:
+        name: Nazwa kursu
+        started: Rozpoczęto
+        last_listen_date: Data ostatniego kursu
+        course_hours: Godziny kursu
+        completed: Koniec
+        exam_results: Wynik egzaminu
+        certificate: Certyfikat
+        detail: Szczegółowo
+        average_exam_result: Średni wynik egzaminu:
+        manual_course_hours: Rzeczywiste godziny egzaminu:
+        completed_course_hours: Całkowity czas zrealizowanych kursów:
+    manager_courses:
+        title: Raport zrealizowanych kursów
+        user_name: Imię Nazwisko
+        course_name: Kurs
+        assigned_time: Przypisano
+        start_time: Rozpoczęto
+        completed_time: Koniec
+        exam_result: Wynik Egzaminu
+        questions_count: Ilość pytań
+        certificate: Certyfikat
+        detail: Szczegółowo
+
+    manager_courses_empl:
+        title: Raport o zrealizowanym kursie pracownika
+        chapter_title: Rozdział
+        chapter_type: Typ
+        last_listen_date: Ostatni dzień kursu
+        completed: Zakończony
+        exam: Egzamin
+        video: Lekcja wideo
+        quiz: Ankieta
+        lesson: Lekcja
+        exam_completion: Złożenie egzaminu
+        exam_start_date: Data rozpoczęcia egzaminu
+        exam_end_date: Data zakończenia egzaminu
+        exam_result: Wynik
+        exam_correct_answers_all: Poprawne odpowiedzi / wszystkie odpowiedzi
+
+    manager_courses_info:
+        title: Raport kursu
+        course_name: Nazwa
+        category: Kategoria
+        number_of_employees_started: Pracownicy, którzy rozpoczeli kurs
+        number_of_employees_completed: Pracownicy, którzy zakończyli kurs
+        average_listen_time: Średni czas kursu
+        average_exam_result: Średni wynik egzaminu
+
+    attendance:
+        title: Podsumowanie
+        active: Aktywne
+        exp: Nieaktywne
+        expelled: Odrzucone
+        add_subject: Dodaj przedmiot
+        subject: Przedmiot / wykład
+        search: Szukaj
+        name: Nazwa
+        date: Data
+        subject_title: Tytuł
+        code: Kod
+        subject_statuses: Status
+        confirm: Potwierdź
+        contract: Umowa
+        export_excell: Eksportuj
+
+diary:
+    title: Tytuł
+    rate_description: ' '
+    add_topic: Dodaj temat
+    date: Data
+    supervisor: Supervisor
+    topic: Temat
+    comment: KOMENTARZ
+    export_excell: Eksportuj
+
+categories:
+    title: Kategorie
+    new_category: Nowa kategoria
+    list:
+        title: Nazwa
+    form:
+        name: Nazwa
+        parent: Nadrzędna kategoria
+        save: Zachowaj
+        show_on_courses_page: Pokaż na stronie kursu
+
+
+emails:
+    new_question:
+        subject: Nowe pytanie odnośnie kursu %coursename%
+        message: |
+            Witaj,
+
+            Otrzymałeś nowe pytanie odnośnie kursu %coursename%.
+            Zobaczyć pytanie i odpowiedzieć możesz tutaj <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Z poważaniem,
+            Zespół.
+
+    new_answer:
+        subject: Otrzymałeś odpowiedź na Twoje pytanie odnośnie kursu %coursename%
+        message: |
+            Witaj,
+
+            Instruktor odpowiedział na Twoje pytanie odnośnie kursu %coursename%.
+            Zobaczyć odpowiedź możesz tutaj <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Z poważaniem,
+            Zespół DOZ.
+
+    course_ending:
+        subject: Termin realizacji kursu wygasa za 3 dni
+        message: |
+            Witaj,
+
+            Termin realizacji kursu "%coursename%" wygasa za 3 dni.
+            Zrealizuj kurs <a href="%viewlink%" target="_blank">TUTAJ</a>
+
+            Z poważaniem,
+            Zespół DOZ.
+
+    exam_retake:
+        subject: Termin oczekiwania na ponowne rozpoczęcie egzaminu dobiegł końca
+        message: |
+            Witaj,
+
+            Termin oczekiwania na ponowne rozpoczęcie kursu "%coursename%" dobiegł końca, kurs możesz rozpocząć jeszcze raz.
+            Szkolenie dostępne <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Z poważaniem,
+            Zespół DOZ.
+
+    course_assigned:
+        subject: Nowy kurs na platformie DOZ Akademia
+        message: |
+            Witaj,
+
+            zostałeś/aś przypisany/a do nowego kursu "%coursename%".
+            Kurs możesz zobaczyć <a href="%viewlink%" target="_blank">TUTAJ</a>
+
+            Z poważaniem,
+            Zespół DOZ.

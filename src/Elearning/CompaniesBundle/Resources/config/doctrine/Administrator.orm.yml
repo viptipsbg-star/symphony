@@ -1,0 +1,62 @@
+Elearning\CompaniesBundle\Entity\Administrator:
+    type: entity
+    repositoryClass: Gedmo\Tree\Entity\Repository\NestedTreeRepository
+    table: administrators
+    gedmo:
+        tree:
+          type: nested
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        user_id:
+            type: integer
+            nullable: false
+        lft:
+            type: integer
+            gedmo:
+                - treeLeft
+        rgt:
+            type: integer
+            gedmo:
+                - treeRight
+        lvl:
+            type: integer
+            gedmo:
+                - treeLevel
+    manyToOne:
+        root:
+            targetEntity: Elearning\CompaniesBundle\Entity\Administrator
+            joinColumn:
+                name: tree_root
+                referencedColumnName: id
+                onDelete: CASCADE
+            gedmo:
+                - treeRoot
+        parent:
+            targetEntity: Elearning\CompaniesBundle\Entity\Administrator
+            inversedBy: children
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            gedmo:
+                - treeParent
+    oneToMany:
+        children:
+            targetEntity: Elearning\CompaniesBundle\Entity\Administrator
+            mappedBy: parent
+            orderBy:
+                lft: ASC
+
+    oneToOne:
+        user:
+            targetEntity: Elearning\UserBundle\Entity\User
+            cascade: [remove]
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+

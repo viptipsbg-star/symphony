@@ -1,0 +1,177 @@
+groups:
+    user_groups_title: Użytkownicy grupy
+    assign_course: Przypisz kurs
+    courses:
+        title: Tytuł
+        assign: Przypisać
+        assigned: Przypisano
+        cancel: Anuluj
+        popup:
+            title: Przypisanie kursu dla grupy
+        confirm_popup:
+            do_you_want_to_assign: Czy na pewno chcesz przypisać kurs
+            do_you_want_to_cancel: Czy na pewno chcesz anulować kurs
+            for_group: dla grupy
+            yes: Tak
+            no: Nie
+    list:
+        add_new_group: Dodaj nową grupę
+    group:
+        open: Otwórz
+        users: pracowników
+        employees:
+            delete_from_group: Usuń z grupy
+            add_to_group: Dodaj do grupy
+    tabs:
+        group_employees: Pracownicy
+        group_managers: Menedżerowie
+    employees:
+        name: Imię
+        surname: Nazwisko
+        name_surname: Imię i Nazwisko
+        email: e-mail
+        position: Pozycja
+        address: Adres miejsca pracy
+        new:
+            title: Nowy pracownik
+            add: Dodaj
+        no_entries: Brak wpisów
+    group_employees:
+        title: Przypisani pracownicy
+    group_managers:
+        title: Przypisani menedżerowie
+    all_employees:
+        add_to_group: Dodaj pracownika do grupy
+        add_to_group_multiple_employees: Dodaj kilku pracowników do grupy
+        add_to_group_multiple_managers: Dodaj kilku menedżerów do grupy
+        search_text: Szukaj
+        add_to_group_by_position: Według pozycji
+        add_to_group_by_address: Według adresu miejscowości
+        add_to_group_multiple_submit: Dodaj
+        add_to_group_select_position: - Wybierz pozycję -
+        add_to_group_select_address: - Wybierz adres miejsca pracy -
+        succesfully_added_multiple: Pomyślnie dodano
+
+    all_managers:
+        add_to_group: Dodaj menedżera do grupy
+        search_text: Szukaj
+
+    first_group_title: Grupa pracowników
+    course_assign_success: Kurs pomyślnie przypisano dla grupy
+    course_cancel_success: Kurs pomyślnie anulowano dla grupy
+    course_assign_empty_group: Kurs nie przypisano dla grupy, tak jak grupa nie ma pracowników
+    course_cancel_no_group: Nie znaleziono grupy
+
+new_group:
+    page_title: Nowa grupa
+    title_label: Nazwa
+    write_here: Wpisz tutaj...
+    create: Stwórz
+    rename: Zmień nazwę
+
+new_employee:
+    employee_created: Pracownik utworzony
+    no_email_error: Niewpisany adres e-mail
+    cant_create_user: Nie można utworzyć użytkownika pracownika
+    password_not_equal_error: Hasła nie zgadzają się
+    incorrect_username: Neteisingas vartotojo vardas
+    fields:
+        code: Sp. z o.o.
+        name: Imię
+        surname: Nazwisko
+        username: Nazwa użytkownika
+        email: e-mail
+        position: Pozycja
+        address: Adres miejsca pracy
+        birthday: Data urodzenia
+        type: Typ
+        parent: Parent
+        active: Aktywny
+        password: Hasło
+        password_repeat: Powtórz hasło
+        image: Zdjęcie
+        available: Aktywny/Nieaktwny
+        available_choices:
+            available: Aktywny
+            unavailable: Nieaktwny
+        employed: Zatrudniony/Niezatrudniony
+        employed_choices:
+            employed: Zatrudniony
+            unemployed: Niezatrudniony
+        ckk_number: CKK number (number of the pharmacy)
+        mpk_number: MPK number
+        departament: Departament
+        region: Region
+        active_choices:
+            active: Aktywny
+            inactive: Nieaktywny
+        type_choices:
+            employee: Pracownik
+            manager: Menedżer
+            administrator: Administratorius
+
+        select_position: Powtórz pozycję
+        create_new_position: Dodać nowy
+        contract: Kontrakt
+        phone: Telefon
+
+employees:
+    import:
+        title: Import pracowników
+        drop_here: PRZECIĄGNIJ PLIKI TUTAJ LUB KLIKNIJ ABY IMPORTOWAĆ (xls, xlsx)
+        invalid_file_type: Niepoprawny format pliku. Importować można tylko pliki *.xls i *.xlsx
+        upload_error: Wystąpił błąd podczas importowania pliku
+        employees_import_error: Wystąpił błąd podczas zachowania pracowników
+        employees_import_success: Pracownicy zostali pomyślnie zachowani:
+    list:
+        title: Pracownicy
+        code: Sp. z o.o.
+        name: Imię
+        surname: Nazwisko
+        email: e-mail
+        position: Pozycja
+        username: Nazwa użytkownika
+        birthday: Urodziny
+        active: Akt
+        tab_employees: Pracownicy
+        tab_managers: Menedżerowie
+        tab_administrators: Administratorzy
+        edit: Edytuj
+        change_password: Zmień hasło
+        remove: Wykasuj
+    password:
+        new_password: Nowe hasło
+        repeat_password: Potwórz hasło
+        update: Aktualizuj
+        not_equal_passwords: Hasła nie zgadzają się
+        employee_not_found: Nie znaleziono pracownika
+        success: Hasło zostało pomyślnie zmienione
+        password_min_length: Hasło powinno zawierać co najmniej 3 znaki
+        password_change_email:
+            subject: Hasło użytkownika w systemie e-szkoleń zostało pomyślnie zmienione
+            message: |
+                Witaj,
+
+                Twoje hasło w systemie e-szkoleń zostało zmienione.
+                Nowe dane logowania:
+                Nazwa użytkownika: %username%
+                Hasło: %password%
+
+                Z poważaniem,
+                Zespół.
+    edit:
+        update: Aktualizuj
+        success: Pracownik został pomyślnie zaktualizowany
+        confirm: Czy na pewno chcesz usunąć pracownika?
+        yes: Tak
+        no: Nie
+        success: Pracownik został pomyślnie usunięty
+        error: Wystąpił błąd podczas usunięcia pracownika
+        groups: Grupės
+        courses: Kursai
+    send_email:
+        subject: Tytuł
+        text: Wiadomość
+        send: Wyślij
+        success: Ok
+        error: Not sent

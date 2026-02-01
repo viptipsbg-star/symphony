@@ -1,0 +1,56 @@
+Elearning\CoursesBundle\Entity\DiaryTopic:
+    type: entity
+    table: diary_topics
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        topic_id:
+            type: integer
+            nullable: false
+        employee_id:
+            type: integer
+            nullable: false
+        creator_employee_id:
+            type: integer
+            nullable: false
+        issued:
+            type: datetime
+            nullable: false
+        comment:
+            type: string
+            length: 1000
+            nullable: true
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    manyToOne:
+        topic:
+            targetEntity: Elearning\CoursesBundle\Entity\Topic
+            joinColumn:
+                name: topic_id
+                referencedColumnName: id
+        employee:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            inversedBy: diaryTopics
+            joinColumn:
+                name: employee_id
+                referencedColumnName: id
+        creator_employee:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            joinColumn:
+                name: creator_employee_id
+                referencedColumnName: id
+    oneToMany:
+        rates:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryRate
+            mappedBy: diaryTopic
+            cascade: [remove]
+            joinColumn:
+                name: id
+                referencedColumnName: diary_topic_id
+

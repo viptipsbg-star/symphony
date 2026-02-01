@@ -1,0 +1,111 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+
+{% block chaptercontent %}
+<div class="video-chapter">
+    <div class="student-video-player">
+        <div class="monitor-wrapper">
+            <div class="monitor">
+
+            </div>
+            <a class="play-button" style="display: none;">
+                {% image '@ElearningCoursesBundle/Resources/public/images/white-play-button.png' %}
+                    <img src="{{ asset_url }}">
+                {% endimage %}
+            </a>
+        </div>
+        <div class="bottom-bar">
+            <div class="course-progress-bar">
+                <div class="bar" style="width:0%"></div>
+            </div>
+            <div class="controls noselect">
+                <div class="left-controls">
+                    <a href="#" class="control-btn control-btn-orange playpause">
+                        <span class="glyphicon glyphicon-play playico" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-pause pauseico" aria-hidden="true"></span>
+                    </a>
+                    <a href="#" class="control-btn stop"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></a>
+                    <div class="control-btn timer">
+                        <span class="hour">00</span>:<span class="minute">00</span>:<span class="second">00</span>
+                    </div>
+                </div>
+
+                <div class="right-controls">
+                    <div class="control-btn volume-control">
+                        <div class="volume-button">
+                            <a href="#" class="volume low">
+                                <span class="glyphicon glyphicon-volume-off mute" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-volume-down low" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-volume-up high" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                        <div class="track">
+                            <div class="bar handle" style="width:50%"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="control-btn fullscreen"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="videodata" style="display:none">
+            <div class="videoparams" 
+                {% if currentchapter.coursefiles|length > 0 %}
+                data-duration="{{ currentchapter.coursefiles[0].duration }}"
+                {% endif %}
+            ></div>
+            <div class="video-sources">
+                {% for coursefile in currentchapter.coursefiles %}
+                    <video src="{{ path("elearning_courses_show_coursefile", {'id': coursefile.id}) }}" data-filetype="{{ coursefile.type }}" poster="data:image/gif,AAAA"></video>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if currentchapter.id in completedChapterIds %}
+        <div class="submit-container">
+            <a href="{{ path("elearning_course_listen", {'listening_id':listening.id, 'next':'next'}) }}" class="btn btn-orange">{{ "student_courses.course_listen.text_lesson.continue"|trans }}</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% javascripts
+    '@ElearningCoursesBundle/Resources/public/js/screenfull.js' 
+    '@ElearningCoursesBundle/Resources/public/js/videoplayer.js'
+     %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+$(function(){
+    videoplayer.playercontainer = $('.student-video-player');
+    videoplayer.volumeBar = $('.student-video-player .controls .volume-control .track');
+    videoplayer.volumeBtn = $('.student-video-player .controls .volume');
+    videoplayer.videoParams = $('.student-video-player .videodata .videoparams');
+    videoplayer.videoSources = $('.student-video-player .videodata .video-sources video');
+    videoplayer.monitor = $('.student-video-player .monitor');
+    videoplayer.monitorControl = $('.student-video-player .monitor-wrapper a');
+    videoplayer.playpausebtn = $('.student-video-player .monitor-wrapper, .student-video-player .controls .playpause');
+    videoplayer.stopbtn = $('.student-video-player .controls .stop');
+    videoplayer.timercontainer = $('.student-video-player .controls .timer');
+    videoplayer.fullscreenbtn = $('.student-video-player .controls .fullscreen');
+    videoplayer.progressbar = $('.student-video-player .course-progress-bar');
+    videoplayer.onVideoEnded = function() {
+        var form = $('<form></form>');
+        form.attr('action', "{{ path("elearning_course_chapter_completed", {'course_id': currentchapter.courseid, 'listening_id': listening.id, 'chapter_id': currentchapter.id})}}");
+        form.appendTo("body").submit();
+    };
+    {% if canRewindForward %}
+        videoplayer.canRewindForward = true;
+    {% endif %}
+    videoplayer.init();
+
+    $(window).on('beforeunload', function () {
+        videoplayer.unloadVideo();
+    });
+
+});
+</script>
+{% endblock %}

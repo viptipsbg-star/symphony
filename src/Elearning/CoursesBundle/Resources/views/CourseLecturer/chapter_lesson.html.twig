@@ -1,0 +1,28 @@
+<!-- LESSON CHAPTER TYPE - START -->
+<div class="lesson-chapter" style="display:none">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="lesson-edit-panel">
+                <div class="heading">
+                    {{ "new_course.editor.lesson.text_lesson"|trans }}
+                </div>
+                <div class="panel-body">
+                    <form class="lesson-chapter-form">
+                        <div class="form-group">
+                            <textarea class="form-control" id="lesson-content" name="lesson[content]"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-orange save-lesson"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> {{ "new_course.editor.save"|trans }}</button>
+                            <a href="#" class="btn btn-orange-empty preview-lesson">{{ "new_course.editor.preview"|trans }}</a>
+                        </div>
+                        <input type="hidden" name="lesson[chapter_id]" class="chapter_id" value="" />
+                        <input type="hidden" name="id" class="lesson_id" value="" />
+                    </form>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- LESSON CHAPTER TYPE - END -->

@@ -1,0 +1,185 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <h1>{{ 'categories.title'|trans }}</h1>
+    <div class="content-container">
+        <div class="head-panel">
+            <div class="new">
+                <a href="#" class="btn btn-orange new-category">{{ "categories.new_category"|trans }}</a>
+            </div>
+        </div>
+        <div class="body-panel">
+            <form action="#" id="adminForm" method="post" name="adminForm">
+                <div class="list-table">
+                    <table class="table table-striped table-bordered" id="categories-table">
+                        <thead>
+                        <tr>
+                            <th width="50"></th>
+                            <th>{{ "categories.list.title"|trans }}</th>
+                            <th width="100"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% macro recursiveIdShow(category) %}{% if category.getParentId %} {{ _self.recursiveIdShow(category.parent) }} {{ category.getParentId }}{% endif %}{% endmacro %}
+                        {% macro recursiveCategory(category, level) %}
+                            <tr sortable-group-id="{{ category.getParentId ? category.getParentId : 0 }}"
+                                item-id="{{ category.id }}" level="{{ level }}"
+                                data-parent="{{ category.getParentId() }}"
+                                data-id="{{ category.id }}"
+                                parents="{{ _self.recursiveIdShow(category) }}"
+                                data-main_page="{% if category.mainPage %}1{% else %}0{% endif %}">
+                                <td>
+                                    <a href="#" class="sortable-handle"><span
+                                                class="glyphicon glyphicon-resize-vertical"
+                                                aria-hidden="true"></span></a>
+                                    <input type="text" name="order[]" value="{{ category.getOrdering() }}"
+                                           style="display:none"/>
+                                    <input type="checkbox" value="{{ category.id }}" name="cid[]" style="display:none"/>
+                                </td>
+                                <td>
+                                    <span class="level">
+                                        {% if level > 0 %}
+                                            {% for i in range(1, level) %}—{% endfor %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="name">
+                                        {{ category.name }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-green edit-category"><span
+                                                class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                    <a href="#" class="btn btn-red delete-category"><span
+                                                class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                </td>
+                            </tr>
+                            {% if category.getPublishedChildren()|length %}
+                                {% for child in category.getPublishedChildren() %}
+                                    {{ _self.recursiveCategory(child, level + 1) }}
+                                {% endfor %}
+                            {% endif %}
+                        {% endmacro %}
+
+                        {% for category in categories %}
+                            {{ _self.recursiveCategory(category, 0) }}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="edit-category-popup-container" style="display:none">
+        <div class="edit-category-popup popup-content">
+            <form action="#"
+                  class="employee_form" method="post">
+                {% form_theme category_fields_form"bootstrap_3_layout.html.twig" %}
+                {{ form_widget(category_fields_form) }}
+                <div class="form-group">
+                    <input type="hidden" id="category_id" name="category_id" value=""/>
+                    <input type="submit" class="btn btn-orange"
+                           value="{{ "categories.form.save"|trans }}"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '../app/Resources/public/css/magnific-popup.css'
+    'bundles/elearningcourses/css/sortablelist.css' filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    {% javascripts '../app/Resources/public/js/jquery.magnific-popup.min.js'
+    '../app/Resources/public/js/showmessage.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@ElearningCoursesBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>
+        $(function () {
+            var sortableList = new $.JSortableList('table#categories-table tbody', 'adminForm', 'asc', '{{ path('elearning_courses_categories_reorder') }}', '', '1');
+
+            $('table#categories-table tbody').on('click', '.edit-category', function (e) {
+                e.preventDefault();
+                var category_id = $(this).parents('tr').data('id');
+                $('.edit-category-popup select#category_parent option').show();
+                $('.edit-category-popup input#category_name').val($(this).parents('tr').find('.name').html().trim());
+                $('.edit-category-popup select#category_parent').val($(this).parents('tr').data('parent'));
+                $('.edit-category-popup input#category_main_page').prop('checked', $(this).parents('tr').data('main_page'));
+                $('.edit-category-popup input#category_id').val(category_id);
+                $('.edit-category-popup select#category_parent option[value=' + category_id + ']').hide();
+                $.magnificPopup.open({
+                    items: {
+                        src: '.edit-category-popup',
+                        type: 'inline'
+                    }
+                })
+            });
+            $('table#categories-table tbody').on('click', '.delete-category', function (e) {
+                e.preventDefault();
+                var category_id = $(this).parents('tr').data('id');
+                $.ajax({
+                    url: "{{ path('elearning_courses_categories_delete') }}",
+                    data: {
+                        'category_id': category_id
+                    },
+                    method: 'post',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        }
+                        else {
+                            showmessage(response.message, 'danger');
+                        }
+                    }
+                });
+            });
+
+            $('.new-category').on('click', function (e) {
+                e.preventDefault();
+                $('.edit-category-popup select#category_parent option').show();
+                $('.edit-category-popup input#category_name').val('');
+                $('.edit-category-popup select#category_parent').val('');
+                $('.edit-category-popup input#main_page').val('');
+                $('.edit-category-popup input#category_id').val('');
+                $.magnificPopup.open({
+                    items: {
+                        src: '.edit-category-popup',
+                        type: 'inline'
+                    }
+                })
+            });
+
+            $('.edit-category-popup form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "{{ path('elearning_courses_categories_store') }}",
+                    data: $(this).serialize(),
+                    method: 'post',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        }
+                        else {
+                            showmessage(response.message, 'danger');
+                        }
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <h1>
+        {% block reporttitle %}
+        {% endblock %}
+    </h1>
+    <div class="content-container">
+        <div class="head-panel">
+            {% block xlsxlink %}
+            {% endblock %}
+            <div class="pull-right">
+                {% block versionlink %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="body-panel">
+            {% block table %}
+            {% endblock %}
+            {% block additional %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less'
+    '../app/Resources/public/css/stacktable.css'filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '../app/Resources/public/js/stacktable.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<h1>{{ "reports.manager_courses_info.title"|trans }}</h1>
+<div class="content-container">
+    <div class="body-panel">
+        {% if courses is empty %}
+            <h3 class="no-entries">{{ "reports.lecturer_courses.no_entries"|trans }}
+        {% else %}
+        <div class="list-table manager-course-listening">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>{{ "reports.manager_courses_info.course_name"|trans }}</th>
+                        <th>{{ "reports.manager_courses_info.category"|trans }}</th>
+                        <th>{{ "reports.manager_courses_info.number_of_employees_started"|trans }}</th>
+                        <th>{{ "reports.manager_courses_info.number_of_employees_completed"|trans }}</th>
+                        <th>{{ "reports.manager_courses_info.average_listen_time"|trans }}</th>
+                        <th>{{ "reports.manager_courses_info.average_exam_result"|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td class="category">
+                            {% if course.id in categoriesHierarchy|keys %}
+                                {% for category in categoriesHierarchy[course.id] %}
+                                    {{ category }} 
+                                    <span class="separator"></span>
+                                {% endfor %}
+                            {% endif %}
+                            {{ course.category.name }}
+                        </td>
+                        <td>{{ startedemployeescounts[course.id] }}</td>
+                        <td>{{ completedemployeescounts[course.id] }}</td>
+                        <td>{{ averagelistentimes[course.id] }}</td>
+                        <td>{{ averageexamresults[course.id] }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

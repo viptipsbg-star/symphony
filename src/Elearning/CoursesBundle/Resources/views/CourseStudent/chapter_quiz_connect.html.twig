@@ -1,0 +1,102 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+
+{% block chaptercontent %}
+
+<div class="student-quiz-connect">
+    <div class="connect-items noselect">
+        <div class="items-left-col">
+            {% for item in quiz.getData() %}
+            <div class="item" data-index="{{ item['first']['correct_id'] }}">
+                <div class="content {{ (item['first']['type'] == 'image') ? "image-content" : "text-content"}}">
+                    {% if (item['first']['type'] == "image") %}
+                    <img src="{{ item['first']['value'] }}" />
+                    {% else %}
+                    {{ item['first']['value'] }}
+                    {% endif %}
+                </div>
+                <div class="handle"></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="middle-spacer"></div>
+        <div class="items-right-col">
+            {% for item in quiz.getData() %}
+            <div class="item" data-index="{{ item['second']['correct_id'] }}">
+                <div class="content {{ (item['second']['type'] == 'image') ? "image-content" : "text-content"}}">
+                    {% if (item['second']['type'] == "image") %}
+                    <img src="{{ item['second']['value'] }}" />
+                    {% else %}
+                    {{ item['second']['value'] }}
+                    {% endif %}
+                </div>
+                <div class="handle"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="submit-container">
+        <a href="#" class="btn btn-orange">{{ "student_courses.course_listen.quiz.answer"|trans }}</a>
+    </div>
+
+    <div id="correct-answer-popup-container" style="display:none">
+        <div class="correct-answer-popup quiz-answer-popup">
+            <div class="content">
+                <img src="{{ asset("bundles/elearningcourses/images/correct_ico.png") }}" />
+            </div>
+            <div class="text">
+                {{ "student_courses.course_listen.quiz.correct_answer"|trans }}
+            </div>
+            <div class="button">
+                <a href="{{ path("elearning_course_chapter_completed", {'course_id': currentchapter.courseid, 'listening_id': listening.id, 'chapter_id': currentchapter.id})}}" class="btn btn-orange">{{ "student_courses.course_listen.quiz.ok"|trans }}</a>
+            </div>
+        </div>
+    </div>
+    <div id="wrong-answer-popup-container" style="display:none">
+        <div class="wrong-answer-popup quiz-answer-popup">
+            <div class="content">
+                <img src="{{ asset("bundles/elearningcourses/images/wrong_ico.png") }}" />
+            </div>
+            <div class="text">
+                {{ "student_courses.course_listen.quiz.wrong_answer"|trans }}
+            </div>
+            <div class="button">
+                <a href="#" class="btn btn-orange popup-close">{{ "student_courses.course_listen.quiz.ok"|trans }}</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+{% javascripts
+    '../app/Resources/public/js/dom.jsPlumb-1.7.6-min.js'
+    '../app/Resources/public/js/jquery.magnific-popup.min.js'
+    '@ElearningCoursesBundle/Resources/public/js/quizconnect.js'
+     %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+$(function(){
+    quizconnect.container = $('.student-quiz-connect .connect-items');
+    quizconnect.choices = $('.student-quiz-connect .connect-items .item');
+    quizconnect.init();
+    $('.student-quiz-connect .submit-container a').on('click', function(e){
+        e.preventDefault();
+        quizconnect.checkAnswer();
+    });
+
+    $('.popup-close').on('click', function(e) {
+        e.preventDefault();
+        $.magnificPopup.close();
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+Elearning\CoursesBundle\Entity\File:
+    type: entity
+    table: crs_files
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        original_filename:
+            type: string
+            length: 255
+            nullable: false
+        location:
+            type: string
+            length: 255
+            nullable: false
+        type:
+            type: string
+            length: 255
+            nullable: false
+        chapter_id:
+            type: integer
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+
+
+    manyToOne:
+        chapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            joinColumn:
+                name: chapter_id
+                referencedColumnName: id
+    oneToOne:
+        video:
+            targetEntity: Elearning\CoursesBundle\Entity\Video
+            mappedBy: file
+
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+
+    lifecycleCallbacks:
+        postPersist: [upload]
+        postUpdate: [upload]
+        postRemove: [removeFile]
+
+

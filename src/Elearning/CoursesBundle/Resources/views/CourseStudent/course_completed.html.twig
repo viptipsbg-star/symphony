@@ -1,0 +1,31 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<h1>{{ course.getName() }}</h1>
+<div class="content-container">
+    <div class="course-completed">
+        <div class="completed-image">
+            <img src="{{ asset("bundles/elearningcourses/images/course_completed.png") }}" />
+        </div>
+        <div class="info">
+            <div class="title">
+                {{ "student_courses.course_completed.successfully_completed_course"|trans }}
+            </div>
+            <div class="certificate-info">
+                {{ "student_courses.course_completed.you_can_download_certificate"|trans }}
+            </div>
+        </div>
+        <div class="certificate-btn-container">
+            <a href="{{ path("elearning_course_certificate", {'listening_id':listening.id}) }}" target="_blank" class="btn btn-orange"><img src="{{ asset("bundles/elearningcourses/images/pdf_ico.png") }}"/>{{ "student_courses.course_completed.certificate"|trans }}</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

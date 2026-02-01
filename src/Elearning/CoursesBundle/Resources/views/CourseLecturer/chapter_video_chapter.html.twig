@@ -1,0 +1,157 @@
+<!-- VIDEO CHAPTER TYPE - START -->
+<div class="video-chapter" style="display:none">
+    <div class="file-uploads">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-upload-panel">
+                    <div class="heading">{{ "new_course.editor.upload.instructor"|trans }}</div>
+                    <div class="panel-body">
+                        <form action="{{ path('elearning_courses_upload_file') }}" class="dropzone" id="instructor-files-upload">
+                            <div class="file-items">
+                                <div class="files-list dropzone-previews">
+                                </div>
+                                <div class="dz-message">{{ "new_course.editor.upload.drop_here"|trans }}</div>
+                            </div>
+                            <div class="fallback">
+                                <input type="file" name="file" multiple />
+                            </div>
+                            <input type="hidden" name="type" value="instructor" />
+                            <input type="hidden" name="chapter_id" value="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-upload-panel">
+                    <div class="heading">{{ "new_course.editor.upload.slides"|trans }}</div>
+                    <div class="panel-body">
+                        <form action="{{ path('elearning_courses_upload_file') }}" class="dropzone" id="slides-files-upload">
+                            <div class="file-items">
+                                <div class="files-list dropzone-previews"></div>
+                                <div class="dz-message">{{ "new_course.editor.upload.drop_here"|trans }}</div>
+                            </div>
+                            <div class="fallback">
+                                <input type="file" name="file" multiple />
+                            </div>
+                            <input type="hidden" name="type" value="slide" />
+                            <input type="hidden" name="chapter_id" value="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="change-step">
+        <a href="#" class="btn btn-brown open-uploads" style="display:none"><span class="back-arrow-ico" aria-hidden="true"></span>{{ "new_course.editor.video.back_to_files"|trans }}</a>
+        <a href="#" class="btn btn-empty btn-block open-sync update-editor-files">{{ "new_course.editor.video.start_synchronization"|trans }}</a>
+    </div>
+    <div class="video-sync" style="display:none">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="video-sync-panel">
+                    <div class="heading">{{ "new_course.editor.video.video_editor"|trans }}</div>
+                    <div class="panel-body">
+                        <div class="editor-player row">
+                            <div class="monitors">
+                                <div class="instructor-col">
+                                    <div class="main-monitor monitor">
+                                        <p>{{ "new_course.editor.video.instructor_monitor"|trans }}</p>
+                                        <div class="content"></div>
+                                    </div>
+                                    <div class="controls main-monitor-controls">
+                                        <a href="#" class="btn btn-orange control-btn playpause" title="Play/pause">
+                                            <span class="glyphicon glyphicon-play play-icon" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-pause pause-icon" style="display:none;" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="#" class="btn btn-gray control-btn stop" title="Start">
+                                            <span class="glyphicon glyphicon-stop stop-icon" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="#" class="btn btn-gray control-btn next-instructor" title="Next instructor file">
+                                            <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                                            {{ "new_course.editor.video.next_file"|trans }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="slides-col">
+                                    <div class="current-slide monitor">
+                                        <p>{{ "new_course.editor.video.current_slide"|trans }}</p>
+                                        <div class="content"></div>
+                                    </div>
+                                    <div class="next-slide monitor">
+                                        <p>{{ "new_course.editor.video.next_slide"|trans }}</p>
+                                        <div class="content"></div>
+                                    </div>
+                                    <div class="time">
+                                        <span class="minutes">0</span> :
+                                        <span class="seconds">0</span> .
+                                        <span class="millis">0</span>
+                                    </div>
+                                    <div class="controls slides-controls">
+                                        <a href="#" class="btn btn-gray control-btn next-slide" title="Next slide file">
+                                            <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                                            {{ "new_course.editor.video.next_file"|trans }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progressbars">
+                                <div class="progressbars-content">
+                                    <div class="progressbar-marker">
+                                        <span class="time">00:00</span>
+                                    </div>
+                                    <div class="ruler">
+                                        <ul>
+                                            <li>00:05</li>
+                                            <li>00:10</li>
+                                            <li>00:15</li>
+                                            <li>00:20</li>
+                                            <li>00:25</li>
+                                            <li>00:30</li>
+                                            <li>00:35</li>
+                                            <li>00:40</li>
+                                            <li>00:45</li>
+                                            <li>00:50</li>
+                                            <li>00:55</li>
+                                            <li>01:00</li>
+                                            <li>01:05</li>
+                                            <li>01:10</li>
+                                            <li>01:15</li>
+                                            <li>01:20</li>
+                                            <li>01:25</li>
+                                        </ul>
+                                    </div>
+                                    <p>{{ "new_course.editor.video.instructor_progressbar"|trans }}</p>
+                                    <div class="main-progressbar progressbar">
+                                        <div class="progressbar-content"></div>
+                                    </div>
+                                    <p>{{ "new_course.editor.video.slides_progressbar"|trans }}</p>
+                                    <div class="slides-progressbar progressbar">
+                                        <div class="progressbar-content"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hidden-data" style="display:none">
+                                <div class="instructor-data"></div>
+                                <div class="slides-data"></div>
+                            </div>
+                        </div>
+                        <div class="submit-buttons row">
+                            <a href="#" class="btn btn-orange save-video-chapter"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> {{ "new_course.editor.save"|trans }}</a>
+                            <a href="#" class="btn btn-orange-empty start-video-chapter-preview">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                {{ "new_course.editor.preview"|trans }}
+                            </a>
+                            <a href="#" class="btn btn-orange-empty clear-synchronization">
+                                {{ "new_course.editor.video.clear"|trans }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- VIDEO CHAPTER TYPE - END -->

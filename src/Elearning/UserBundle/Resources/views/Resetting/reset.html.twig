@@ -1,0 +1,12 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+{% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+{% endblock bodycontainer %}
+{% block stylesheets %}
+    {% stylesheets 
+    '@ElearningUserBundle/Resources/less/styles.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    app.menu_builder:
+        class: AppBundle\Menu\MenuBuilder
+        arguments:
+            [
+                "@knp_menu.factory",
+                "@translator",
+                "@security.authorization_checker",
+                "@security.token_storage",
+            ]
+
+    app.main_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", createMainMenu]
+        arguments: ["@request_stack", %app_config%, %system_id%]
+        tags:
+            - { name: knp_menu.menu, alias: main }
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

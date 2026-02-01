@@ -1,0 +1,87 @@
+<div class="quiz-type connect" style="display:none;">
+    <div class="choices">
+        <div class="form-group choice">
+            <div class="choice-item first">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <select class="connect-choice-type form-control">
+                            <option value="text">{{ "new_course.editor.quiz.connect.text_type"|trans }}</option>
+                            <option value="image">{{ "new_course.editor.quiz.connect.image_type"|trans }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="field">
+                            <div class="text">
+                                <input type="text" name="left_choice[]" value="" class="form-control"/>
+                            </div>
+                            <div class="image" style="display:none">
+                                <div class="file-upload">
+                                    <a href="#" class="upload-img">
+                                        <span class="new_image_text">{{ "new_course.editor.quiz.file_upload.new"|trans }}</span>
+                                        <span class="update_image_text"
+                                              style="display:none;">{{ "new_course.editor.quiz.file_upload.update"|trans }}</span>
+                                    </a>
+
+                                    <div class="image-container">
+                                        <img src="" style="display:none;"/>
+                                        <span class="file-dropzone">{{ "new_course.editor.quiz.connect.upload"|trans }}</span>
+                                    </div>
+                                    <input type="file" name="left_choice[]"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="choices-connector">
+                <div class="line">
+                    <div class="circle circle-left"></div>
+                    <div class="circle circle-right"></div>
+                </div>
+            </div>
+            <div class="choice-item second">
+                <div class="row">
+                    <div class="col-sm-6 pull-right">
+                        <select class="connect-choice-type form-control">
+                            <option value="text">{{ "new_course.editor.quiz.connect.text_type"|trans }}</option>
+                            <option value="image">{{ "new_course.editor.quiz.connect.image_type"|trans }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 pull-left">
+                        <div class="field">
+                            <div class="text">
+                                <input type="text" name="left_choice[]" value="" class="form-control"/>
+                            </div>
+                            <div class="image" style="display:none">
+                                <div class="file-upload">
+                                    <a href="#" class="upload-img">
+                                        <span class="new_image_text">{{ "new_course.editor.quiz.file_upload.new"|trans }}</span>
+                                        <span class="update_image_text"
+                                              style="display:none;">{{ "new_course.editor.quiz.file_upload.update"|trans }}</span>
+                                    </a>
+
+                                    <div class="image-container">
+                                        <img src="" style="display:none"/>
+                                        <span class="file-dropzone">{{ "new_course.editor.quiz.connect.upload"|trans }}</span>
+                                    </div>
+                                    <input type="file" name="left_choice[]"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="choice-delete">
+                <a href="#" class="btn btn-red remove-connect-choice"><span class="glyphicon glyphicon-trash"
+                                                                            aria-hidden="true"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <a href="#" class="btn btn-orange-empty add-connect-choice"><span class="glyphicon glyphicon-plus"
+                                                                          aria-hidden="true"></span> {{ "new_course.editor.quiz.connect.add_question"|trans }}
+        </a>
+    </div>
+</div>
+

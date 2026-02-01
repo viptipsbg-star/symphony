@@ -1,0 +1,44 @@
+Elearning\CoursesBundle\Entity\Slide:
+    type: entity
+    table: crs_slides
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        original_filename:
+            type: string
+            length: 255
+            nullable: false
+        location:
+            type: string
+            length: 255
+            nullable: false
+        chapter_id:
+            type: integer
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+
+
+    manyToOne:
+        chapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            inversedBy: coursefiles
+            joinColumn:
+                name: chapter_id
+                referencedColumnName: id
+
+
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+
+    lifecycleCallbacks:
+        postPersist: [upload]
+        postUpdate: [upload]
+        postRemove: [removeFile]

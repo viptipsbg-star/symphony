@@ -1,0 +1,539 @@
+common:
+    yes: Yes
+    no: No
+    from: from
+new_course:
+    title: New Course
+    groups: Groups
+    steps:
+        step1_information: INFORMATION
+        step2_content: CONTENT
+        step3_confirmation: CONFIRMATION
+
+
+    form:
+        name: Course name
+        category: Check category
+        duration: Course duration (h)
+        listenperiod: Course listening period
+        description: Description
+        image: Course image
+        duration_tooltip: Enter course duration
+        course_files: Course files
+        certificate_needed: Issue certificate
+        flexible_order: Flexible course order
+        can_pause_exams: Can pause exams
+        show_on_courses_page: Show on courses page
+        error_uploading_image_file: Error uploading image file
+        course_files_popup:
+            title: Course files
+            filename: Title
+            filesize: Size
+            delete: Delete
+            drop_here: DROP FILES HERE
+            upload_error: Upload error
+            file_deleted: File deleted
+        show_category: Show category
+        show_active_date_to: Show "Active to"
+        show_exams_count: Show "Exams count"
+        show_certificate_needed: Show "Issue certificate"
+        active_date_to: Active to
+
+
+    save_and_continue: SAVE AND CONTINUE
+
+    editor:
+        ok: Ok
+        error: Error
+        create: Create
+        successfully_saved: Chapter saved successfully
+        exam_already_created: One course can‘t have more than one exam chapter.
+        unsaved_changes: You have made changes in this chapter, but doesn‘t saved it. Are you sure you want leave this chapter? It his case all changes will be lost.
+        select_chapters: Select chapter
+        types:
+            video: Video
+            video_files: Video files
+            quiz: Quiz
+            lesson: Text lesson
+            exam: Exam
+            feedback: Feedback
+            material: Course files
+            slides: Slides
+        chapters:
+            list: Chapters list
+            new_chapter: NEW CHAPTER
+            new:
+                type: Type
+                name: Name
+            rename: Rename
+            delete: Delete
+            rename_success: Chapter renamed successfully
+
+        upload:
+            instructor: Instructor files
+            slides: Slides files
+            drop_here: DROP FILES HERE
+            remove: DELETE
+            invalid_file_type: Invalid file format
+            error: Error uploading file
+            video_format_error: You are allowed to upload only mp4 and webm format video files
+            audio_format_error: You are allowed to upload only mp3 format audio files
+            mp4_full: Full .mp4
+            webm_full: .webm
+            mp4_mobile: Mobile .mp4
+        slides:
+            files: Slides
+
+        video:
+            start_synchronization: START VIDEO SYNCHRONIZATION
+            back_to_files: BACK TO FILES
+            video_editor: Video editor
+            instructor_monitor: INSTRUCTOR MONITOR
+            current_slide: CURRENT SLIDE
+            next_slide: NEXT SLIDE
+            next_file: NEXT FILE
+            instructor_progressbar: INSTRUCTOR PROGRESSBAR
+            slides_progressbar: SLIDES PROGRESSBAR
+            clear: Clear
+
+        quiz:
+            quiz: Quiz
+            quiz_type: Quiz type
+            type_quiz: Test
+            type_connect: Connection
+            file_upload:
+                new: Add image
+                update: Change image
+            connect:
+                text_type: Text
+                image_type: Image
+                upload: DROP FILES HERE
+                add_question: ADD QUESTION
+            quiz_quiz:
+                question: Question
+                answer: Answer
+                correct: Correct
+                add_answer: ADD ANSWER
+                add_question: ADD QUESTION
+            preview:
+                answer: Answer
+                incorrect: Incorrect
+                correct: Correct
+        feedback:
+            feedback: Feedback
+            choices: Choices
+            question: Question
+            types:
+                text: Text
+                select: Options
+            add_question: Add question
+            add_choice: Add choice
+        exam:
+            exam: Exam
+            question: Question
+            options_title: Options
+            questions: Questions
+            answer: Answer
+            correct: Correct
+            add_answer: ADD ANSWER
+            add_question: ADD QUESTION
+            options:
+                maxtime: Maximum exam time (min)
+                numberofretries: Number of retries
+                waittime: Retake waiting time (hours)
+                questionsorder: Questions order
+                serial: Serial
+                shuffle: Shuffle
+                rules: Rules
+                passcriteria: Pass criteria (percent cprrect answers)
+                numberofquestions: Number of questions
+
+        lesson:
+            text_lesson: Text lesson
+
+
+        material:
+            title_label: Title
+            add_file: Add file
+            preview: Preview
+            fill_all_fields: Fill all fields
+            error_saving_files: Error saving files. You can save only doc, docx, pdf, xls, xlsx, ppt, pptx, txt, jpg, jpeg, png, gif, mp4, webm format files
+
+
+        save: SAVE
+        preview: PREVIEW
+
+        save_continue: SAVE AND CONTINUE
+
+        confirm:
+            status: Course status
+            start_processing: Start processing
+            processing_progress: Processing progress
+            chapters_to_process: Chapters
+            all: All
+            none: None
+            start_success: Processing started successfully
+            success: Chapters processed successfully and are eady to use
+            publish: Publish
+            unpublish: Unpublish
+
+course_list:
+    title: Courses
+    filter:
+        status: Status
+        all: All
+        published: Active
+        unpublished: Unpublish
+        trash: Delete
+
+        filter: Filter
+
+    new_course: New course
+    delete_confirm: Are you sure you want to delete the course?
+
+    course:
+        id: ID
+        name: Name
+        category: Category
+        status: Status
+        questions: Questions
+        show_questions: Questions
+        faq: F.A.Q.
+        feedbacks: Feedbacks
+        edit: Edit
+        publish: Publish
+        unpublish: Unpublish
+        trash: Delete
+
+    states:
+        trashed: Deleted
+        initiated: Initiated
+        published: Active
+        unpublished: Unactive
+        expired: Expired
+
+questions:
+    title: Questions
+
+    question:
+        question: Question
+        question_date: Question date
+        answer_date: Answer date
+        show: Show
+        created: Created
+        copy_to_faq: Copy to F.A.Q.
+        faq: F.A.Q.
+        delete: Delete
+    no_questions: No questions
+
+faq_questions:
+    title: Frequently Asked Questions
+    new_question: New
+
+question:
+    title: Question
+    question: Question
+    answer: Answer
+    save: Save
+
+
+feedbacks:
+    title: Feedbacks about course
+    no_feedbacks: no feedbacks
+
+
+student_courses:
+    available_courses:
+        title: Courses
+        filter:
+            label: Filter:
+        course_info: Information
+        course_questions_notice: There are new answered questions
+
+    course_info:
+        progress: Listen course
+        to_course_listen: To course listen
+        course_category: Course category:
+        about_course: About course
+        course_files: Course files
+        frequently_asked_questions: Frequently asked questions
+        your_questions: Your questions
+        ask_question: Ask question
+        question:
+            write_here: Write here
+            send: Send
+        certificate_needed: Issue certificate
+        active_date_to: Active to
+        exam_count: Exams count
+        always_active: always active
+
+    my_courses:
+        title: My courses
+        course_info: Information
+        duration_unit: h
+
+    no_courses: No courses
+
+    course_listen:
+        skip_chapter_forbidden: Forbidden to skip chapter
+        listen_chapter_and_click_continue: Please listen chapter and click button <strong>"Continue"</strong>
+        listen_chapter: Please listen chapter. Then you will be diverted to the next chapter.
+        exam_in_progress: Exam in progress
+        not_allowed_to_change_chapter_during_exam: Not allowed to change chapter during exam.
+        quiz:
+            answer: Answer
+            wrong_answer: wrong answer, try again
+            correct_answer: Correct answer!
+            ok: Ok
+        text_lesson:
+            continue: Continue
+
+        exam:
+            previous_question: Previous
+            next_question: Next
+            complete_exam: Complete exam
+            start_exam: Start
+            cancel: Cancel
+            rules: Exam rules
+            confirm_end: Are you sure you want to confirm exam?
+            confirm_end_empty_questions: You have empty questions, are you sure you want to confirm exam?
+            yes: Yes
+            no: No
+            time_ended: Exam time ended
+            exam_passed: Exam passed
+            exam_failed: Exam failed
+            result: Result:
+            continue: Continue course
+            you_can_retry_after: You can retry after:
+            hours: h.
+            course_list: Course list
+            you_wont_be_able_to_retry: You wont be able to retry.
+            show_incorrect: Wrong answers
+            pause: Pause exam
+
+        feedback:
+            answer: Answer
+            note_before: Please fill out the questionnaire about course.
+
+        material:
+            continue: Continue
+            title: Title
+            file: File
+            review_these_course_files: Please review these course files.
+
+    course_completed:
+        successfully_completed_course: Course is successfully completed!
+        you_can_download_certificate: You can download certificate
+        certificate: Certificate
+
+reports:
+    extended_version: Extended
+    student_courses:
+        title: Course history
+        name: Name
+        category: Category
+        completion_date: Completion date
+        certificate: Certificate
+        course_hours: Course hours
+        no_entries: No entries
+        manual_course_hours: Manual course hours:
+        total: Total hours
+    supervisor_courses:
+        title: Course report
+        no_entries: No entries
+        name: Name
+        category: Category
+        status: Status
+        duration: Duration (h)
+        students: Student count
+        started_count: Started count
+        completed_count: Completed count
+        faq_questions: F.A.Q. count
+        student_questions: Students questions count
+        detail: Detail
+        user_name: Name Surname
+        received: Received
+        started: Started
+        questions_count: Questions count
+        completed: Completed
+        avg_result: Average exam result
+        course_name: Course name
+        exam_result: Exam result
+        start_exam: Start exam
+        end_exam: End exam
+        correct: Correct answers
+        incorrect: Incorrect answers
+        available: Available/ unavailable
+        employed: Employed/ unemployed
+        position: Position
+        workplace_address: Workplace adress (City/ street)
+        number_ckk_mpk: Number CKK/MPK
+        departament: Departament
+        region: Region
+        superior: Superior
+    supervisor_listening:
+        title: Course listening review
+        no_entries: No entries
+        name: Group Name
+        employees_count: Employees number
+        managers_count: Managers number
+        courses_count: Courses number
+        avg_result: Average exam result
+        avg_attendance: Average attendance
+        detail: Detail
+    supervisor_listening_group:
+        title: Course listening review
+        no_entries: No entries
+        name: Name Surname
+        course_count: Course count
+        completed_course_count: Completed course count
+        completed_course_hours: Completed course hours
+        real_course_hours: Real course hours
+        average_exam_result: Average exam result
+        last_action: Last action
+        detail: Detail
+    supervisor_listening_employee:
+        name: Course name
+        started: Started
+        last_listen_date: Last listen date
+        course_hours: Acquired course hours
+        completed: Completed
+        exam_results: Exam results
+        certificate: Certificate
+        detail: Detail
+        average_exam_result: Average exam result:
+        manual_course_hours: Manual course hours:
+        completed_course_hours: Completed course hours:
+    manager_courses:
+        title: Course listen reports
+        user_name: Name Surname
+        course_name: Course
+        assigned_time: Assigned
+        start_time: Started
+        completed_time: Completed
+        exam_result: Exam result
+        questions_count: questions count
+        certificate: Certificate
+        detail: Detail
+
+    manager_courses_empl:
+        title: Employee course listening review
+        chapter_title: Chapter
+        chapter_type: Type
+        last_listen_date: Last listen date
+        completed: Completed
+        exam: Exam
+        video: Video lesson
+        quiz: Quiz
+        lesson: Text lesson
+        exam_completion: Exam completion
+        exam_start_date: Exam start date
+        exam_end_date: Exam end date
+        exam_result: Result
+        exam_correct_answers_all: Correct answers / all answers
+
+    manager_courses_info:
+        title: Course report
+        course_name: Name
+        category: Category
+        number_of_employees_started: Number of employees started
+        number_of_employees_completed: Number of employees completed
+        average_listen_time: Average course listen time
+        average_exam_result: Average exam result
+
+    attendance:
+        title: Lankomumo suvestinė
+        active: Aktyvūs
+        exp: Nutraukė
+        expelled: Nutraukė mokymus
+        add_subject: Pridėti paskaitos tema
+        subject: Užsiėmimų turinys / Parengiamukai
+        search: Paieškos
+        name: Vardas, pavardė
+        date: Data
+        subject_title: Pavadinimas
+        code: Kodas
+        subject_statuses: Statusai
+        confirm: Are you sure?
+        contract: Contract
+        export_excell: Export
+
+diary:
+    title: Vertinimas
+    rate_description: "Vertinimo skalė: 5 - puikiai taiko ir atitinka kriterijų; 4 - atitinka kriterijų; 3 - daugiau atitinka, nei neatitinka (vidutiniškai); 2 - nepakankamai atitinka; 1 - neatitinka, netaiko. \"-\" nebuvo poreikio taikyti."
+    add_topic: Pridėti pokalbio tema
+    date: Data
+    supervisor: Supervizorius
+    topic: Pokalbio tema
+    comment: PASTABOS
+    export_excell: Eksportuoti
+
+categories:
+    title: Categories
+    new_category: New category
+    list:
+        title: Name
+    form:
+        name: Name
+        parent: Parent category
+        save: Save
+        show_on_courses_page: Show on courses page
+
+
+emails:
+    new_question:
+        subject: New question asked %coursename%
+        message: |
+            Hello,
+
+            New question about course asked %coursename%.
+            Read and answer  <a href="%viewlink%" target="_blank">HERE</a>
+
+            Best regards,
+            Team.
+
+    new_answer:
+        subject: Question in course answered %coursename%
+        message: |
+            Hello,
+
+            Instructor answered to your question  %coursename%.
+            See answer <a href="%viewlink%" target="_blank">HERE</a>
+
+            Best regards,
+            Team.
+
+    course_ending:
+        subject: Your course term will end in 3 days.
+        message: |
+            Hello,
+
+            The course you are listening "%coursename%" term will end in 3 days.
+            Listening course <a href="%viewlink%" target="_blank">HERE</a>
+
+            Best regards,
+            Team.
+
+    exam_retake:
+        subject: Your exam retake waiting time expired!
+        message: |
+            Hello,
+
+            the retake waiting time of your taken course "%coursename%" is overed and you can try to take exam on more time.
+
+            You can retake exam <a href="%viewlink%" target="_blank">HERE</a>
+
+            Best regards,
+            TEAM
+
+    course_assigned:
+        subject: You have assigned course
+        message: |
+            Hello,
+
+            You have assigned listening course "%coursename%".
+            Listen course <a href="%viewlink%" target="_blank">HERE</a>
+
+            Best regards,
+            Team.
+

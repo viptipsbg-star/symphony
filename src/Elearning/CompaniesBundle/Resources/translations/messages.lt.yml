@@ -1,0 +1,178 @@
+groups:
+    user_groups_title: Naudotojų grupės
+    assign_course: Priskirti kursą
+    courses:
+        title: Pavadinimas
+        assign: Priskirti
+        assigned: Priskirta
+        cancel: Atšaukti
+        popup:
+            title: Kurso priskyrimas grupei
+        confirm_popup:
+            do_you_want_to_assign: Ar tikrai norite priskirti kursą
+            do_you_want_to_cancel: Ar tikrai norite atšaukti kursą
+            for_group: grupei
+            yes: Taip
+            no: Ne
+    list:
+        add_new_group: Pridėti naują grupę
+    group:
+        open: Atidaryti
+        users: darb.
+        employees:
+            delete_from_group: Pašalinti iš grupės
+            add_to_group: Įtraukti į grupę
+    tabs:
+        group_employees: Darbuotojai
+        group_managers: Vadybininkai
+    employees:
+        name: Vardas
+        surname: Pavardė
+        name_surname: Vardas Pavardė
+        email: El. Paštas
+        position: Pareigos
+        address: Darbo vietos adresas
+        new:
+            title: Naujas darbuotojas
+            add: Įtraukti
+        no_entries: Įrašų nėra
+    group_employees:
+        title: Priskirti darbuotojai
+    group_managers:
+        title: Priskirti vadybininkai
+    all_employees:
+        add_to_group: Pridėti darbuotoją į grupę
+        add_to_group_multiple_employees: Įtraukti keletą darbuotojų į grupę
+        add_to_group_multiple_managers: Įtraukti keletą vadybininkų į grupę
+        search_text: Paieškos tekstas
+        add_to_group_by_position: Pagal pareigas
+        add_to_group_by_address: Pagal darbo vietos adresą
+        add_to_group_multiple_submit: Pridėti
+        add_to_group_select_position: - Pasirinkite pareigas -
+        add_to_group_select_address: - Pasirinkite darbo vietos adresą -
+        succesfully_added_multiple: Sėkmingai pridėta
+
+    all_managers:
+        add_to_group: Pridėti vadybininką į grupę
+        search_text: Paieškos tekstas
+
+    first_group_title: Darbuotojų grupė
+    course_assign_success: Grupei sėkmingai priskirtas kursas
+    course_cancel_success: Grupei sėkmingai atšauktas kursas
+    course_assign_empty_group: Kursas grupei nepriskirtas, nes grupė neturi darbuotojų
+    course_cancel_no_group: Grupė nerasta
+
+new_group:
+    page_title: Nauja grupė
+    title_label: Pavadinimas
+    write_here: Įrašykite čia...
+    create: Sukurti
+    rename: Pervadinti
+
+new_employee:
+    employee_created: Darbuotojas sukurtas
+    no_email_error: Neįvestas el. pašto adresas
+    cant_create_user: Negalima sukurti darbuotojo vartotojo
+    password_not_equal_error: Slaptažodžiai nesutampa
+    incorrect_username: Neteisingas vartotojo vardas
+    fields:
+        code: UAB
+        name: Vardas
+        surname: Pavardė
+        username: Vartotojo vardas
+        email: El. paštas
+        position: Pareigos
+        address: Darbo vietos adresas
+        birthday: Gimimo data
+        type: Tipas
+        parent: Parent
+        active: Aktyvus
+        password: Slaptažodis
+        password_repeat: Pakartokite slaptažodį
+        image: Nuotrauka
+        available: Available / unavailable
+        available_choices:
+            available: Available
+            unavailable: Unavailable
+        employed: Employed / unemployed
+        employed_choices:
+            employed: Employed
+            unemployed: Unemployed
+        ckk_number: CKK number (number of the pharmacy)
+        mpk_number: MPK number
+        departament: Departament
+        region: Region
+        active_choices:
+            active: Aktyvus
+            inactive: Neaktyvus
+        type_choices:
+            employee: Darbuotojas
+            manager: Vadybininkas
+            administrator: Administratorius
+
+        select_position: Pasirinkite pareigas
+        create_new_position: Pridėti naujas
+        contract: Sutartis
+        phone: Telefonas
+
+employees:
+    import:
+        title: Darbuotojų importavimas
+        drop_here: TEMPKITE FAILUS ČIA ARBA SPAUSKITE ĮKĖLIMUI (xls, xlsx)
+        invalid_file_type: Neteisingas failo tipas. Galima įkelti tik *.xls ir *.xlsx failus
+        upload_error: Klaida įkeliant failą
+        employees_import_error: Klaida saugant darbuotojus
+        employees_import_success: Sėkmingai išsaugota darbuotojų:
+    list:
+        title: Darbuotojai
+        code: UAB
+        name: Vardas
+        surname: Pavardė
+        email: El. paštas
+        position: Pareigos
+        username: Vartotojo vardas
+        birthday: Gimtadienis
+        active: Akt
+        tab_employees: Darbuotojai
+        tab_managers: Vadybininkai
+        tab_administrators: Administratoriai
+        edit: Redaguoti
+        change_password: Pakeisti slaptažodį
+        remove: Ištrinti
+    password:
+        new_password: Naujas slaptažodis
+        repeat_password: Pakartokite slaptažodį
+        update: Atnaujinti
+        not_equal_passwords: Slaptažodžiai nesutampa
+        employee_not_found: Darbuotojas nerastas
+        success: Slaptažodis sėkmingai pakeistas
+        inform_user_about_password_change: Informuoti vartotoją el. paštu apie slaptažodžio pakeitimą
+        password_min_length: Slaptažodis turi būti ne trumpesnis nei 3 simbolių
+        password_change_email:
+            subject: Emokymų sistemoje %siteurl% buvo atnaujinti Jūsų duomenys
+            message: |
+                Sveiki, Jūsų prisijungimo duomenys emokymų sistemoje http://%siteurl% buvo atnaujinti:
+
+                - Vartotojo vardas: %username%
+                - Naujas slaptažodis: %password%
+
+                Prisijungus prie sistemos galite pasikeisti slaptažodį į lengviau atsimenamą paspaudę dešinėje viršutinėje lango pusėje mygtuką %username% ir pasirinkus nuorodą "Pasikeiskite slaptažodį".
+
+                Linkėjimai, %siteurl%
+    edit:
+        update: Atnaujinti
+        success: Darbuotojas sėkmingai atnaujintas
+        groups: Grupės
+        courses: Kursai
+    delete:
+        confirm: Ar tikrai norite ištrinti darbuotoją?
+        yes: Taip
+        no: Ne
+        success: Darbuotojas sėkmingai ištrintas
+        error: Klaida ištrinant darbuotoją
+    send_email:
+        subject: Antraštė
+        text: Žinutė
+        send: Siųsti
+        success: Ok
+        error: Not sent

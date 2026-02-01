@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyclass %}frontpage-pl{% endblock %}
+
+{% block header %}
+    <div class="container">
+        <div class="head-info">
+            <div class="logo">
+                <img src="{{ asset('images/doz.png') }}"/>
+            </div>
+            <h4>{{ company_info.front_page.slogan  }}</h4>
+        </div>
+        <div class="login-block">
+            {{ sonata_block_render({ 'type': "elearning.user.block.login" }) }}
+        </div>
+        <div class="footer-img">
+        {% if company_info.footer.image is defined %}
+            <img src="{{ asset('images/'~company_info.footer.image) }}"/>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets 
+        '@font_awesome_css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var elements = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].oninvalid = function(e) {
+                    e.target.setCustomValidity("");
+                    if (!e.target.validity.valid) {
+                        e.target.setCustomValidity("{{ "validation.errors.blank" | trans }}");
+                    }
+                };
+                elements[i].oninput = function(e) {
+                    e.target.setCustomValidity("");
+                };
+            }
+        });
+    </script>
+{% endblock %}

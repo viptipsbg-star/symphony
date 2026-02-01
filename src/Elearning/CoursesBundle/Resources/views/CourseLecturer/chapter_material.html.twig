@@ -1,0 +1,51 @@
+<!-- MATERIAL CHAPTER TYPE - START -->
+<div class="material-chapter" style="display:none">
+    <div class="form-group file template-file" style="display:none">
+        <label>{{ "new_course.editor.material.title_label"|trans }}</label>
+        <div class="row">
+            <div class="col-md-8 col-xs-5">
+                <input type="text" name="title[]" value="" class="form-control title" required/>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <input type="file" name="file[]" value="" class="form-control fileinput" required/>
+            </div>
+            <div class="col-md-1 col-xs-1">
+                <a href="#" class="btn btn-red remove-material-file"><span
+                            class="glyphicon glyphicon-trash"
+                            aria-hidden="true"></span></a>
+            </div>
+            <input type="hidden" name="material_id[]" class="material_id" value=""/>
+        </div>
+    </div>
+    <form class="material-chapter-form" novalidate>
+        <div class="files">
+            <div class="form-group file">
+                <label>{{ "new_course.editor.material.title_label"|trans }}</label>
+                <div class="row">
+                    <div class="col-md-8 col-xs-5">
+                        <input type="text" name="title[]" value="" class="form-control title" required/>
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        <input type="file" name="file[]" value="" class="form-control fileinput" required/>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <a href="#" class="btn btn-red remove-material-file"><span
+                                    class="glyphicon glyphicon-trash"
+                                    aria-hidden="true"></span></a>
+                    </div>
+                    <input type="hidden" name="material_id[]" class="material_id" value=""/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <a href="#"
+               class="btn btn-orange-empty add-material-file">{{ "new_course.editor.material.add_file"|trans }}</a>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="{{ "new_course.editor.save"|trans }}" class="btn btn-orange"/>
+        </div>
+        <input type="hidden" name="chapter_id" class="chapter_id" value=""/>
+    </form>
+</div>
+<!-- MATERIAL CHAPTER TYPE - END -->

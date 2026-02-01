@@ -1,0 +1,66 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+{% block chaptercontent %}
+
+<div class="student-slides">
+    <div class="content">
+        <div id="slides">
+            <ul class="slider">
+            {% if slides|length > 0 %}
+                {% for slide in slides %}
+                    <li><img src="{{ path("elearning_courses_show_slide_file", {id: slide.id}) }}" /></li>
+                {% endfor %}
+            {% endif %}
+            </ul>
+            <span class="slide-previous slide-navigation">
+            </span>
+            <span class="slide-next slide-navigation">
+            </span>
+        </div>
+    </div>
+    <div class="submit-container">
+        <a href="{{ path("elearning_course_chapter_completed", {'course_id': currentchapter.courseid, 'listening_id': listening.id, 'chapter_id':currentchapter.id})}}" class="btn btn-orange">{{ "student_courses.course_listen.material.continue"|trans }}</a>
+    </div>
+</div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/elearningcourses/css/jquery.bxslider.css' filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% javascripts
+    '@ElearningCoursesBundle/Resources/public/js/jquery.bxslider.min.js'
+     %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+    $(function(){
+        var slider = $('#slides .slider');
+        slider.bxSlider({
+            mode: 'fade',
+            infiniteLoop: false,
+            hideControlOnEnd: true,
+            controls: true,
+            onSliderLoad: function() {
+                $("body").keydown(function(e) {
+                  if (e.keyCode == 37) { // left
+                    slider.goToPrevSlide();
+                  } else if(e.keyCode == 39) { // right
+                    slider.goToNextSlide();
+                  }
+                });
+            }
+        });
+    });
+</script>
+
+{% endblock %}

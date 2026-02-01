@@ -1,0 +1,69 @@
+<!-- FEEDBACK CHAPTER TYPE - START -->
+<div class="feedback-chapter" style="display:none">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="feedback-edit-panel">
+                <div class="heading">{{ "new_course.editor.feedback.feedback"|trans }}</div>
+                <div class="panel-body">
+                    <form class="feedback-chapter-form">
+                        <input type="hidden" name="id" class="feedback_id" value=""/>
+
+                        <div class="questions">
+                            <div class="question">
+                                <label>{{ "new_course.editor.feedback.question"|trans }}</label>
+
+                                <div class="row">
+                                    <div class="col-md-8 col-xs-5">
+                                        <input type="text" name="questions[0][text]" value="" class="form-control text"/>
+                                    </div>
+                                    <div class="col-md-3 col-xs-6">
+                                        <select name="questions[0][type]" class="form-control type">
+                                            <option value="text">{{ "new_course.editor.feedback.types.text"|trans }}</option>
+                                            <option value="select">{{ "new_course.editor.feedback.types.select"|trans }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 col-xs-1">
+                                        <a href="#" class="btn btn-red remove-feedback-question"><span
+                                                    class="glyphicon glyphicon-trash"
+                                                    aria-hidden="true"></span></a>
+                                    </div>
+                                    <div class="col-xs-12 choices" style="display:none">
+                                        <label>{{ "new_course.editor.feedback.choices"|trans }}</label>
+                                        <div class="choices-list">
+                                            <div class="row choice">
+                                                <div class="col-md-11">
+                                                    <input type="text" class="form-control" name="questions[0][choice][]"/>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="#" class="btn btn-red remove-feedback-choice"><span
+                                                                class="glyphicon glyphicon-trash"
+                                                                aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="btn btn-orange-empty add-feedback-choice">
+                                                {{ "new_course.editor.feedback.add_choice"|trans }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a href="#"
+                               class="btn btn-orange-empty add-feedback-question">{{ "new_course.editor.feedback.add_question"|trans }}</a>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="submit" value="{{ "new_course.editor.save"|trans }}" class="btn btn-orange"/>
+                        </div>
+                        <input type="hidden" name="chapter_id" class="chapter_id" value=""/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FEEDBACK CHAPTER TYPE - END -->

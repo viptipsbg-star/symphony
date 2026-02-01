@@ -1,0 +1,34 @@
+Elearning\CoursesBundle\Entity\FeedbackData:
+    type: entity
+    table: crs_feedbacks_data
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        feedback_id:
+            type: integer
+            nullable: false
+        listen_id:
+            type: integer
+            nullable: false
+        data:
+            type: text
+            nullable: false
+        submitdate:
+            type: datetime
+            nullable: false
+    manyToOne:
+        courseListen:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseListening
+            joinColumn:
+                name: listen_id
+                referencedColumnName: id
+        feedback:
+            targetEntity: Elearning\CoursesBundle\Entity\Feedback
+            joinColumn:
+                name: feedback_id
+                referencedColumnName: id
+
+

@@ -1,0 +1,45 @@
+Elearning\CoursesBundle\Entity\Upload:
+    type: entity
+    table: crs_course_uploads
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        original_filename:
+            type: string
+            length: 255
+            nullable: false
+        location:
+            type: string
+            length: 255
+            nullable: false
+        filesize:
+            type: integer
+            nullable: false
+        course_id:
+            type: integer
+            nullable: false
+
+
+    manyToOne:
+        course:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            inversedBy: uploads
+            joinColumn:
+                name: course_id
+                referencedColumnName: id
+
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+
+    lifecycleCallbacks:
+        postPersist: [upload]
+        postUpdate: [upload]
+        postRemove: [removeFile]
+
+

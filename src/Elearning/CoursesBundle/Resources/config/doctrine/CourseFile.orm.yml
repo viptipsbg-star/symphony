@@ -1,0 +1,33 @@
+Elearning\CoursesBundle\Entity\CourseFile:
+    type: entity
+    table: crs_course_files
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        location:
+            type: string
+            length: 255
+            nullable: false
+        type:
+            type: string
+            length: 255
+            nullable: false
+        chapter_id:
+            type: integer
+            nullable: false
+        duration:
+            type: integer
+            nullable: false
+
+
+    manyToOne:
+        chapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            inversedBy: coursefiles
+            joinColumn:
+                name: chapter_id
+                referencedColumnName: id

@@ -1,0 +1,10 @@
+{% if not userIsLoggedin %}
+    <div class="panel panel-default panel-login">
+        <div class="panel-heading">
+            {{ 'security.login.panel_heading'|trans({}, 'FOSUserBundle') }}
+        </div>
+        <div class="panel-body">
+            {{ render(controller('ElearningUserBundle:Security:login')) }}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,88 @@
+{
+    "name": "dzipo/emokymai",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "SymfonyStandard\\": "app/SymfonyStandard/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "symfony/symfony": "3.4.*",
+        "symfony/security-acl": "^3.0",
+        "doctrine/orm": "^2.6",
+        "doctrine/dbal": "^2.6",
+        "doctrine/doctrine-bundle": "^1.6",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~5.0",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "sonata-project/admin-bundle": "^3.30",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.6",
+        "twitter/bootstrap": "3.*",
+        "components/jquery": "1.11.1",
+        "sonata-project/easy-extends-bundle": "^2.1",
+        "friendsofsymfony/user-bundle": "~2.0",
+        "sonata-project/user-bundle": "^4.0",
+        "knplabs/knp-menu-bundle": "~2",
+        "leafo/lessphp": "0.5.*",
+        "jms/serializer-bundle": "^1.0",
+        "bmatzner/jquery-ui-bundle": "*",
+        "fortawesome/font-awesome": "v4.0.3",
+        "eventviva/php-image-resize": "1.5.*",
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "knplabs/knp-snappy-bundle": "~1.5.0",
+        "friendsofsymfony/jsrouting-bundle": "^1.5",
+        "twig/extensions": "^1.3",
+        "liuggio/excelbundle": "^2.0",
+        "ext-imagick": "*",
+        "phansys/getid3": "*@dev",
+        "jms/i18n-routing-bundle": "^2.0",
+        "jms/translation-bundle": "^1.3",
+        "stof/doctrine-extensions-bundle": "^1.3",
+        "paragonie/random_compat": "~1.0"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.1"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ]
+    },
+    "config": {
+        "audit": {
+            "block-insecure": false
+        },
+        "platform": {
+            "php": "7.4.33"
+        },
+        "bin-dir": "bin",
+        "allow-plugins": {
+            "robloach/component-installer": true
+        }
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

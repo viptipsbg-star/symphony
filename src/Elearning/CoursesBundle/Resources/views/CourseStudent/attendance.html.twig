@@ -1,0 +1,59 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <h1>
+        {{ "reports.attendance.title"|trans }}
+    </h1>
+    <div class="content-container">
+        <div class="groups-page">
+            <div class="groups-list">
+                {% for group in groups if group.getActiveSubjects | length > 0 %}
+                    <h3>{{ group.title }}
+                        {% if attendance[group.id] is defined %}
+                            <span class="small">{{ attendance[group.id] }}{{ resultDim }}</span>
+                        {% endif %}
+                    </h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    {% for subject in group.getActiveSubjects %}
+                                        <th class="normal">{{ subject.description }}</th>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    {% for subject in group.getActiveSubjects %}
+                                        <th class="nowrap normal">{{ subject.lessonDate | date('Y-m-d') }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% for subject in group.getActiveSubjects %}
+                                        <td>
+                                            {% if status_table[subject.id] is defined %}{{ status_table[subject.id] }}{% else %}-{% endif %}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets
+    '@ElearningCompaniesBundle/Resources/less/styles.less'
+    '@ElearningCompaniesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+
+

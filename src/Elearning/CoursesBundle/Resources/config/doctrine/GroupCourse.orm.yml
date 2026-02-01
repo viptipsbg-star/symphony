@@ -1,0 +1,34 @@
+Elearning\CoursesBundle\Entity\GroupCourse:
+    type: entity
+    table: group_courses
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        course_id:
+            type: integer
+            nullable: false
+        group_id:
+            type: integer
+            nullable: false
+        created:
+            type: datetime
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    manyToOne:
+        course:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            joinColumn:
+                name: course_id
+                referencedColumnName: id
+        group:
+            targetEntity: Elearning\CompaniesBundle\Entity\Group
+            joinColumn:
+                name: group_id
+                referencedColumnName: id

@@ -1,0 +1,14 @@
+front:
+    title: Emokymai.testas.lt
+    slogan: Wellcome to the e-Learning system – improvement and knowledge source
+
+header:
+    logo_title: Video training
+
+site_title: E–Learning system
+
+footer:
+    solution: Esolution by Infosauga
+validation:
+    errors:
+        blank: Field is required

@@ -1,0 +1,91 @@
+services:
+    #    elearning_user.example:
+    #        class: Elearning\UserBundle\Example
+    #        arguments: [@service_id, "plain_value", %parameter%]
+
+    elearning.user.block.login:
+        class: Elearning\UserBundle\Block\LoginBlockService
+        arguments:
+            [
+                "elearning.user.block.login",
+                "@templating",
+                "@security.authorization_checker",
+            ]
+        tags:
+            - { name: sonata.block }
+
+    sonata_user.profile.form.type:
+        class: Elearning\UserBundle\Form\Type\ProfileType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: elearning_user_profile }
+
+    elearning.user.listener.login:
+        class: Elearning\UserBundle\EventListener\SecurityListener
+        arguments:
+            [
+                "@router",
+                "@security.authorization_checker",
+                "@security.token_storage",
+                "@session",
+                "@event_dispatcher",
+            ]
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: security.interactive_login,
+                  method: onSecurityInteractiveLogin,
+              }
+            - {
+                  name: kernel.event_listener,
+                  event: kernel.request,
+                  method: onKernelRequest,
+              }
+            - {
+                  name: kernel.event_listener,
+                  event: kernel.response,
+                  method: onKernelResponse,
+              }
+
+    elearning.user.listener.emailconfirmation:
+        class: Elearning\UserBundle\EventListener\EmailConfirmationListener
+        arguments: ["@elearning.user.mailer", "@logger"]
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: user.registration,
+                  method: onRegistrationSuccess,
+              }
+
+    elearning.user.mailer:
+        class: Elearning\UserBundle\Mailer\Mailer
+        arguments:
+            [
+                "@mailer",
+                "@router",
+                "@templating",
+                { from_email: "%mailer_from_email%" },
+            ]
+        public: false
+
+    elearning.user.form.credentials:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments:
+            - elearning_user_credentials_form
+            - elearning_user_credentials
+            - null
+            - { validation_groups: [Default] }
+
+    elearning.user.form.type.credentials:
+        class: Elearning\UserBundle\Form\Type\CredentialsFormType
+        tags:
+            - { name: form.type, alias: elearning_user_credentials }
+
+    elearning.user.form.handler.credentials:
+        class: Elearning\UserBundle\Form\Handler\CredentialsFormHandler
+        arguments:
+            - "@elearning.user.form.credentials"
+            - "@request_stack"
+            - "@fos_user.user_manager"

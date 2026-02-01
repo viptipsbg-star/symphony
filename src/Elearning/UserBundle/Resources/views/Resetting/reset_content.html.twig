@@ -1,0 +1,10 @@
+<h1>{{ "resetting.title"|trans({}, "FOSUserBundle") }}</h1>
+<div class="content-container">
+{{ form_start(form, {'action': path('fos_user_resetting_reset', {'token': token}), 'attr': {'class': 'fos_user_resetting_request'}}) }}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" class="btn btn-orange" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+{{ form_end(form) }}
+</div>

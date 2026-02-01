@@ -1,0 +1,144 @@
+{% extends "bodybase.html.twig" %}
+
+
+{% block bodycontainer %}
+<div class="header-container">
+    <h1>{{ "student_courses.available_courses.title"|trans }}</h1>
+    <div class="filter">
+        <form class="form-inline">
+            <label>{{ "student_courses.available_courses.filter.label"|trans }}</label>
+            <select class="form-control">
+                <option>Pasirinkti</option>
+            </select>
+        </form>
+    </div>
+</div>
+<div class="content-container nobg">
+    <div class="body-panel">
+        <div class="list-cols course-cols">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="course-item">
+                        <div class="image-container">
+                            <div class="category">
+                                <span class="subcategories">Daržovės <span class="separator"></span> Pomidorai</span>
+                                <span class="maincategory">Pomidoriausi</span>
+                            </div>
+                            <div class="image">
+                                <img src="https://dl.dropboxusercontent.com/u/46735503/test_course_image.png" class="course-image" />
+                            </div>
+                        </div>
+                        <div class="description">
+                            <span class="title">Aenean mollis nunc in ipsum pellentesque diam</span>
+                            <span class="content">Aenean mollis nunc in ipsum pellentesque elementum. Quisque a ligula libero. Aliquam erat volutpat.</span>
+                        </div>
+                        <div class="bottom-info">
+                            <div class="duration">
+                                <span class="time">30 min.</span>
+                            </div>
+                            <div class="start-container">
+                                <a href="{{ path("elearning_course_general_info", {'id': 6}) }}" class="btn btn-orange">{{ "student_courses.available_courses.course_info"|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="course-item">
+                        <div class="image-container">
+                            <div class="category">
+                                <span class="subcategories">Daržovės <span class="separator"></span> Pomidorai</span>
+                                <span class="maincategory">Pomidoriausi</span>
+                            </div>
+                            <div class="image">
+                                <img src="https://dl.dropboxusercontent.com/u/46735503/test_course_image.png" class="course-image" />
+                            </div>
+                        </div>
+                        <div class="description">
+                            <span class="title">Aenean mollis nunc in ipsum pellentesque diam</span>
+                            <span class="content">Aenean mollis nunc in ipsum pellentesque elementum. Quisque a ligula libero. Aliquam erat volutpat.</span>
+                        </div>
+                        <div class="bottom-info">
+                            <div class="duration">
+                                <span class="time">30 min.</span>
+                            </div>
+                            <div class="start-container">
+                                <a href="#" class="btn btn-orange">{{ "student_courses.available_courses.course_info"|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="course-item">
+                        <div class="image-container">
+                            <div class="category">
+                                <span class="subcategories">Daržovės <span class="separator"></span> Pomidorai</span>
+                                <span class="maincategory">Pomidoriausi</span>
+                            </div>
+                            <div class="image">
+                                <img src="https://dl.dropboxusercontent.com/u/46735503/test_course_image.png" class="course-image" />
+                            </div>
+                        </div>
+                        <div class="description">
+                            <span class="title">Aenean mollis nunc in ipsum pellentesque diam</span>
+                            <span class="content">Aenean mollis nunc in ipsum pellentesque elementum. Quisque a ligula libero. Aliquam erat volutpat.</span>
+                        </div>
+                        <div class="bottom-info">
+                            <div class="duration">
+                                <span class="time">30 min.</span>
+                            </div>
+                            <div class="start-container">
+                                <a href="#" class="btn btn-orange">{{ "student_courses.available_courses.course_info"|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="course-item">
+                        <div class="image-container">
+                            <div class="category">
+                                <span class="subcategories">Daržovės <span class="separator"></span> Pomidorai</span>
+                                <span class="maincategory">Pomidoriausi</span>
+                            </div>
+                            <div class="image">
+                                <img src="https://dl.dropboxusercontent.com/u/46735503/test_course_image.png" class="course-image" />
+                            </div>
+                        </div>
+                        <div class="description">
+                            <span class="title">Aenean mollis nunc in ipsum pellentesque diam</span>
+                            <span class="content">Aenean mollis nunc in ipsum pellentesque elementum. Quisque a ligula libero. Aliquam erat volutpat.</span>
+                        </div>
+                        <div class="bottom-info">
+                            <div class="duration">
+                                <span class="time">30 min.</span>
+                            </div>
+                            <div class="start-container">
+                                <a href="#" class="btn btn-orange">{{ "student_courses.available_courses.course_info"|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <ul>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li class="active"><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+Elearning\CoursesBundle\Entity\DiaryRate:
+    type: entity
+    table: diary_rate
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        diary_topic_id:
+            type: integer
+            nullable: false
+        criterion_id:
+            type: integer
+            nullable: false
+        rate:
+            type: string
+            nullable: false
+    manyToOne:
+        diaryTopic:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryTopic
+            inversedBy: rates
+            joinColumn:
+                name: diary_topic_id
+                referencedColumnName: id
+        criterion:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryCriterion
+            joinColumn:
+                name: criterion_id
+                referencedColumnName: id
+

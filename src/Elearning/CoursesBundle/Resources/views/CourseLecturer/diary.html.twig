@@ -1,0 +1,303 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <h1>
+        {{ "diary.title"|trans }}
+    </h1>
+    <div class="content-container">
+
+        <div class="std-page">
+
+            <div class="control-group">
+                {% if not student %}
+                    <a href="#" class="btn btn-orange {% if granted %}add-topic{% else %}disabled{% endif %}">{{ "diary.add_topic"|trans }}</a>
+                    <a href="{{ path("elearning_course_supervisor_diary", {'employee_id': current_employee.id, 'format' : 'excel'}) }}" class="btn btn-orange pull-right">{{ "diary.export_excell"|trans }}</a>
+                {% endif %}
+            </div>
+
+            <div class="data-table">
+                <h4>{{ current_employee.getFieldValue("name") }} {{ current_employee.getFieldValue("surname") }}</h4>
+                <div class="table-responsive">
+                    <table id="rates-table" class="cell-border compact">
+                        <thead>
+                            <tr>
+                                <th>{{ "diary.date"|trans }}</th>
+                                {% for topic in diary_topics %}
+                                    <th class="nowrap">
+                                        {{ topic.issued | date('Y-m-d') }}
+                                        {% if granted %}
+                                            <a href="#" class="remove-topic pull-right" data-url="{{ path('elearning_course_diary_remove_topic', {'diary_topic_id' : topic.id}) }}"><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></a>
+                                        {% endif %}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th>{{ "diary.supervisor"|trans }}</th>
+                                {% for topic in diary_topics %}
+                                    <th>
+                                        {% if topic.getCreatorEmployee.getFieldValue("name") %}
+                                            {{ topic.getCreatorEmployee.getFieldValue("name") }} {{ topic.getCreatorEmployee.getFieldValue("surname") }}
+                                        {% else %}
+                                            {{ topic.getCreatorEmployee.getUser.username }}
+                                        {% endif %}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th>{{ "diary.topic"|trans }}</th>
+                                {% for topic in diary_topics %}
+                                    <th>{{ topic.getTopic.getText }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th><small>{{ "diary.rate_description"|trans }}</small></th>
+                                {% for topic in diary_topics %}
+                                    <th></th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for group in criteria_groups %}
+                                {% if group.text %}
+                                    <tr class="group-title">
+                                        <td class="nowrap">
+                                            {{ group.text }}
+                                            {% if group.description %}
+                                                <p><small>{{ group.description }}</small></p>
+                                            {% endif %}
+                                        </td>
+                                        {% for topic in diary_topics %}
+                                            <td></td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endif %}
+                                {% for criterion in group.criteria %}
+                                    <tr>
+                                        <td class="nowrap">{{ criterion.text }}</td>
+                                        {% for topic in diary_topics %}
+                                            <td>
+                                                {% if student %}
+                                                    {% if rates[topic.id ~ '_' ~ criterion.id] is defined %}
+                                                        {{ rates[topic.id ~ '_' ~ criterion.id] }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    <select class="rate-cell" id="s-{{ topic.id }}-{{ criterion.id }}" data-url="{{ path('elearning_courses_diary_add_rate', {'diary_topic_id' : topic.id, 'criterion_id' : criterion.id}) }}" {% if not granted %}disabled{% endif %}>
+                                                        <option value="null" {% if rates[topic.id ~ '_' ~ criterion.id] is not defined %}selected="selected"{% endif %}>
+                                                            -
+                                                        </option>
+                                                        {% for rate_value in 1..criterion.getMaxRate %}
+                                                            <option value="{{ rate_value }}" {% if rates[topic.id ~ '_' ~ criterion.id] is defined and rates[topic.id ~ '_' ~ criterion.id] == rate_value %}selected="selected"{% endif %}>
+                                                                {{ rate_value }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                {% endif %}
+                                                <span class="glyphicon glyphicon-ok text-success" aria-hidden="true" style="opacity:0;"></span>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                            <tr>
+                                <td><b>{{ "diary.comment"|trans }}</b></td>
+                                {% for topic in diary_topics %}
+                                    <td>
+                                        {% if student %}
+                                            {{ topic.comment }}
+                                        {% else %}
+                                            <div>
+                                                <textarea data-id="{{ topic.id }}" rows="5" class="topic-comment" {% if not granted %}disabled{% endif %}>{{ topic.comment }}</textarea>
+                                                <span class="glyphicon glyphicon-ok text-success comment" aria-hidden="true" style="opacity:0;"></span>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {% if diary_topic_form is defined %}
+            <div style="display: none;">
+                <div id="topic-popup" class="inline-popup">
+                    {{ form_start(diary_topic_form) }}
+                    <div class="form-group">
+                        {{ form_label(diary_topic_form.issued) }}
+                        {{ form_errors(diary_topic_form.issued) }}
+                        {{ form_widget(diary_topic_form.issued, {attr: {'class': 'form-control'}} ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(diary_topic_form.topic) }}
+                        {{ form_errors(diary_topic_form.topic) }}
+                        {{ form_widget(diary_topic_form.topic, {attr: {'class': 'form-control'}} ) }}
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-orange" value="{{ "new_course.editor.create"|trans }}" />
+                    </div>
+                    {{ form_widget(diary_topic_form.employee_id, {attr: {'value': current_employee.id}} ) }}
+                    {{ form_end(diary_topic_form) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets
+    '../app/Resources/public/css/magnific-popup.css'
+    '@ElearningCompaniesBundle/Resources/less/styles.less'
+    'bundles/elearningcompanies/css/chosen.min.css' filter="cssrewrite"
+    '@ElearningCompaniesBundle/Resources/less/responsive.less'
+    '../app/Resources/public/css/datatables.min.css'
+    '../app/Resources/public/css/bootstrap-datepicker.min.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '../app/Resources/public/js/jquery.pajinate.min.js'
+    '../app/Resources/public/js/showmessage.js'
+    '@ElearningCompaniesBundle/Resources/public/js/chosen.jquery.min.js'
+    '../app/Resources/public/js/jquery.magnific-popup.min.js'
+    '../app/Resources/public/js/datatables.min.js'
+    '../app/Resources/public/js/bootstrap-datepicker.min.js'
+    '../app/Resources/public/js/locales/bootstrap-datepicker.lt.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+    <script>
+        $(function () {
+            var rates_table = $('#rates-table').DataTable({
+                fixedColumns: {
+                    leftColumns: 1
+                },
+                scrollY: 500,
+                scrollX: {% if diary_topics|length > 0 %}'100%'{% else %}false{% endif %},
+                scrollXInner: '101%',
+                scrollCollapse: true,
+                ordering: false,
+                paging: false,
+                lengthChange: false,
+                info: false,
+                searching: false,
+                processing: true,
+                columnDefs: [
+                    {'width': 100, targets: '_all'}
+                ]
+            });
+
+        });
+    </script>
+
+    {% if not student %}
+        <script>
+            $(function () {
+                $('#diary_topic_issued').datepicker({
+                    format: "yyyy-mm-dd",
+                    autoclose: "true",
+                    language: "lt"
+                });
+
+                $('#diary_topic_topic').chosen({
+                    width: '100%',
+                    create_option: true,
+                    persistent_create_option: true,
+                    skip_no_results: true,
+                    allow_single_deselect: true,
+                    placeholder_text: "{{ "diary.topic"|trans }}",
+                    create_option_text: "{{ "new_employee.fields.create_new_position"|trans }}"
+                });
+
+                $('.add-topic').on('click', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                    $.magnificPopup.open({
+                        items: {
+                            src: "#topic-popup",
+                            type: "inline"
+                        }
+                    });
+                });
+
+                $('.remove-topic').on('click', function (e) {
+                    e.preventDefault();
+
+                    if (confirm('{{ "reports.attendance.confirm"|trans }}')) {
+                        $.ajax({
+                            url: $(this).data('url'),
+                            success: function (response) {
+                                if (response.success) {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+
+                $('#topic-popup form').submit(function (e) {
+                    e.preventDefault();
+                    var form = $(this);
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        method: "post",
+                        data: form.serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                $.magnificPopup.close();
+                                location.reload();
+                            }
+                        }
+                    });
+                });
+
+                $('.rate-cell').on('change', function (e) {
+                    var icon = $(this).closest('td').find('span');
+                    $.ajax({
+                        url: $(this).attr('data-url') + '/' + $(this).val().toString(),
+                        success: function (response) {
+                            if (response.success) {
+                                $(icon).animate({
+                                    opacity:"1"
+                                }, 100, function() {
+                                    $(icon).animate({
+                                        opacity:"0"
+                                    }, 1000);
+                                });
+                            }
+                        }
+                    });
+                });
+
+                $('.topic-comment').on('blur', function () {
+                    var icon = $(this).closest('td').find('span');
+                    $.ajax({
+                        url: "{{ path("elearning_course_diary_topic_comment") }}",
+                        method: "post",
+                        data: {id: $(this).data('id'), comment: $(this).val()},
+                        success: function (response) {
+                            if (response.success) {
+                                $(icon).animate({
+                                    opacity:"1"
+                                }, 100, function() {
+                                    $(icon).animate({
+                                        opacity:"0"
+                                    }, 1000);
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+

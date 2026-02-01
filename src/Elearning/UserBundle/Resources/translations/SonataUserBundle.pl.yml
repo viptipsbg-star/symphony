@@ -1,0 +1,128 @@
+# Group
+group:
+    edit:
+        submit: Edytuj grupę
+    show:
+        name: Nazwa grupy
+    new:
+        submit: Stwórz grupę
+    flash:
+        updated: Grupa została zaktualizowana
+        created: Grupa została utworzona
+        deleted: Grupa została usunięta
+
+# Security
+"Bad credentials.": Nieprawidłowa nazwa użytkownika lub hasło
+"Your session has timed out, or you have disabled cookies.": Twoja sesja wygasła lub zostałeś zablokowany przez pliki cookies
+"Invalid CSRF token.": Nieprawidłowy CSRF klucz
+
+credentials:
+    title: Zaktualizuj informacje
+    email: "Adres poczty elektronicznej:"
+    new_password: "Hasło:"
+    new_password_confirmation: "Potwierdzić hasło:"
+    submit: Aktualizuj
+
+
+security:
+    login:
+        username: "Użytkownik"
+        email: "Adres poczty elektronicznej"
+        password: "Hasło"
+        remember_me: Zapamiętaj mnie
+        submit: WEJDŹ
+        remind_password: PRZYPOMNIJ HASŁO
+        panel_heading: ZALOGUJ SIĘ
+
+# Profile
+profile:
+    show:
+        username: Nazwa użytkownika
+        email: e-mail
+    edit:
+        submit: Zaktualizuuj
+    flash:
+        updated: Profil został zaktualizowany
+
+# Password change
+change_password:
+    title: Zmień hasło
+    submit: Zmień hasło
+    flash:
+        success: Hasło zostało zaktualizowane
+
+# Registration
+registration:
+    check_email: Hasło zostało wysłane na adres e-mail %email%. W wiadomości znajdziesz link, kótry pozwoli aktywować Twoje konto.
+    confirmed: Gratulacje %username%, Twoje konto zostało zaktualizowane.
+    back: Wróć na poprzednią stronę.
+    submit: Rejestracja.
+    flash:
+        user_created: Użytkownik został pomyślnie utworzony
+    email:
+        subject: Witaj %username%!
+        message: |
+            Witaj %username%!
+
+            Aby zakończyć aktywację konta – prosimy wejść %confirmationUrl%
+
+            Z poważaniem,
+            Zespół.
+
+    user_add_email:
+        subject: Został utworzony nowy użytkownik w systemie e-szkolenia DOZ Akademia
+        message: |
+            Witaj,
+
+            W systemie e-szkolenia został utworzony użytkownik.
+            Dane do logowania się:
+            Nazwa użytkownika: %username%
+            Hasło: %password%
+
+            Po zalogowaniu się prosimy zmienić hasło.
+
+            Z poważaniem,
+            Zespół.
+
+
+# Password resetting
+resetting:
+    password_already_requested: W ciągu ostatnich 24 godzin pojawiło się pytanie o zmianę hasła dla użytkownika.
+    check_email: E-mail został wysłany na adres poczty elektronicznej %email%. Po kliknięciu na link możesz zmienić hasło.
+    request:
+        invalid_username: E-mail "%username%" nie istnieje.
+        username: "E-mail:"
+        submit: Ustaw hasło
+    reset:
+        submit: Zmiana hasła
+    flash:
+        success: Hasło zostało pomyślnie zmienione
+    email:
+        subject: Ustaw hasło
+        message: |
+            Witaj %username%!
+
+            Aby zmienić hasło - prosimy wejść %confirmationUrl%
+
+            Z poważaniem,
+            Zespół DOZ.
+    title: Przypomnij hasło
+
+# Global strings
+layout:
+    logout: Wyloguj się
+    login: Zaloguj się
+    register: Rejestracja
+    logged_in_as: Zalogowany jako %username%
+
+# Form field labels
+form:
+    group_name: "Nazwa grupy:"
+    username: "Użytkownik:"
+    email: "e-mail:"
+    current_password: "Obecne hasło:"
+    password: "Hasło:"
+    password_confirmation: "Potwierdź:"
+    new_password: "Nowe hasło:"
+    new_password_confirmation: "Potwierdź:"
+    birthday: "Data urodzenia"

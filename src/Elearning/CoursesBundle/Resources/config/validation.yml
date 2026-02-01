@@ -1,0 +1,10 @@
+Elearning\CoursesBundle\Entity\Course:
+    properties:
+        name:
+            - NotBlank: ~
+        category:
+            - NotNull: ~
+        description:
+            - NotBlank: ~
+        listenperiod:
+            - NotBlank: ~

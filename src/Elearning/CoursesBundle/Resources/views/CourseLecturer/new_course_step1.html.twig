@@ -1,0 +1,269 @@
+{% extends "ElearningCoursesBundle:CourseLecturer:new_course_base.html.twig" %}
+
+{% block course_content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ form_start(form, {'attr': {'class':'form-narrow course-info'}}) }}
+            {% for flash_message in app.session.flashbag.get('error') %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.category) }}
+                {{ form_errors(form.category) }}
+                {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.listenperiod) }}
+                {{ form_errors(form.listenperiod) }}
+                {{ form_widget(form.listenperiod, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.duration) }}
+                <span class="form-tooltip" title="{{ 'new_course.form.duration_tooltip'|trans }}"></span>
+                {{ form_errors(form.duration) }}
+                {{ form_widget(form.duration, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.certificate_needed) }}
+                {{ form_errors(form.certificate_needed) }}
+                {{ form_widget(form.certificate_needed) }}
+            </div>
+            {% if flexibleEnabled %}
+                <div class="form-group">
+                    {{ form_label(form.flexible_order) }}
+                    {{ form_errors(form.flexible_order) }}
+                    {{ form_widget(form.flexible_order) }}
+                </div>
+            {% endif %}
+            <div class="form-group">
+                {{ form_label(form.can_pause_exams) }}
+                {{ form_errors(form.can_pause_exams) }}
+                {{ form_widget(form.can_pause_exams) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.main_page) }}
+                {{ form_errors(form.main_page) }}
+                {{ form_widget(form.main_page) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.active_date_to) }}
+                {{ form_errors(form.active_date_to) }}
+                {{ form_widget(form.active_date_to) }}
+            </div>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="form-group">
+                        {{ form_label(form.show_category) }}
+                        {{ form_errors(form.show_category) }}
+                        {{ form_widget(form.show_category) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.show_active_date_to) }}
+                        {{ form_errors(form.show_active_date_to) }}
+                        {{ form_widget(form.show_active_date_to) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.show_exams_count) }}
+                        {{ form_errors(form.show_exams_count) }}
+                        {{ form_widget(form.show_exams_count) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.show_certificate_needed) }}
+                        {{ form_errors(form.show_certificate_needed) }}
+                        {{ form_widget(form.show_certificate_needed) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.description) }}
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.imagefile) }}
+                {{ form_errors(form.imagefile) }}
+                {{ form_widget(form.imagefile, {'attr': {'class': 'form-control'} }) }}
+                {% if (course.getImage()) %}
+                    <img src="{{ course.getWebPath() }}"/>
+                {% endif %}
+            </div>
+            {% if course.id is not empty %}
+                <div class="form-group">
+                    <a href="#" class="coursefiles">{{ "new_course.form.course_files"|trans }}</a>
+                </div>
+            {% endif %}
+            {% if groups %}
+                <div class="form-group">
+                    <b>{% trans %}new_course.groups{% endtrans %}:</b> {{ groups | join(', ') }}
+                </div>
+            {% endif %}
+            <div class="form-group">
+                <input type="submit" class="btn btn-orange btn-block"
+                       value="{{ 'new_course.save_and_continue'|trans }}"/>
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_end(form, {"render_rest": false}) }}
+
+        </div>
+    </div>
+
+    {% if course.id is not empty %}
+        <div id="course-files-popup-container" style="display:none">
+            <div class="course-files-popup popup-content">
+                <h2>{{ "new_course.form.course_files_popup.title"|trans }}</h2>
+
+                <div class="content">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>{{ "new_course.form.course_files_popup.filename"|trans }}</th>
+                            <th>{{ "new_course.form.course_files_popup.filesize"|trans }}</th>
+                            <th>{{ "new_course.form.course_files_popup.delete"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for file in course.getUploads() %}
+                            <tr data-id="{{ file.id }}">
+                                <td>
+                                    <a href="{{ path("elearning_courses_show_course_file", {'id':file.id}) }}"
+                                       target="_blank">{{ file.originalFilename }}</a>
+                                </td>
+                                <td>{{ file.filesize / 1000 }} kB</td>
+                                <td>
+                                    <a href="#" class="btn btn-red remove-file"><span class="glyphicon glyphicon-trash"
+                                                                                      aria-hidden="true"></span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <form action="{{ path("elearning_courses_upload_course_file") }}" id="course-files-upload-container">
+                    <div class="upload-container">
+                        <div class="dz-message message">{{ "new_course.form.course_files_popup.drop_here"|trans }}</div>
+                        <div class="fallback">
+                            <input type="file" name="file" multiple/>
+                        </div>
+                        <div class="previews" style="display:none"></div>
+                    </div>
+                    <input type="hidden" name="course_id" value="{{ course.id }}"/>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% if course.id is not empty %}
+        {% stylesheets '../app/Resources/public/css/magnific-popup.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+    {% endif %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/public/css/*'
+    '../app/Resources/public/css/bootstrap-datepicker.min.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '../app/Resources/public/js/bootstrap-datepicker.min.js'
+    '../app/Resources/public/js/locales/bootstrap-datepicker.lt.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>
+        $('#{{ form.active_date_to.vars.id }}').datepicker({
+            format: "yyyy-mm-dd",
+            autoclose: "true",
+            language: "lt"
+        });
+    </script>
+
+    {% if course.id is not empty %}
+        {% javascripts '../app/Resources/public/js/jquery.magnific-popup.min.js'
+        '../app/Resources/public/js/showmessage.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% javascripts '@ElearningCoursesBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script>
+            $(function () {
+                $('a.coursefiles').on('click', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.open({
+                        items: {
+                            src: ".course-files-popup",
+                            type: "inline"
+                        }
+                    });
+                });
+
+                $('.course-files-popup table tbody').on('click', '.remove-file', function (e) {
+                    e.preventDefault();
+                    var row = $(this).parents('tr');
+                    var file_id = row.data('id');
+                    $.ajax({
+                        url: "{{ path("elearning_courses_delete_course_file") }}",
+                        data: {
+                            'id': file_id
+                        },
+                        method: "post",
+                        success: function (response) {
+                            if (response.success) {
+                                showmessage('{{ "new_course.form.course_files_popup.file_deleted"|trans }}', 'success')
+                                row.remove();
+                            }
+                        }
+                    });
+                });
+
+
+                var dropzoneOptions = {
+                    addRemoveLinks: false,
+                    dictInvalidFileType: '{{ "new_course.editor.upload.invalid_file_type"|trans }}',
+                    previewsContainer: ".upload-container .previews",
+                    clickable: true,
+                    init: function () {
+                        this.on('success', function (file, response) {
+                            if (response.success) {
+                                var tablebody = $('.course-files-popup table tbody');
+                                var rowtmpl = '<tr data-id="' + response.id + '">' +
+                                        '<td><a href="' + response.url + '" target="_blank">' + response.filename + '</a></td>' +
+                                        '<td>' + (response.filesize / 1000) + ' kB</td>' +
+                                        '<td><a href="#" class="btn btn-red remove-file"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>' +
+                                        '</tr>';
+                                tablebody.append(rowtmpl);
+                            }
+                        });
+
+                        this.on('error', function (data, message, xhr) {
+                            showmessage('{{ "new_course.form.course_files_popup.upload_error"|trans }}', 'danger');
+                        });
+
+                    }
+                };
+
+                $('#course-files-upload-container').dropzone(dropzoneOptions);
+            });
+        </script>
+    {% endif %}
+{% endblock %}

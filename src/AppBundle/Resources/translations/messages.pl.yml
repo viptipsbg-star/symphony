@@ -1,0 +1,22 @@
+menu:
+    home: Strona główna
+    materials: Mokymų medžiaga
+    vl_material_1: Besimokančiųjų laiškai
+    vl_material_2: Užsiėmimų aprašymai
+    course: Kursy
+    new_course: Nowy
+    course_list: Lista
+    categories: Kategorie
+    reports: Raporty
+    my_courses: Moje kursy
+    available_courses: Wszystkie kursy
+    students: Studenci
+    groups: Grupy
+    employees: Pracownicy
+    import: Importuj
+    report:
+        course_listening: Wysłuchane kursy
+        course: Kursy
+    profile: Profil
+    change_password: Zmień hasło
+    logout: Wyloguj się

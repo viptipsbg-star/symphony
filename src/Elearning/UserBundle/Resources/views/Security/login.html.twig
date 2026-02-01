@@ -1,0 +1,24 @@
+{% if error %}
+    <div class="alert alert-danger">{{ error|trans({}, "FOSUserBundle") }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+            <input type="username" id="text" class="form-control" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+            <input type="password" id="password" class="form-control" name="_password" required="required" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+    </div>
+    <div>
+        <a href="{{ path("fos_user_resetting_request") }}" class="password-remind">{{ 'security.login.remind_password'|trans({}, 'FOSUserBundle') }}</a>
+        <input type="submit" id="_submit" class="btn btn-orange login-button pull-right" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>
+

@@ -1,0 +1,16 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+{% block chaptercontent %}
+
+<div class="student-text-lesson">
+    <div class="content">
+        {% if lesson is not null %}
+        {{ lesson.content|raw }}
+        {% endif %}
+    </div>
+    <div class="submit-container">
+        <a href="{{ path("elearning_course_chapter_completed", {'course_id': currentchapter.courseid, 'listening_id': listening.id, 'chapter_id':currentchapter.id})}}" class="btn btn-orange">{{ "student_courses.course_listen.text_lesson.continue"|trans }}</a>
+    </div>
+</div>
+
+{% endblock %}

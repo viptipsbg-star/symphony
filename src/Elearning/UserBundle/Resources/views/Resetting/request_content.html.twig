@@ -1,0 +1,21 @@
+<h1>{{ "resetting.title"|trans({}, "FOSUserBundle") }}</h1>
+<div class="content-container">
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    {% if invalid_username is defined %}
+        <div class="alert alert-danger">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</div>
+    {% endif %}
+    {% if message is defined %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+    {% if message_success is defined %}
+        <div class="alert alert-success">{{ message_success }}</div>
+    {% endif %}
+    <div class="form-group">
+        <label for="username">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="text" class="form-control" id="username" name="username" required="required" />
+    </div>
+    <div>
+        <input type="submit" class="btn btn-orange" value="{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>
+</div>

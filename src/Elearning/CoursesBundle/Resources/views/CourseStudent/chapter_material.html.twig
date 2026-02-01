@@ -1,0 +1,34 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+{% block chaptercontent %}
+
+<div class="student-material">
+    <div class="content">
+        {% if materials|length > 0 %}
+            <p>{{ "student_courses.course_listen.material.review_these_course_files"|trans }}</p>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>{{ "student_courses.course_listen.material.title"|trans }}</th>
+                    <th>{{ "student_courses.course_listen.material.file"|trans }}</th>
+                </thead>
+                <tbody>
+                {% for material in materials %}
+                    <tr>
+                        <td>{{ material.title }}</td>
+                        <td>
+                            <a href="{{ path("elearning_courses_material_file", {'material_id': material.id}) }}" target="_blank">
+                                {{ material.filename }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <div class="submit-container">
+        <a href="{{ path("elearning_course_chapter_completed", {'course_id': currentchapter.courseid, 'listening_id': listening.id, 'chapter_id':currentchapter.id})}}" class="btn btn-orange">{{ "student_courses.course_listen.material.continue"|trans }}</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+services:
+    file_stream:
+        class: Elearning\CoursesBundle\FileStream\FileStream
+#    elearning_courses.example:
+#        class: Elearning\CoursesBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    elearning_courses.twig.extension.array:
+        class: Twig_Extensions_Extension_Array
+        tags:
+            - { name: 'twig.extension'}

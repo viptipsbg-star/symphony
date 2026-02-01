@@ -1,0 +1,11 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'emails.course_ending.subject'|trans }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'emails.course_ending.message'|trans({'%coursename%': coursename, '%viewlink%': viewlink}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

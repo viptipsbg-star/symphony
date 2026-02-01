@@ -1,0 +1,179 @@
+groups:
+    user_groups_title: User groups title
+    assign_course: Assign course
+    courses:
+        title: Title
+        assign: Assign
+        assigned: Assigned
+        cancel: Cancel
+        popup:
+            title: Course assignment to the user groups
+        confirm_popup:
+            do_you_want_to_assign: Do you want to assign the course
+            do_you_want_to_cancel: Do you want to cancel the course
+            for_group: for group
+            yes: Yes
+            no: No
+    list:
+        add_new_group: Add new group
+    group:
+        open: Open
+        users: users
+        employees:
+            delete_from_group: Delete from group
+            add_to_group: Add to group
+    tabs:
+        group_employees: Employees
+        group_managers: Managers
+    employees:
+        name: Name
+        surname: Surname
+        name_surname: Name Surname
+        email: Email
+        position: Position
+        address: Working place address
+        new:
+            title: New employee
+            add: Add
+        no_entries: No entries
+    group_employees:
+        title: Assigned employees
+    group_managers:
+        title: Assigned managers
+    all_employees:
+        add_to_group: Add employee to the group
+        add_to_group_multiple_employees: Add to group multiple employees
+        add_to_group_multiple_managers: Add to group multiple managers
+        search_text: Search text
+        add_to_group_by_position: By positions
+        add_to_group_by_address: By working place address
+        add_to_group_multiple_submit: Add
+        add_to_group_select_position: - Select position -
+        add_to_group_select_address: - Select working place address -
+        succesfully_added_multiple: Succesfully added
+
+    all_managers:
+        add_to_group: Add manager to the group
+        search_text: Search text
+
+    first_group_title: Employees group
+    course_assign_success: Course is succesfully assigned to the group
+    course_cancel_success: Course is succesfully canceled to the group
+    course_assign_empty_group: Course is not assigned for a group, because group doesn‘t has existing users
+    course_cancel_no_group: Group is not found
+
+new_group:
+    page_title: New group
+    title_label: Title
+    write_here: Write here...
+    create: Create
+    rename: Rename
+
+new_employee:
+    employee_created: Employee is created
+    no_email_error: Enter your email
+    cant_create_user: Can‘t create employee user
+    password_not_equal_error: Password error
+    incorrect_username: Incorrect username
+    fields:
+        code: Company name
+        name: Name
+        surname: Surname
+        username: Username
+        email: Email
+        position: Position
+        address: Working place address
+        birthday: Birth date
+        type: Type
+        parent: Parent
+        active: Active
+        password: Password
+        password_repeat: Repeat password
+        image: Image
+        available: Available/unavailable
+        available_choices:
+            available: Available
+            unavailable: Unavailable
+        employed: Employed/unemployed
+        employed_choices:
+            employed: Employed
+            unemployed: Unemployed
+        ckk_number: CKK number (number of the pharmacy)
+        mpk_number: MPK number
+        departament: Departament
+        region: Region
+        active_choices:
+            active: Active
+            inactive: Inactive
+        type_choices:
+            employee: Employee
+            manager: Manager
+            administrator: Administrator
+
+        select_position: Select position
+        create_new_position: Add new positions
+        contract: Contract
+        phone: Phone
+
+employees:
+    import:
+        title: Employee importation
+        drop_here: DROP FILES HERE (xls, xlsx)
+        invalid_file_type: Invalid file type. Files only *.xls and *.xlsx
+        upload_error: Upload error
+        employees_import_error: Employees import error
+        employees_import_success: Employees import success:
+    list:
+        title: Employees
+        code: Company name
+        name: Name
+        surname: Surname
+        email: Email
+        position: Position
+        username: Username
+        birthday: Birthday
+        active: Act
+        tab_employees: Employees
+        tab_managers: Managers
+        tab_administrators: Administrators
+        edit: Edit
+        change_password: Change password
+        remove: Delete
+    password:
+        new_password: New password
+        repeat_password: Repeat password
+        update: Update
+        not_equal_passwords: Passwords do not match
+        employee_not_found: Employee is not found
+        success: Password changed successfully
+        inform_user_about_password_change: Inform user about password change
+        password_min_length: Password lenght must contain more than 3 symbols
+        password_change_email:
+            subject: Your password was changed in the E-learning system
+            message: |
+                Hello,
+
+                Your password was changed. A new login information:
+                Username: %username%
+                Password: %password%
+
+                Best regards,
+                The e-learning team.
+    edit:
+        update: Update
+        success: Employee successfully updated
+        groups: Groups
+        courses: Courses
+    delete:
+        confirm: Are you sure you want to delete employee?
+        yes: Yes
+        no: No
+        success: Employee successfully deleted
+        error: Error deleting employee
+    send_email:
+        subject: Subject
+        text: Text
+        send: Send
+        success: Ok
+        error: Not sent
+

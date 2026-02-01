@@ -1,0 +1,84 @@
+{% extends "ElearningCoursesBundle:Reports/_tables:supervisor_courses.html.twig" %}
+
+{% block versionlink %}
+{% endblock %}
+
+{% block table %}
+    {% if courses is empty %}
+        <h3 class="no-entries">{{ "reports.supervisor_courses.no_entries"|trans }}</h3>
+    {% else %}
+    <div class="list-table">
+        <table class="table table-striped table-bordered report-table wide-table">
+            <thead>
+                <tr>
+                    <th width="200">{{ "reports.supervisor_courses.name"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.category"|trans }}</th>
+                    <th width="150">{{ "reports.supervisor_courses.status"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.duration"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.students"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.started_count"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.completed_count"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.avg_result"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.faq_questions"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.student_questions"|trans }}</th>
+                    {% if view == 'html' %}
+                        <th>{{ "reports.supervisor_courses.detail"|trans }}</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td class="category">
+                        {% if course.id in categoriesHierarchy|keys %}
+                            {% for category in categoriesHierarchy[course.id] %}
+                                {{ category }}
+                                <span class="separator"></span>
+                            {% endfor %}
+                        {% endif %}
+                        {{ course.category.name }}
+                    </td>
+                    <td>
+                        {% if course.status == "trash" %}
+                        <span class="state state-red">
+                            {{ "course_list.states.trashed"|trans }}
+                        </span>
+                        {% elseif course.status == "published" %}
+                        <span class="state state-green">
+                            {{ "course_list.states.published"|trans }}
+                        </span>
+                        {% elseif course.status == "unpublished" %}
+                        <span class="state state-blue">
+                            {{ "course_list.states.unpublished"|trans }}
+                        </span>
+                        {% elseif course.status == "initiated" %}
+                        <span class="state state-yellow">
+                            {{ "course_list.states.initiated"|trans }}
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>{{ course.duration }}</td>
+                    <td>{{ course.id in assignedcounts|keys ? assignedcounts[course.id] : "" }}</td>
+                    <td>{{ course.id in startedcounts|keys ? startedcounts[course.id] : "" }}</td>
+                    <td>{{ course.id in completedcounts|keys ? completedcounts[course.id] : "" }}</td>
+                    <td>{{ course.id in avgresults|keys ? avgresults[course.id].avg_result | number_format(2) ~ '%' : "" }}</td>
+                    <td>{{ course.getQuestions|length }}</td>
+                    <td>{{ course.id in studentquestionscounts|keys ? studentquestionscounts[course.id] : "" }}</td>
+                    {% if view == 'html' %}
+                        <td>
+                            <a href="{{ path("elearning_courses_report_supervisor_course", {course_id:course.id}) }}">{{ "reports.supervisor_courses.detail"|trans }}</a>
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if view == 'html' %}
+            <div class="pagination">
+                {{ knp_pagination_render(courses) }}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}

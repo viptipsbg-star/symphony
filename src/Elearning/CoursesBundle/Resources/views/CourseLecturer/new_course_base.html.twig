@@ -1,0 +1,70 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<h1>{{ 'new_course.title'|trans }}</h1>
+<div class="wizard">
+    <div class="wizard-inner">
+        <div class="connecting-line"></div>
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li role="presentation" class="step1 {{ step == 1 ? "active" : "" }} {{ step == 2 or step == 3 ? "completed" : "" }}">
+                {% if course_id is defined %}
+                    {% set step_1_path = path("elearning_courses_new", {step: 1, id: course_id}) %}
+                {% else %}
+                    {% set step_1_path = path("elearning_courses_new", {step: 1}) %}
+                {% endif %}
+                <a href="{{ step_1_path }}" title="Step 1">
+                    <span class="round-tab">
+                        <span class="inner-circle">1</span>
+                    </span>
+                    <span class="title">{{ 'new_course.steps.step1_information'|trans }}</span>
+                </a>
+            </li>
+
+            <li role="presentation" class="step2 {{ step == 2 ? "active" : "" }} {{ step == 3 ? "completed" : "" }}">
+                {% if course_id is defined %}
+                    {% set step_2_path = path("elearning_courses_new", {step: 2, id: course_id}) %}
+                {% else %}
+                    {% set step_2_path = "#" %}
+                {% endif %}
+                <a href="{{ step_2_path }}" title="Step 2">
+                    <span class="round-tab">
+                        <span class="inner-circle">2</span>
+                    </span>
+                    <span class="title">{{ 'new_course.steps.step2_content'|trans }}</span>
+                </a>
+            </li>
+            <li role="presentation" class="step3 {{ step == 3 ? "active" : "" }}">
+                {% if course_id is defined %}
+                    {% set step_3_path = path("elearning_courses_new", {step: 3, id: course_id}) %}
+                {% else %}
+                    {% set step_3_path = "#" %}
+                {% endif %}
+                <a href="{{ step_3_path }}" title="Step 3">
+                    <span class="round-tab">
+                        <span class="inner-circle">3</span>
+                    </span>
+                    <span class="title">{{ 'new_course.steps.step3_confirmation'|trans }}</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+
+<div class="content-container course-creator">
+    {% block course_content %}
+    {% endblock %}
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

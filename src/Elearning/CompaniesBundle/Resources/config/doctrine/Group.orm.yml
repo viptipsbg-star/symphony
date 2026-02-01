@@ -1,0 +1,40 @@
+Elearning\CompaniesBundle\Entity\Group:
+    type: entity
+    table: "groups"
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            nullable: false
+        created:
+            type: datetime
+            nullable: false
+        company_id:
+            type: integer
+            nullable: false
+        state:
+            type: string
+            nullable: false
+    oneToMany:
+        groupCourses:
+            targetEntity: Elearning\CoursesBundle\Entity\GroupCourse
+            mappedBy: group
+        subjects:
+            targetEntity: Elearning\CoursesBundle\Entity\Subject
+            mappedBy: group
+    manyToOne:
+        company:
+            targetEntity: Elearning\CompaniesBundle\Entity\Company
+            inversedBy: employees
+            joinColumn:
+                name: company_id
+                referencedColumn: id
+    manyToMany:
+        employees:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            mappedBy: groups

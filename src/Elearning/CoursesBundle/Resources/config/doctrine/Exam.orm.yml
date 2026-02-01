@@ -1,0 +1,36 @@
+Elearning\CoursesBundle\Entity\Exam:
+    type: entity
+    repositoryClass: Elearning\CoursesBundle\Entity\ExamRepository
+    table: crs_exam
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        chapter_id:
+            type: integer
+            nullable: false
+        options:
+            type: text
+            nullable: false
+        version:
+            type: string
+            nullable: false
+            options:
+                default: "edit"
+    oneToMany:
+        questions:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamQuestion
+            mappedBy: exam
+        attempts:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamAttempt
+            mappedBy: exam
+    manyToOne:
+        chapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            joinColumn:
+                name: chapter_id
+                referencedColumnName: id
+
+

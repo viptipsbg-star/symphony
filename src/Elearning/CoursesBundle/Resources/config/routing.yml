@@ -1,0 +1,615 @@
+elearning_courses_new:
+    path:     /course-create/{step}/{id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:new, step: 1, id: null }
+    methods: [GET]
+    requirements:
+        step: \d+
+        id: \d+
+
+elearning_courses_create:
+    path:     /course-create/{step}/{id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:create, step: 1, id: null }
+    methods: [POST]
+    requirements:
+        step: \d+
+        id: \d+
+
+elearning_courses_categories:
+    path:     /courses/categories
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:categories }
+    methods: [GET]
+
+elearning_courses_categories_reorder:
+    path:     /courses/categories/reorder
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:categoriesReorder }
+    methods: [POST]
+
+elearning_courses_categories_store:
+    path:     /courses/categories/store
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:categoriesStore }
+    methods: [POST]
+
+elearning_courses_categories_delete:
+    path:     /courses/categories/delete
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:categoriesDelete }
+    methods: [POST]
+    requirements:
+        category_id: \d+
+
+elearning_courses_list_lecturer:
+    path:     /courses
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:index }
+    methods: [GET]
+
+elearning_courses_list_reorder:
+    path:     /courses/reorder
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:coursesReorder }
+    methods: [POST]
+
+elearning_courses_upload_course_file:
+    path:     /courses/upload-course-file
+    defaults: { _controller: ElearningCoursesBundle:Upload:upload }
+    methods: [POST]
+
+elearning_courses_show_course_file:
+    path:     /courses/uploaded-file-preview/{id}
+    defaults: { _controller: ElearningCoursesBundle:Upload:show }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+elearning_courses_show_course_file_student:
+    path:     /courses/uploaded-file/{id}
+    defaults: { _controller: ElearningCoursesBundle:Upload:showStudent }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+elearning_courses_delete_course_file:
+    path:     /courses/delete-course-file
+    defaults: { _controller: ElearningCoursesBundle:Upload:delete }
+    methods: [POST]
+
+
+elearning_courses_upload_file:
+    path:     /courses/upload-file
+    defaults: { _controller: ElearningCoursesBundle:File:upload }
+    methods: [POST]
+
+elearning_courses_delete_file:
+    path:     /courses/delete-file
+    defaults: { _controller: ElearningCoursesBundle:File:delete }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_show_file:
+    path:     /courses/file/{id}
+    defaults: { _controller: ElearningCoursesBundle:File:show }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+elearning_courses_show_file_thumbnail:
+    path:     /courses/file/{id}/thumbnail
+    defaults: { _controller: ElearningCoursesBundle:File:showThumbnail }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+
+elearning_courses_show_coursefile:
+    path:     /courses/coursefile/{id}
+    defaults: { _controller: ElearningCoursesBundle:File:showCourseFile }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+elearning_courses_get_slides_files:
+    path:     /courses/slides-files
+    defaults: { _controller: ElearningCoursesBundle:Slides:getSlidesFiles }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+elearning_courses_show_slide_file:
+    path:     /courses/slide/{id}
+    defaults: { _controller: ElearningCoursesBundle:Slides:show }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+elearning_courses_show_slide_file_thumbnail:
+    path:     /courses/slide/{id}/thumbnail
+    defaults: { _controller: ElearningCoursesBundle:Slides:showThumbnail }
+    methods: [GET]
+    requirements:
+        id: \d+
+
+elearning_courses_slides_delete_file:
+    path:     /courses/delete-slide
+    defaults: { _controller: ElearningCoursesBundle:Slides:delete }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_upload_slide_file:
+    path:     /courses/upload-slide
+    defaults: { _controller: ElearningCoursesBundle:Slides:upload }
+    methods: [POST]
+
+elearning_courses_slides_file_change_order:
+    path:     /courses/slide-change-order
+    defaults: { _controller: ElearningCoursesBundle:Slides:changeOrder }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_chapter_files:
+    path:     /courses/chapter-files
+    defaults: { _controller: ElearningCoursesBundle:File:getChapterFiles }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+elearning_courses_file_change_order:
+    path:     /courses/file-change-order
+    defaults: { _controller: ElearningCoursesBundle:File:changeOrder }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_chapter_editor_content:
+    path:     /course/chapter-editor-content
+    defaults: { _controller: ElearningCoursesBundle:File:getAllChapterFiles }
+    methods: [GET]
+    options:
+        expose: true
+
+elearning_courses_create_chapter:
+    path:     /course/chapter/create
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:createChapter }
+    methods: [POST]
+
+elearning_courses_chapter_change_order:
+    path:     /courses/chapter-change-order
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:changeChapterOrder }
+    methods: [POST]
+
+elearning_courses_chapter_mark_dirty:
+    path:     /courses/chapter-mark-dirty
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:markChapterDirty }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_save_video:
+    path:     /course/save-video
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:saveVideo }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_save_lesson:
+    path:     /courses/lesson
+    defaults: { _controller: ElearningCoursesBundle:Lesson:save }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_lesson:
+    path:     /courses/lesson
+    defaults: { _controller: ElearningCoursesBundle:Lesson:get }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+
+elearning_courses_save_material:
+    path:     /courses/material
+    defaults: { _controller: ElearningCoursesBundle:Material:save }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_material:
+    path:     /courses/material
+    defaults: { _controller: ElearningCoursesBundle:Material:get }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+elearning_courses_material_file:
+    path:     /courses/material/file/{material_id}/{filename}
+    defaults: { _controller: ElearningCoursesBundle:Material:showFile, filename: null }
+    methods: [GET]
+    requirements:
+        material_id: \d+
+    options:
+        expose: true
+
+elearning_courses_material_delete:
+    path:     /courses/material/delete/{material_id}
+    defaults: { _controller: ElearningCoursesBundle:Material:delete }
+    methods: [POST]
+    requirements:
+        material_id: \d+
+    options:
+        expose: true
+
+
+elearning_courses_save_feedback:
+    path:     /courses/feedback
+    defaults: { _controller: ElearningCoursesBundle:Feedback:save }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_feedback:
+    path:     /courses/feedback
+    defaults: { _controller: ElearningCoursesBundle:Feedback:get }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+elearning_courses_save_feedback_answers:
+    path:     /course/feedback/save
+    defaults: { _controller: ElearningCoursesBundle:Feedback:saveAnswers }
+    methods: [POST]
+
+elearning_courses_feedbacks_list:
+    path:     /course/feedbacks/{course_id}
+    defaults: { _controller: ElearningCoursesBundle:Feedback:list }
+    methods: [GET]
+    requirements:
+        course_id: \d+
+
+elearning_courses_save_quiz:
+    path:     /courses/quiz
+    defaults: { _controller: ElearningCoursesBundle:Quiz:save }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_quiz:
+    path:     /courses/quiz
+    defaults: { _controller: ElearningCoursesBundle:Quiz:get }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+
+# ======================================================================================================================
+# Exams routes
+elearning_courses_save_exam:
+    path:     /courses/exam
+    defaults: { _controller: ElearningCoursesBundle:Exam:save }
+    methods: [POST]
+    options:
+        expose: true
+
+elearning_courses_get_exam:
+    path:     /courses/exam
+    defaults: { _controller: ElearningCoursesBundle:Exam:get }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+    options:
+        expose: true
+
+elearning_courses_start_exam:
+    path: /course/exam/start
+    defaults: { _controller: ElearningCoursesBundle:Exam:startExam }
+    methods: [POST]
+
+elearning_courses_save_exam_question_answer:
+    path: /course/exam/save-answer
+    defaults: { _controller: ElearningCoursesBundle:Exam:saveExamAnswer }
+    methods: [POST]
+
+elearning_courses_exam_completed:
+    path: /course/exam/completed
+    defaults: { _controller: ElearningCoursesBundle:Exam:examCompleted }
+    methods: [POST]
+
+elearning_course_exam_result:
+    path: /course/exam/result/{attempt_id}
+    defaults: { _controller: ElearningCoursesBundle:Exam:examResult }
+    methods: [GET]
+
+elearning_course_exam_show_incorrect:
+    path: /course/exam/incorrect-answers/{attempt_id}
+    defaults: { _controller: ElearningCoursesBundle:Exam:showIncorrectAnswers }
+    methods: [GET]
+
+elearning_course_pause_exam:
+    path: /course/exam/pause/{attempt_id}
+    defaults: { _controller: ElearningCoursesBundle:Exam:pauseExam }
+    methods: [GET]
+# ======================================================================================================================
+
+elearning_courses_publish_course:
+    path:     /courses/publish/{id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:changeState, action: 'publish' }
+    methods: [GET, POST]
+
+elearning_courses_unpublish_course:
+    path:     /courses/unpublish/{id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:changeState, action: 'unpublish' }
+    methods: [GET, POST]
+
+elearning_courses_trash_course:
+    path:     /courses/trash/{id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:changeState, action: 'trash' }
+    methods: [GET, POST]
+
+elearning_my_courses_list_student:
+    path:     /my-courses/{category_id}
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:myCourses, category_id: null }
+
+elearning_available_courses_list_student:
+    path:     /available-courses
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:allCourses }
+
+elearning_course_general_info:
+    path:     /course/{id}
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:generalInfo }
+    requirements:
+        id: \d+
+
+elearning_course_listen:
+    path:     /course-listen/{listening_id}/{next}
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:listen, next: 0 }
+    options:
+        expose: true
+
+
+elearning_course_chapter_completed:
+    path:     /course/chapter/completed/{course_id}/{listening_id}/{chapter_id}
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:chapterCompleted }
+    requirements:
+        course_id: \d+
+        chapter_id: \d+
+
+elearning_course_completed:
+    path:     /course-completed/{listening_id}
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:completed }
+
+elearning_course_certificate:
+    path:     /course/certificate/{listening_id}
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:certificate }
+
+elearning_course_supervisor_diary:
+    path:     /diary/edit/{employee_id}/{format}
+    defaults: { _controller: ElearningCoursesBundle:Diary:edit, format: null}
+    requirements:
+        group_id: \d+
+
+elearning_course_diary_add_topic:
+    path:     /diary/topic/add
+    defaults: { _controller: ElearningCoursesBundle:Diary:addDiaryTopic}
+
+elearning_course_diary_remove_topic:
+    path:     /diary/topic/remove/{diary_topic_id}
+    defaults: { _controller: ElearningCoursesBundle:Diary:removeDiaryTopic}
+    requirements:
+        diary_topic_id: \d+
+
+elearning_course_diary_topic_comment:
+    path:     /diary/topic/comment
+    defaults: { _controller: ElearningCoursesBundle:Diary:topicComment}
+
+elearning_courses_diary_add_rate:
+    path:     /diary/add-rate/{diary_topic_id}/{criterion_id}/{rate}
+    defaults: { _controller: ElearningCoursesBundle:Diary:addRate, rate: null }
+    requirements:
+        diary_topic_id: \d+
+        criterion_id: \d+
+
+elearning_course_report_student_listening:
+    path:     /report/group-listening
+    defaults: { _controller: ElearningCoursesBundle:Report:studentListening }
+
+#elearning_course_report_manager_listening:
+#    path:     /report/employee-listening
+#    defaults: { _controller: ElearningCoursesBundle:Report:managerListening }
+#
+elearning_course_report_manager_listening_employee:
+    path:     /report/employee-listening/{listening_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:managerListeningEmployee }
+
+
+elearning_course_report_manager_groups:
+    path:     /report/groups
+    defaults: { _controller: ElearningCoursesBundle:Report:managerGroups }
+
+
+elearning_courses_report_supervisor_courses:
+    path:     /report/courses
+    defaults: { _controller: ElearningCoursesBundle:Report:supervisorCourses }
+
+elearning_courses_report_supervisor_course:
+    path:     /report/courses/{course_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:supervisorCourse }
+
+elearning_courses_report_supervisor_listening_groups:
+    path:     /report/listening
+    defaults: { _controller: ElearningCoursesBundle:Report:supervisorListeningGroups }
+
+elearning_courses_report_supervisor_attendance:
+    path:     /report/attendance/{group_id}/{state}/{format}
+    defaults: { _controller: ElearningCoursesBundle:Report:supervisorAttendance, group_id: 0, state: active, format: null }
+    requirements:
+        group_id: \d+
+        state: active|expelled
+
+elearning_courses_report_student_attendance:
+    path:     /report/my-attendance
+    defaults: { _controller: ElearningCoursesBundle:Report:studentAttendance}
+
+elearning_courses_student_diary:
+    path:     /report/my-diary
+    defaults: { _controller: ElearningCoursesBundle:Diary:studentDiary}
+
+elearning_courses_report_supervisor_listening_group:
+    path:     /report/listening/{group_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:supervisorListeningGroup }
+
+elearning_courses_report_supervisor_listening_employee:
+    path:     /report/listening/{group_id}/{employee_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:supervisorListeningEmployee }
+
+elearning_courses_report_subject_add:
+    path:     /report/subject/add
+    defaults: { _controller: ElearningCoursesBundle:Report:addSubject }
+    methods: [POST]
+
+elearning_courses_report_add_status:
+    path:     /report/add-status/{employee_id}/{subject_id}/{subject_status_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:addStatus, subject_status_id: null }
+    requirements:
+        employee_id: \d+
+        subject_id: \d+
+
+elearning_courses_report_expell:
+    path:     /report/expell/{employee_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:expell }
+    requirements:
+        employee_id: \d+
+
+elearning_courses_report_subject_toggle:
+    path:     /report/subject/toggle/{subject_id}
+    defaults: { _controller: ElearningCoursesBundle:Report:toggleSubject }
+    requirements:
+        subject_id: \d+
+
+elearning_courses_report_subject_status_add:
+    path:     /report/subject/status/add
+    defaults: { _controller: ElearningCoursesBundle:Report:subjectStatusAdd }
+    methods: [POST]
+
+elearning_courses_report_subject_status_edit:
+    path:     /report/subject/status/edit
+    defaults: { _controller: ElearningCoursesBundle:Report:subjectStatusEdit }
+    methods: [POST]
+
+
+elearning_courses_report_subject_update:
+    path:     /report/subject/update
+    defaults: { _controller: ElearningCoursesBundle:Report:subjectUpdate }
+    methods: [POST]
+
+elearning_courses_enter_manual_hours:
+    path:     /report/manual-hours
+    defaults: { _controller: ElearningCoursesBundle:Report:enterManualHours }
+    methods: [POST]
+
+
+elearning_course_delete_chapter:
+    path:     /course/delete-chapter
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:deleteChapter }
+    methods: [GET]
+    requirements:
+        chapter_id: \d+
+
+elearning_course_rename_chapter:
+    path:     /course/rename-chapter
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:renameChapter }
+    methods: [POST]
+    requirements:
+        chapter_id: \d+
+
+elearning_course_start_processing:
+    path:     /course/start-processing/{course_id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:startProcessing }
+
+elearning_course_processing_progress:
+    path:     /course/processing-progress/{course_id}
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:processingProgress }
+
+elearning_course_notify_processing:
+    path:     /api/course/notify-processing
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:notifyProcessing }
+    methods: [POST]
+
+elearning_course_notify_processing_progress:
+    path:     /api/course/notify-processing-progress
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:notifyProcessingProgress }
+    methods: [POST]
+
+elearning_course_notify_diagnostics:
+    path:     /api/course/notify-diagnostics
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:processingNotifyDiagnostics }
+    methods: [POST]
+
+elearning_course_processing_diagnostics:
+    path:     /api/course/processing-diagnostics
+    defaults: { _controller: ElearningCoursesBundle:CourseLecturer:processingDiagnostics }
+    methods: [GET]
+
+elearning_courses_complete_old_exams:
+    path:     /api/courses/exams/complete-old
+    defaults: { _controller: ElearningCoursesBundle:CourseStudent:completeNotFinishedExams }
+    methods: [GET]
+
+
+
+#=======================================================================================================================
+# Questions routes
+elearning_courses_questions_list_lecturer:
+    path:     /course/questions/{course_id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:questionsList }
+    requirements:
+        course_id: \d+
+
+elearning_courses_question_lecturer:
+    path:     /course/question/{question_id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:question }
+    requirements:
+        question_id: \d+
+
+elearning_courses_faq_questions_list_lecturer:
+    path:     /course/questions/faq/{course_id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:faqQuestionsList }
+
+elearning_courses_faq_question_lecturer:
+    path:     /course/question/faq/{question_id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:faqQuestion, question_id: null }
+
+elearning_courses_faq_question_delete_lecturer:
+    path:     /course/question/faq-delete/{id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:faqQuestionDelete }
+    requirements:
+        question_id: \d+
+
+elearning_courses_question_delete_lecturer:
+    path:     /course/question/delete/{id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:questionDelete }
+    requirements:
+        question_id: \d+
+
+elearning_courses_ask_question:
+    path:     /course/question/ask/{listening_id}
+    defaults: { _controller: ElearningCoursesBundle:Questions:askQuestion }
+
+#=======================================================================================================================
+
+
+# Util routes
+
+elearning_move_course_files_new_location:
+    path:     /course/move-files
+    defaults: { _controller: ElearningCoursesBundle:File:moveCourseFilesToNewLocation }
+    methods: [GET]

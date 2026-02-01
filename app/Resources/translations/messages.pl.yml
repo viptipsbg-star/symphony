@@ -1,0 +1,13 @@
+front:
+    title: nauka.doz.pl
+    slogan: Witamy na platformie e-szkoleń systemu elektronicznego – źródła rozwoju i wiedzy 
+
+header:
+    logo_title: Szkolenia wideo
+
+site_title: Próbny system e-szkoleń
+footer:
+    solution: Esolution by Infosauga
+validation:
+    errors:
+        blank: Wypełnienie tego pola

@@ -1,0 +1,92 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<h1>{{ exam.getChapter().getName() }}</h1>
+<div class="content-container">
+    <div class="course-completed">
+        <div class="completed-image">
+            {% if attempt.getPassed %}
+                <img src="{{ asset("bundles/elearningcourses/images/course_completed.png") }}" />
+            {% else %}
+                <img src="{{ asset("bundles/elearningcourses/images/wrong_ico.png") }}" />
+            {% endif %}
+        </div>
+        <div class="info">
+            <div class="title">
+                {% if attempt.getPassed %}
+                    {{ "student_courses.course_listen.exam.exam_passed"|trans }}
+                {% else %}
+                    {{ "student_courses.course_listen.exam.exam_failed"|trans }}
+                {% endif %}
+            </div>
+            <div class="exam-result">
+                {{ "student_courses.course_listen.exam.result"|trans }}
+                <span class="result">
+                    {{ attempt.getResult }}%
+                </span>
+            </div>
+            {% if not attempt.getPassed and not lastAttempt %}
+            <div class="retry-info">
+                {{ "student_courses.course_listen.exam.you_can_retry_after"|trans }} 
+                <span class="lefttime">{{ lefttime }}</span>
+            </div>
+            {% elseif not attempt.getPassed and lastAttempt %}
+            <div class="retry-info">
+                {{ "student_courses.course_listen.exam.you_wont_be_able_to_retry"|trans }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="continue-course-btn-container">
+
+            {# passed #}
+            <a href="{{ path("elearning_course_listen", {'listening_id':attempt.getCourseListen.id,'next':'next'}) }}" class="btn btn-orange continue-btn" {% if not attempt.getPassed %}style="display:none"{% endif %}>
+                {{ "student_courses.course_listen.exam.continue"|trans }}
+            </a>
+
+
+            {# not passed #}
+            <a href="{{ path("elearning_course_listen", {'listening_id':attempt.getCourseListen.id, 'next': firstChapter.id}) }}" class="btn btn-orange firstchapter-btn" {% if attempt.getPassed %}style="display:none"{% endif %}>
+                {{ "student_courses.course_info.to_course_listen"|trans }}
+            </a>
+            <a href="{{ path("elearning_course_exam_show_incorrect", {'attempt_id': attempt.id}) }}" class="btn btn-orange" {% if attempt.getPassed %}style="display:none"{% endif %}>
+                {{ "student_courses.course_listen.exam.show_incorrect"|trans }}
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% if not attempt.getPassed and not lastAttempt %}
+<script>
+$(function(){
+    var timeleft = {{ lefttimeseconds }};
+    var timerContainer = $('.retry-info .lefttime');
+    var interval = window.setInterval(function(){
+        if (timeleft > 0) {
+            timeleft--;
+            var hours = Math.floor(timeleft / 3600);
+            var minutes = Math.floor((timeleft - hours * 3600) / 60);
+            var seconds = (timeleft - hours * 3600 - minutes * 60);
+            var texttime = ("0" + hours).substr(-2) + ":" + ("0" + minutes).substr(-2) + ':' + ("0" + seconds).substr(-2);
+            timerContainer.html(texttime);
+        }
+        else {
+            window.clearInterval(interval);
+            $('.continue-course-btn-container .firstchapter-btn').hide();
+            $('.continue-course-btn-container .continue-btn').show();
+        }
+    }, 1000);
+});
+</script>
+{% endif %}
+{% endblock %}

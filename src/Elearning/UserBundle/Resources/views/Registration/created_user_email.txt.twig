@@ -1,0 +1,11 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'registration.user_add_email.subject'|trans({}, 'FOSUserBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'registration.user_add_email.message'|trans({'%username%': user.username, '%password%': password}, 'FOSUserBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

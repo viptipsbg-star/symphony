@@ -1,0 +1,37 @@
+Elearning\CoursesBundle\Entity\Subject:
+    type: entity
+    table: subjects
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        group_id:
+            type: integer
+            nullable: false
+        description:
+            type: string
+            nullable: false
+        lesson_date:
+            type: datetime
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    manyToOne:
+        group:
+            targetEntity: Elearning\CompaniesBundle\Entity\Group
+            inversedBy: subjects
+            joinColumn:
+                name: group_id
+                referencedColumnName: id
+    oneToMany:
+        employeeSubject:
+            targetEntity: Elearning\CoursesBundle\Entity\EmployeeSubject
+            mappedBy: subject
+            joinColumn:
+                name: id
+                referencedColumnName: subject_id

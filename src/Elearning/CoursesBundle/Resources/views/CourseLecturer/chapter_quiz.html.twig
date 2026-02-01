@@ -1,0 +1,35 @@
+<!-- QUIZ CHAPTER TYPE - START -->
+<div class="quiz-chapter" style="display:none">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="quiz-edit-panel">
+                <div class="heading">{{ "new_course.editor.quiz.quiz"|trans }}</div>
+                <div class="panel-body">
+                    <form class="quiz-chapter-form">
+                        <div class="form-group">
+                            <label>{{ "new_course.editor.quiz.quiz_type"|trans }}</label>
+                            <select name="type" class="form-control" id="quiz-type-select">
+                                <option value="quiz">{{ "new_course.editor.quiz.type_quiz"|trans }}</option>
+                                <option value="connect">{{ "new_course.editor.quiz.type_connect"|trans }}</option>
+                            </select>
+
+                        </div>
+                        <input type="hidden" name="id" class="quiz_id" value="" />
+
+                        {% include "ElearningCoursesBundle:CourseLecturer:chapter_quiz_quiz.html.twig" %}
+                        {% include "ElearningCoursesBundle:CourseLecturer:chapter_quiz_connect.html.twig" %}
+
+                        <div class="form-group">
+                            <input type="submit" value="{{ "new_course.editor.save"|trans }}" class="btn btn-orange" />
+                            <a href="#" class="btn btn-orange-empty preview-quiz">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                {{ "new_course.editor.preview"|trans }}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- QUIZ CHAPTER TYPE - END -->

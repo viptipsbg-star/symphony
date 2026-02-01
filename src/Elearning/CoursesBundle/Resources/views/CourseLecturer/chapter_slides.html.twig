@@ -1,0 +1,27 @@
+<!-- SLIDES CHAPTER TYPE - START -->
+<div class="slides-chapter" style="display:none">
+     <div class="file-uploads">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-upload-panel">
+                    <div class="heading">{{ "new_course.editor.slides.files"|trans }}</div>
+                    <div class="panel-body">
+                        <form action="{{ path('elearning_courses_upload_slide_file') }}" class="dropzone" id="slides-chapter-files-upload">
+                            <div class="file-items">
+                                <div class="slides-chapter-files-list dropzone-previews">
+                                </div>
+                                <div class="dz-message">{{ "new_course.editor.upload.drop_here"|trans }}</div>
+                            </div>
+                            <div class="fallback">
+                                <input type="file" name="file" multiple />
+                            </div>
+                            <input type="hidden" name="chapter_id" value="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+</div>
+<!-- SLIDES CHAPTER TYPE - END -->

@@ -1,0 +1,31 @@
+Elearning\CoursesBundle\Entity\Quiz:
+    type: entity
+    table: crs_quizes
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        chapter_id:
+            type: integer
+            nullable: false
+        type:
+            type: string
+            nullable: false
+        data:
+            type: text
+            nullable: false
+        version:
+            type: string
+            nullable: false
+            options:
+                default: "edit"
+    manyToOne:
+        chapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            joinColumn:
+                name: chapter_id
+                referencedColumnName: id
+
+

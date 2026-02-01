@@ -1,0 +1,28 @@
+Elearning\CoursesBundle\Entity\CourseFaq:
+    type: entity
+    table: crs_course_faq
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        course_id:
+            type: integer
+            nullable: false
+        question:
+            type: text
+            nullable: false
+        answer:
+            type: text
+            nullable: false
+        createdtime:
+            type: datetime
+            nullable: false
+    manyToOne:
+        course:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            joinColumn:
+                name: course_id
+                referencedColumnName: id

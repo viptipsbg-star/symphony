@@ -1,0 +1,581 @@
+{% extends "ElearningCoursesBundle:CourseLecturer:new_course_base.html.twig" %}
+
+{% block course_content %}
+<div class="row equal-height">
+        <div class="col-lg-3 chapters-col full-height-col">
+            <div class="chapters">
+                <h2><span>{{ "new_course.editor.chapters.list"|trans }}</span> <a href="#" class="new-chapter top-button">+</a></h2>
+                <div class="dd" id="chapters-list">
+                    <ul class="dd-list">
+                        {% for chapterin in chapters %}
+                        <li class="dd-item lesson curr" data-chapter-id="{{ chapterin.getId() }}" id="chapter_{{ chapterin.getId() }}" data-type="{{ chapterin.getType() }}">
+                            <div class="type-icon">
+                                {% if chapterin.getType() == "video" or chapterin.getType() == "video_files" %}
+                                <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                                {% elseif chapterin.getType() == "quiz" %}
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                {% elseif chapterin.getType() == "lesson" %}
+                                <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                                {% elseif chapterin.getType() == "exam" %}
+                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                {% elseif chapterin.getType() == "feedback" %}
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                {% elseif chapterin.getType() == "material" %}
+                                <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                                {% elseif chapterin.getType() == "slides" %}
+                                <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                                {% endif %}
+                            </div>
+                            <div class="ch_item loadChapter">
+                                <div class="dd-content">
+                                    <span class="title">{{ chapterin.getName() }}</span>
+                                </div>
+                            </div>
+                            <div class="rename">
+                                <a href="#" class="chapter-rename" title="{{ "new_course.editor.chapters.rename"|trans }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            </div>
+                            <div class="delete">
+                                <a href="#" class="chapter-delete" title="{{ "new_course.editor.chapters.delete"|trans }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            </div>
+                            <div class="dd-handle">
+                                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+                            </div>
+                            <form class="rename-form" style="display:none">
+                                <input type="text" name="name" value="{{ chapterin.getName() }}" onclick="focus(this);" />
+                                <input type="hidden" name="chapter_id" value="{{ chapterin.getId() }}" />
+                                <input type="submit" style="display:none" />
+                            </form>
+                            <div class="dirty-sign" {% if not chapterin.dirty %} style="display:none" {% endif %}>
+                                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <a href="#" class="btn btn-orange btn-block new-chapter">+ {{ "new_course.editor.chapters.new_chapter"|trans }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 editor-content">
+            <h1>{{ chapter.getName() }}</h1>
+            <div class="chapter-content">
+
+
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_video_chapter.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_video_files.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_lesson.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_quiz.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_exam.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_feedback.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_material.html.twig" %}
+                {% include "ElearningCoursesBundle:CourseLecturer:chapter_slides.html.twig" %}
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <a href="{{ step_3_path }}" class="btn btn-orange btn-block save-continue-button">
+            {{ "new_course.editor.save_continue"|trans }}
+        </a>
+    </div>
+</div>
+
+<div style="display:none" id="upload-preview-template">
+    <div class="dz-preview dz-file-preview">
+        <div class="dz-image">
+            <img data-dz-thumbnail class="preview" />
+        </div>
+        <div class="controls">
+            <a href="#" class="move move-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+            <a href="#" class="move move-right"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        </div>
+        <div class="dz-details">
+            <div class="dz-size" data-dz-size></div>
+            <div class="dz-filename"><span data-dz-name></span></div>
+        </div>
+
+        <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+        <div class="dz-success-mark"><span>✔</span></div>
+        <div class="dz-error-mark"><span>✘</span></div>
+        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="chapter-type-select-popup" class="inline-popup">
+        {{ form_start(chapterform) }}
+            <div class="form-group">
+                {{ form_label(chapterform.type) }}
+                {{ form_errors(chapterform.type) }}
+                {{ form_widget(chapterform.type, {attr: {'class': 'form-control'}} ) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(chapterform.name) }}
+                {{ form_errors(chapterform.name) }}
+                {{ form_widget(chapterform.name, {attr: {'class': 'form-control'}} ) }}
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-orange" value="{{ "new_course.editor.create"|trans }}" />
+            </div>
+            {{ form_widget(chapterform.course_id, {attr: {'value': course_id}} ) }}
+        {{ form_end(chapterform) }}
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="video-chapter-preview-popup" class="inline-popup">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="main-monitor">
+                    <div class="content"></div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="slide-monitor">
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="controls noselect">
+                    <div class="left-controls">
+                        <a href="#" class="control-btn control-btn-orange playpause">
+                            <span class="glyphicon glyphicon-play playico" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-pause pauseico" aria-hidden="true"></span>
+                        </a>
+                        <div class="control-btn time">
+                            <span class="minutes">00</span>:<span class="seconds">00</span>.<span class="millis">00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="lesson-chapter-preview-popup" class="inline-popup">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="display:none">
+    <div id="feedback-chapter-preview-popup" class="inline-popup">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="quiz-chapter-preview-popup" class="inline-popup">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content">
+                    <div class="quiz">
+                        <div class="questions">
+                            <div class="question-item">
+                                <h1 class="question"></h1>
+                                <div class="choices">
+                                    <div class="form-group choice">
+                                        <label>
+                                            <input type="radio" class="check" name="check" value="" /> <span class="text"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="correct" class="correct" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="btn btn-orange answer-quiz">{{ "new_course.editor.quiz.preview.answer"|trans }}</a>
+                        </div>
+                    </div>
+                    <div class="connect">
+                        <div class="choices">
+                            <div class="choice">
+                                <div class="first">
+                                    <div class="item">
+                                        <div class="text"></div>
+                                        <div class="image"><img src="" /></div>
+                                    </div>
+                                    <div class="handle"></div>
+                                </div>
+                                <div class="second">
+                                    <div class="handle"></div>
+                                    <div class="item">
+                                        <div class="text"></div>
+                                        <div class="image"><img src="" /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="btn btn-orange answer-connect">{{ "new_course.editor.quiz.preview.answer"|trans }}</a>
+                        </div>
+                    </div>
+                    <div class="result">
+                        <div class="correct alert alert-success" style="display:none">{{  "new_course.editor.quiz.preview.correct"|trans }}</div>
+                        <div class="incorrect alert alert-danger" style="display:none">{{ "new_course.editor.quiz.preview.incorrect"|trans }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+    {% stylesheets '../app/Resources/public/css/magnific-popup.css'
+    '../app/Resources/public/css/bootstrap-dialog.min.css'
+    '@font_awesome_css'
+    '@summernote_css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/public/css/*' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    {% javascripts '../app/Resources/public/js/jquery.magnific-popup.min.js'
+    '../app/Resources/public/js/summernote.min.js'
+    '../app/Resources/public/js/bootstrap-dialog.min.js'
+    '../app/Resources/public/js/dom.jsPlumb-1.7.6-min.js'
+    '../app/Resources/public/js/shuffle.js'
+    '../app/Resources/public/js/showmessage.js'
+    '../app/Resources/public/js/jquery-validate/jquery.validate.min.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% if app.request.locale != 'en' %}
+        <script src="{{ asset('assetic/jquery-validate/localization/messages_'~app.request.locale~'.js') }}"></script>
+    {% endif %}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+    {% javascripts '@ElearningCoursesBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!-- common js -->
+    <script>
+        var current_chapter_id = {{ chapter_id ? chapter_id : "null" }};
+        var current_course_id = {{ course_id }};
+        var current_chapter_edited = false;
+        var translations = {
+            "new_course.editor.upload.drop_here": "{{ "new_course.editor.upload.drop_here"|trans }}",
+            "new_course.editor.upload.remove": "{{ "new_course.editor.upload.remove"|trans }}",
+            "new_course.editor.upload.invalid_file_type": "{{ "new_course.editor.upload.invalid_file_type"|trans }}",
+            "new_course.editor.error": "{{ "new_course.editor.error"|trans }}",
+            "new_course.editor.ok": '{{ "new_course.editor.ok"|trans }}',
+            "new_course.editor.successfully_saved": '{{ "new_course.editor.successfully_saved"|trans }}',
+            "new_course.editor.unsaved_changes": '{{ "new_course.editor.unsaved_changes"|trans }}',
+            "new_course.editor.upload.error": '{{ "new_course.editor.upload.error"|trans }}',
+            "new_course.editor.material.preview": '{{ "new_course.editor.material.preview"|trans }}',
+            "new_course.editor.material.fill_all_fields": '{{ "new_course.editor.material.fill_all_fields"|trans }}'
+        };
+
+        function markCurrentChapterDirty() {
+            if (current_chapter_edited) {
+                return;
+            }
+            current_chapter_edited = true;
+            $.ajax({
+                url: Routing.generate("elearning_courses_chapter_mark_dirty"),
+                data: {
+                    chapter_id: current_chapter_id
+                },
+                method: 'post',
+                success: function(response) {
+                    if (response.success) {
+                        $('#chapters-list .dd-list .dd-item[data-chapter-id='+current_chapter_id+'] .dirty-sign').show();
+                    }
+                }
+            });
+        }
+    </script>
+
+    {% javascripts '@ElearningCoursesBundle/Resources/public/js/lecturer/*' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!-- Common for all chapters JS - START -->
+    <script>
+        window.onbeforeunload = function() {
+            if (current_chapter_edited) {
+                return translations['new_course.editor.unsaved_changes'];
+            }
+        };
+        $(function () {
+            /* Chapter load */
+            $('#chapters-list').on('click', '.loadChapter', function (e) {
+                e.preventDefault();
+                result = window.onbeforeunload();
+                if (result && !confirm(result)) {
+                    return false;
+                }
+                current_chapter_edited = false;
+                var chapter_id = $(this).parents('.dd-item').data('chapter-id');
+                var type = $(this).parents('.dd-item').data('type');
+                $('.editor-content > h1').html($(this).find('.title').html());
+                current_chapter_id = chapter_id;
+                $('.chapter-content > *').hide();
+                if (type == "video") {
+                    loadVideoFiles(chapter_id, 'instructor');
+                    loadVideoFiles(chapter_id, 'slide');
+                    editorplayer.clear();
+                    editorplayer.reset();
+                    $('.video-chapter .video-sync').hide();
+                    $('.video-chapter .file-uploads').show();
+                    $('.video-chapter .change-step .open-uploads').hide();
+                    $('.video-chapter .change-step .open-sync').show();
+                }
+                else if (type == "video_files") {
+                    loadVideoFilesType(chapter_id, 'instructor');
+                    loadVideoFilesType(chapter_id, 'webm');
+                    loadVideoFilesType(chapter_id, 'mobile');
+                }
+                else if (type == "lesson") {
+                    loadLesson(chapter_id);
+                }
+                else if (type == "quiz") {
+                    loadQuiz(chapter_id);
+                }
+                else if (type == "exam") {
+                    loadExam(chapter_id);
+                }
+                else if (type == "feedback") {
+                    loadFeedback(chapter_id);
+                }
+                else if (type == "material") {
+                    loadMaterial(chapter_id);
+                }
+                else if (type == "slides") {
+                    loadSlidesChapterFiles(chapter_id);
+                }
+            });
+
+            $('#chapters-list').on('click', '.chapter-rename', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var chapter_item = $(this).parents('.dd-item');
+                var chapter_id = chapter_item.data('chapter-id');
+                chapter_item.find('.rename-form').show();
+            });
+
+            $('#chapters-list').on('submit', '.rename-form', function (e) {
+                e.preventDefault();
+                var chapter_item = $(this).parents('.dd-item');
+                var newname = chapter_item.find('.rename-form input[type=text]').val();
+                console.log($(this).serialize());
+                $.ajax({
+                    url: "{{ path('elearning_course_rename_chapter') }}",
+                    data: $(this).serialize(),
+                    method: 'post',
+                    success: function (response) {
+                        if (response.success) {
+                            showmessage("{{ "new_course.editor.chapters.rename_success"|trans }}", 'success');
+                            chapter_item.find('.rename-form').hide();
+                            chapter_item.find('.dd-content .title').html(newname);
+                        }
+                    }
+                });
+            });
+
+            $('#chapters-list').on('click', '.chapter-delete', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (confirm('{{ "reports.attendance.confirm"|trans }}')) {
+                    var chapter_item = $(this).parents('.dd-item');
+                    var chapter_id = chapter_item.data('chapter-id');
+                    $.ajax({
+                        url: "{{ path('elearning_course_delete_chapter') }}",
+                        data: {
+                            chapter_id: chapter_id
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                chapter_item.remove();
+                            }
+                        }
+                    });
+                }
+            });
+
+            /* Chapters reordering */
+            $('#chapters-list .dd-list').sortable({
+                handle: ".dd-handle",
+                update: function (event, ui) {
+                    var data = $('#chapters-list .dd-list').sortable('serialize');
+                    data += "&course_id=" + current_course_id;
+                    $.ajax({
+                        url: "{{ path('elearning_courses_chapter_change_order') }}",
+                        data: data,
+                        method: "POST",
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    });
+                }
+            });
+            $('#chapters-list .dd-list').disableSelection();
+
+
+            $('.new-chapter').on('click', function (e) {
+                e.preventDefault();
+                $('#chapter-type-select-popup select#chapter_type').val("video_files");
+                $('#chapter-type-select-popup input#chapter_name').val("");
+                $.magnificPopup.open({
+                    items: {
+                        src: "#chapter-type-select-popup",
+                        type: "inline"
+                    }
+                });
+            });
+
+            /* New chapter creation */
+            $('#chapter-type-select-popup form').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+                var type = form.find('select#chapter_type').val();
+                if (type == "exam") {
+                    var examscount = $('#chapters-list .dd-item[data-type="exam"]').length;
+                    if (examscount > 0) {
+                        showmessage("{{ "new_course.editor.exam_already_created"|trans }}", 'danger');
+                        return false;
+                    }
+                }
+
+                $.ajax({
+                    url: "{{ path("elearning_courses_create_chapter") }}",
+                    method: "post",
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            var chapter = response.chapter;
+                            var chapter_icon = "";
+                            if (chapter.type == "video" || chapter.type == "video_files") {
+                                chapter_icon = "film";
+                            }
+                            else if (chapter.type == 'quiz') {
+                                chapter_icon = "question-sign";
+                            }
+                            else if (chapter.type == "lesson") {
+                                chapter_icon = "book";
+                            }
+                            else if (chapter.type == "exam") {
+                                chapter_icon = "th-list";
+                            }
+                            else if (chapter.type == "feedback") {
+                                chapter_icon = "star";
+                            }
+                            else if (chapter.type == "material") {
+                                chapter_icon = "duplicate";
+                            }
+                            else if (chapter.type == "slides") {
+                                chapter_icon = "th-large";
+                            }
+                            var chapter_item =
+                                    '<li class="dd-item lesson curr" data-chapter-id="' + chapter.id + '" id="chapter_' + chapter.id + '" data-type="' + chapter.type + '">' +
+                                    '<div class="type-icon">' +
+                                    '<span class="glyphicon glyphicon-' + chapter_icon + '" aria-hidden="true"></span>' +
+                                    '</div>' +
+                                    '<div class="ch_item loadChapter">' +
+                                    '<div class="dd-content">' +
+                                    '<span class="title">' + chapter.name + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="rename">' +
+                                    '<a href="#" class="chapter-rename" title="{{ "new_course.editor.chapters.rename"|trans }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>' +
+                                    '</div>' +
+                                    '<div class="delete">' +
+                                    '<a href="#" class="chapter-delete" title="{{ "new_course.editor.chapters.delete"|trans }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>' +
+                                    '</div>' +
+                                    '<div class="dd-handle">' +
+                                    '<span class="glyphicon glyphicon-move" aria-hidden="true"></span>' +
+                                    '</div>' +
+                                    '<form class="rename-form" style="display:none">'+
+                                    '<input type="text" name="name" value="'+ chapter.name +'" />'+
+                                    '<input type="hidden" name="chapter_id" value="'+ chapter.id +'" />'+
+                                    '<input type="submit" style="display:none" />'+
+                                    '</form>'+
+                                    '<div class="dirty-sign">'+
+                                    '<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>'+
+                                    '</div>'+
+                                    '</li>';
+                            $('#chapters-list .dd-list').append(chapter_item);
+                            $.magnificPopup.close();
+                        }
+                    }
+                });
+            });
+
+
+            {% if chapter.getType() == "video" %}
+            loadVideoFiles(current_chapter_id, 'instructor');
+            loadVideoFiles(current_chapter_id, 'slide');
+            {% endif %}
+
+            {% if chapter.getType() == "video_files" %}
+            loadVideoFilesType(current_chapter_id, 'instructor');
+            loadVideoFilesType(current_chapter_id, 'webm');
+            loadVideoFilesType(current_chapter_id, 'mobile');
+            {% endif %}
+
+            {% if chapter.getType() == "lesson" %}
+            loadLesson(current_chapter_id);
+            {% endif %}
+
+            {% if chapter.getType() == "quiz" %}
+            loadQuiz(current_chapter_id);
+            {% endif %}
+
+            {% if chapter.getType() == "exam" %}
+            loadExam(current_chapter_id);
+            {% endif %}
+
+            {% if chapter.getType() == "feedback" %}
+            loadFeedback(current_chapter_id);
+            {% endif %}
+
+            {% if chapter.getType() == "material" %}
+            loadMaterial(current_chapter_id);
+            {% endif %}
+
+            {% if chapter.getType() == "slides" %}
+            loadSlidesChapterFiles(current_chapter_id);
+            {% endif %}
+
+
+        });
+    </script>
+    <!-- Common for all chapters JS - END -->
+{% endblock %}

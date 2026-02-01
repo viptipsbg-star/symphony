@@ -1,0 +1,57 @@
+{% extends "bodybase.html.twig" %}
+
+
+{% block bodycontainer %}
+<h1>{{ "feedbacks.title"|trans }}</h1>
+<div class="content-container">
+    <div class="body-panel">
+        {% if feedbacks is empty or feedbacks|length == 0 %}
+        <div class="empty-message">
+            <h3>{{ "feedbacks.no_feedbacks"|trans }}</h3>
+        </div>
+        {% else %}
+        <div class="feedbacks-list">
+            <a href="{{ path("elearning_courses_feedbacks_list", {'course_id': course.id, 'view': 'xlsx'}) }}" class="btn btn-orange">{{ "reports.attendance.export_excell"|trans }}</a>
+            <div class="feedbacks">
+                {% for feedback in feedbacks %}
+                    <div class="feedback-item">
+                        <div class="author">
+                            {{ feedback.courseListen.user.employee.getFieldValue('name') }} {{ feedback.courseListen.user.employee.getFieldValue('surname') }}
+                        </div>
+                        {% for question in feedback.feedback.data %}
+                            <div class="question-item">
+                                <div class="question">{{ question.fieldname }}</div>
+                                <div class="answer">
+                                    {% if question.type == "text" %}
+                                        {{ feedback.data[loop.index - 1] }}
+                                    {% elseif question.type == "select" %}
+                                        {% for choice in feedback.data[loop.index - 1] %}
+                                            <div class="choice">
+                                                <input type="checkbox" class="custom-checkbox" checked disabled />
+                                                <label>{{ choice }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="pagination">
+                {{ knp_pagination_render(feedbacks) }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

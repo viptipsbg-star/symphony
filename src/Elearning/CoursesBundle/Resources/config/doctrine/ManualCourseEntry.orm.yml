@@ -1,0 +1,25 @@
+Elearning\CoursesBundle\Entity\ManualCourseEntry:
+    type: entity
+    table: crs_manual_courses
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        employee_id:
+            type: integer
+            nullable: false
+        hours:
+            type: integer
+            nullable: false
+        updatetime:
+            type: datetime
+            nullable: false
+    manyToOne:
+        employee:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            joinColumn:
+                name: employee_id
+                referencedColumnName: id

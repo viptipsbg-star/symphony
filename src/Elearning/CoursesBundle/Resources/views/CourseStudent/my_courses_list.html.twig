@@ -1,0 +1,145 @@
+{% extends "bodybase.html.twig" %}
+
+
+{% block bodycontainer %}
+    <h1>{{ "student_courses.my_courses.title"|trans }}</h1>
+    <div class="content-container nobg">
+        <div class="body-panel">
+            {% if courses is empty %}
+                <div class="no-courses-message">
+                    <h3>{{ "student_courses.no_courses"|trans }}</h3>
+                </div>
+            {% else %}
+                <div class="list-cols course-cols">
+                    {% if categoriesMainPage %}
+                        <h3>{{ 'categories.title' | trans }}</h3>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="course-item text-center">
+                                    <div class="image-container">
+                                        <div class="image">
+                                            <a href="{{ path("elearning_my_courses_list_student", {'category_id': 'all'}) }}">
+                                                {% image '@ElearningCoursesBundle/Resources/public/images/folder.png' %}
+                                                    <img src="{{ asset_url }}" class="course-image" />
+                                                {% endimage %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        <span class="title">{{ 'course_list.filter.all' | trans }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for category in categoriesMainPage %}
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="course-item text-center">
+                                        <div class="image-container">
+                                            <div class="image">
+                                                <a href="{{ path("elearning_my_courses_list_student", {'category_id': category.id}) }}">
+                                                    {% image '@ElearningCoursesBundle/Resources/public/images/folder.png' %}
+                                                        <img src="{{ asset_url }}" class="course-image" />
+                                                    {% endimage %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <span class="title">{{ category.name }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if groupCourses and categoriesMainPage %}
+                        <h3>{{ 'course_list.title' | trans }}</h3>
+                    {% endif %}
+                    <div class="row">
+                        {% for course in courses %}
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="course-item">
+                                    {% if course.id in questionsnotifications|keys %}
+                                    <div class="question-sign"
+                                         title="{{ "student_courses.available_courses.course_questions_notice"|trans }}">
+                                            <span class="glyphicon glyphicon-exclamation-sign"
+                                                  aria-hidden="true"></span>
+                                    </div>
+                                    {% endif %}
+                                    <div class="image-container">
+
+                                        <div class="category">
+                                            {% if course.showCategory %}
+                                                {% if course.id in categoriesHierarchy|keys %}
+                                                    <span class="subcategories">
+                                                        {% for categoryname in categoriesHierarchy[course.id] %}
+                                                            {{ categoryname }}
+                                                            {% if not loop.last %}
+                                                                <span class="separator"></span>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </span>
+                                                {% endif %}
+                                                <span class="maincategory">{{ course.category.name }}</span>
+                                            {% endif %}
+                                            {% if course.showActiveDateTo %}
+                                                <span class="additional-info">
+                                                    {{ "student_courses.course_info.active_date_to"|trans }}:
+                                                    {{ course.activeDateTo ?
+                                                        course.activeDateTo|date('Y-m-d') :
+                                                        "student_courses.course_info.always_active"|trans
+                                                    }}
+                                                </span>
+                                            {% endif %}
+                                            {% if course.showExamsCount and coursesExams[course.id] is defined %}
+                                                <span class="additional-info">
+                                                    {{ "student_courses.course_info.exam_count"|trans }}:
+                                                    {{ coursesExams[course.id].passed_cnt }}
+                                                    {{ "common.from"|trans }}
+                                                    {{ coursesExams[course.id].exams_cnt }}
+                                                </span>
+                                            {% endif %}
+                                            {% if course.showCertificateNeeded %}
+                                                <span class="additional-info">
+                                                    {{ "student_courses.course_info.certificate_needed"|trans }}:
+                                                    {{ course.certificateNeeded ? "common.yes"|trans : "common.no"|trans }}
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="image">
+                                            <a href="{{ path("elearning_course_general_info", {'id':course.id}) }}"><img src="{{ course.getWebPath() }}" class="course-image"/></a>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        <span class="title">{{ course.name }}</span>
+                                        <span class="content">{{ course.description|striptags|length > 90 ? course.description|striptags|slice(0, 90) ~ '...' : course.description|striptags }}</span>
+                                    </div>
+                                    <div class="bottom-info">
+                                        <div class="duration">
+                                            <span class="time">{{ course.duration }} {{ "student_courses.my_courses.duration_unit"|trans }}.</span>
+                                        </div>
+                                        <div class="start-container">
+                                            <a href="{{ path("elearning_course_general_info", {'id':course.id}) }}"
+                                               class="btn btn-orange">{{ "student_courses.my_courses.course_info"|trans }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="pagination">
+                        {{ knp_pagination_render(courses) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width">
+        <title>{% block title %}{{ company_info.front_page.header }}{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+        {% stylesheets
+        '../app/Resources/less/style.less'
+        '../app/Resources/less/responsive.less' %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body class="{% block bodyclass %}{% endblock %}">
+        <div class="pagemain">
+        {% block header %}
+            <header>
+                <div class="navbar navbar-orange navbar-static-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="{{ path('elearning_main_homepage') }}">
+                                {% for image in company_info.logo_images %}
+                                    <img src="{{ asset('images/'~image) }}"/>
+                                {% endfor %}
+                                {% if company_info.menu_header is defined %}
+                                    {{ company_info.menu_header }}
+                                {% else %}
+                                    {{ "header.logo_title"|trans }}
+                                {% endif %}
+                            </a>
+
+                            <button type="button" class="navbar-toggle"
+                                    data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            {% if locales is defined and locales | length > 1 %}
+                                <div class="languages">
+                                    {% for locale in locales %}
+                                        <a href="{{ path("elearning_main_homepage", {"_locale": locale}) }}">
+                                            <img src="{{ asset("images/flags/flag_"~locale~".png") }}" />
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ knp_menu_render('main') }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div id="footer-copyright" class="col-sm-6">
+                            &copy; {{ company_info.footer.copyright }}
+                        </div>
+                        <div id="footer-solution" class="col-sm-6">
+                            {{ company_info.footer.title }}: <a href="{{ company_info.footer.url }}">{{ "footer.solution"|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

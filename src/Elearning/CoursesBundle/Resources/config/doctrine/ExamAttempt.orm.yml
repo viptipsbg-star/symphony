@@ -1,0 +1,47 @@
+Elearning\CoursesBundle\Entity\ExamAttempt:
+    type: entity
+    table: crs_exam_attempts
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        listening_id:
+            type: integer
+            nullable: false
+        exam_id:
+            type: integer
+            nullable: false
+        result:
+            type: integer
+            nullable: true
+        passed:
+            type: boolean
+            nullable: true
+        starttime:
+            type: datetime
+            nullable: true
+        endtime:
+            type: datetime
+            nullable: true
+        spent_time:
+            type: integer
+            nullable: true
+    manyToOne:
+        courseListen:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseListening
+            joinColumn:
+                name: listening_id
+                referencedColumnName: id
+        exam:
+            targetEntity: Elearning\CoursesBundle\Entity\Exam
+            joinColumn:
+                name: exam_id
+                referencedColumnName: id
+    oneToMany:
+        answers:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamAttemptAnswer
+            mappedBy: attempt
+            cascade: [remove]

@@ -1,0 +1,128 @@
+# Group
+group:
+    edit:
+        submit: Update group
+    show:
+        name: Group name
+    new:
+        submit: Create group
+    flash:
+        updated: Group was updated
+        created: Group was created
+        deleted: Group was deleted
+
+# Security
+"Bad credentials.": Incorrect user name or password
+"Your session has timed out, or you have disabled cookies.": Your session has timed out, or you have disabled cookies
+"Invalid CSRF token.": Invalid CSRF key
+
+credentials:
+    title: Update information
+    email: "Email address:"
+    new_password: "Password:"
+    new_password_confirmation: "Confirm password:"
+    submit: Update
+
+
+security:
+    login:
+        username: "Username"
+        email: "Email address"
+        password: "Password"
+        remember_me: Remember me
+        submit: SUBMIT
+        remind_password: REMIND PASSWORD
+        panel_heading: LOG IN
+
+# Profile
+profile:
+    show:
+        username: Username
+        email: Email address
+    edit:
+        submit: Update
+    flash:
+        updated: Profile was updated
+
+# Password change
+change_password:
+    title: Change password
+    submit: Change password
+    flash:
+        success: Password changed
+
+# Registration
+registration:
+    check_email: Check your email %email%. Jame rasite nuorodą kurią aplankę aktyvuosite savo paskyrą.
+    confirmed: Hello %username%, your account was activated.
+    back: Back to previous page.
+    submit: Register
+    flash:
+        user_created: User created successfully
+    email:
+        subject: Hello %username%!
+        message: |
+            Hello %username%!
+
+            To activate your account – please press %confirmationUrl%
+
+            Best regards,
+            Team.
+
+    user_add_email:
+        subject: Jums sukurtas naudotojas emokymų sistemoje
+        message: |
+            Hello,
+
+            Jums buvo sukurtas naudotojas emokymų sistemoje.
+            Connection data:
+            Username: %username%
+            Pasword: %password%
+
+            We recommend to change your password.
+
+            Best regards,
+            Team.
+
+
+# Password resetting
+resetting:
+    password_already_requested: Slaptažodis šitam naudotojui jau buvo prašytas pakeisti per pastarąsias 24 valandas.
+    check_email: Letter was sent to your email %email%. Jame rasite nuorodą kurią paspaudus galėsite pakeisti savo slaptažodį.
+    request:
+        invalid_username: Invalid Email address "%username%".
+        username: "Email:"
+        submit: Set password
+    reset:
+        submit: Change password
+    flash:
+        success: Password changed successfully
+    email:
+        subject: Set password
+        message: |
+            Hello %username%!
+
+            To change your password – please click %confirmationUrl%
+
+            Best regards,
+            Team.
+    title: Pasword reminder
+
+# Global strings
+layout:
+    logout: Log out
+    login: Log in
+    register: Register
+    logged_in_as: Logged in as %username%
+
+# Form field labels
+form:
+    group_name: "Group name:"
+    username: "Username:"
+    email: "Email:"
+    current_password: "Current password:"
+    password: "Password:"
+    password_confirmation: "Confirm:"
+    new_password: "New password:"
+    new_password_confirmation: "Confirm:"
+    birthday: "Birth date"

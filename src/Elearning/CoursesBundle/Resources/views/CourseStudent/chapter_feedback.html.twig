@@ -1,0 +1,83 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+{% block chaptercontent %}
+<div class="student-feedback">
+    <form action="{{ path("elearning_courses_save_feedback_answers") }}" method="post">
+        <p>{{ "student_courses.course_listen.feedback.note_before"|trans }}</p>
+        <div class="questions">
+            {% for question in feedback.getData() %}
+            {% set question_index = loop.index %}
+            <div class="form-group">
+                <label>
+                    {{ question.fieldname }}
+                </label>
+                {% if (question.type == "text") %}
+                <textarea class="form-control" name="answers[{{ question_index - 1 }}]"></textarea>
+                {% elseif (question.type == "select") %}
+                    {% for choice in question.choices %}
+                        {% set choice_index = loop.index %}
+                        <div class="choice">
+                            <input type="checkbox" class="custom-checkbox"  name="answers[{{ question_index - 1 }}][]"
+                                   id="choice_{{ question_index }}_{{ choice_index }}" value="{{ choice }}"/>
+                            <label for="choice_{{ question_index }}_{{ choice_index }}">{{ choice }}</label>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="submit-container">
+            <input type="submit" class="btn btn-orange" value="{{ "student_courses.course_listen.feedback.answer"|trans }}" />
+        </div>
+        <input type="hidden" name="chapter_id" value="{{ currentchapter.id }}" />
+        <input type="hidden" name="listen_id" value="{{ listening.id }}" />
+    </form>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% javascripts
+    '../app/Resources/public/js/jquery.magnific-popup.min.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+jQuery(document).ready(function($){
+    $('.student-quiz-test form').submit(function(e){
+        e.preventDefault();
+        var correct = true;
+        $('.student-quiz-test .questions .answers input').each(function(){
+            if ($(this).is(":checked") && $(this).data('correct') != 1 ||
+                !$(this).is(":checked") && $(this).data('correct') == 1) {
+                correct = false;
+                return false;
+            }
+        });
+        if (correct) {
+            $.magnificPopup.open({
+                items: {
+                    src: ".correct-answer-popup",
+                    type: "inline"
+                }
+            });
+        }
+        else {
+            $.magnificPopup.open({
+                items: {
+                    src: ".wrong-answer-popup",
+                    type: "inline"
+                }
+            });
+        }
+
+    });
+    $('.popup-close').on('click', function(e) {
+        e.preventDefault();
+        $.magnificPopup.close();
+    });
+});
+</script>
+
+{% endblock %}

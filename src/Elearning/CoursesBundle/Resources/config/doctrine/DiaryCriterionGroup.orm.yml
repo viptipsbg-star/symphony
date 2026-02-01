@@ -1,0 +1,30 @@
+Elearning\CoursesBundle\Entity\DiaryCriterionGroup:
+    type: entity
+    table: diary_criterion_groups
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        text:
+            type: string
+            nullable: false
+        description:
+            type: string
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    oneToMany:
+        criteria:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryCriterion
+            mappedBy: criterion_group
+            joinColumn:
+                name: id
+                referencedColumnName: criterion_group_id

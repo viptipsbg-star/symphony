@@ -1,0 +1,97 @@
+elearning_companies_groups:
+    path:     /groups/{group_id}
+    defaults: { _controller: ElearningCompaniesBundle:Groups:groups, group_id: 0 }
+    requirements:
+        group_id: \d+
+
+elearning_companies_add_new_group:
+    path:     /groups/new
+    defaults: { _controller: ElearningCompaniesBundle:Groups:new }
+
+elearning_companies_delete_group:
+    path:     /groups/delete
+    defaults: { _controller: ElearningCompaniesBundle:Groups:delete }
+
+elearning_companies_create_group:
+    path:     /groups/create
+    defaults: { _controller: ElearningCompaniesBundle:Groups:create }
+
+elearning_companies_group_title_update:
+    path:     /groups/update_title
+    defaults: { _controller: ElearningCompaniesBundle:Groups:groupTitleUpdate }
+    methods: [POST]
+
+elearning_companies_add_employee:
+    path:     /employees/new
+    defaults: { _controller: ElearningCompaniesBundle:Employees:create }
+
+elearning_companies_add_to_group:
+    path:     /employees/add-to-group
+    defaults: { _controller: ElearningCompaniesBundle:Employees:addToGroup }
+
+elearning_companies_remove_from_group:
+    path:     /employees/remove-from-group
+    defaults: { _controller: ElearningCompaniesBundle:Employees:removeFromGroup }
+
+elearning_companies_assign_course:
+    path:     /employees/assign-course
+    defaults: { _controller: ElearningCompaniesBundle:Groups:assignCourse }
+
+elearning_companies_cancel_course:
+    path:     /employees/cancel-course
+    defaults: { _controller: ElearningCompaniesBundle:Groups:cancelCourse }
+
+elearning_companies_import_employees:
+    path:     /employees/import
+    defaults: { _controller: ElearningCompaniesBundle:Employees:import }
+
+elearning_companies_upload_employees:
+    path:     /employees/upload
+    defaults: { _controller: ElearningCompaniesBundle:Employees:upload }
+
+elearning_companies_employees_list:
+    path:     /employees
+    defaults: { _controller: ElearningCompaniesBundle:Employees:list }
+
+elearning_companies_employees_get_employee:
+    path:     /employee/{employee_id}
+    defaults: { _controller: ElearningCompaniesBundle:Employees:get }
+    methods: [GET]
+    options:
+        expose: true
+    requirements:
+        employee_id: \d+
+
+elearning_companies_employees_update_employee:
+    path:     /employee/{employee_id}
+    defaults: { _controller: ElearningCompaniesBundle:Employees:update }
+    methods: [POST]
+    options:
+        expose: true
+    requirements:
+        employee_id: \d+
+
+elearning_companies_employees_delete_employee:
+    path:     /employee/delete/{employee_id}
+    defaults: { _controller: ElearningCompaniesBundle:Employees:delete }
+    methods: [POST]
+    options:
+        expose: true
+    requirements:
+        employee_id: \d+
+
+
+elearning_companies_employees_change_password:
+    path:     /employee/change-password
+    defaults: { _controller: ElearningCompaniesBundle:Employees:changePassword }
+    methods: [POST]
+
+elearning_companies_employees_send_email:
+    path:     /employee/send-email
+    defaults: { _controller: ElearningCompaniesBundle:Employees:sendEmail }
+    methods: [POST]
+
+elearning_companies_groups_send_email:
+    path:     /groups/send-email
+    defaults: { _controller: ElearningCompaniesBundle:Groups:sendEmail }
+    methods: [POST]

@@ -1,0 +1,69 @@
+<!-- VIDEO FILES CHAPTER TYPE - START -->
+<div class="video-files" style="display:none">
+    <div class="file-uploads">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-upload-panel">
+                    <div class="heading">{{ "new_course.editor.upload.mp4_full" | trans }}</div>
+                    <div class="panel-body">
+                        <form action="{{ path('elearning_courses_upload_file') }}" class="dropzone" id="video-full-upload">
+                            <div class="file-items">
+                                <div class="files-list dropzone-previews">
+                                </div>
+                                <div class="dz-message">{{ "new_course.editor.upload.drop_here"|trans }}</div>
+                            </div>
+                            <div class="fallback">
+                                <input type="file" name="file"/>
+                            </div>
+                            <input type="hidden" name="type" value="instructor" />
+                            <input type="hidden" name="chapter_id" value="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-upload-panel">
+                    <div class="heading">{{ "new_course.editor.upload.webm_full" | trans }}</div>
+                    <div class="panel-body">
+                        <form action="{{ path('elearning_courses_upload_file') }}" class="dropzone" id="video-webm-upload">
+                            <div class="file-items">
+                                <div class="files-list dropzone-previews">
+                                </div>
+                                <div class="dz-message">{{ "new_course.editor.upload.drop_here"|trans }}</div>
+                            </div>
+                            <div class="fallback">
+                                <input type="file" name="file"/>
+                            </div>
+                            <input type="hidden" name="type" value="webm" />
+                            <input type="hidden" name="chapter_id" value="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="file-upload-panel">
+                    <div class="heading">{{ "new_course.editor.upload.mp4_mobile" | trans }}</div>
+                    <div class="panel-body">
+                            <form action="{{ path('elearning_courses_upload_file') }}" class="dropzone" id="video-mobile-upload">
+                            <div class="file-items">
+                                <div class="files-list dropzone-previews">
+                                </div>
+                                <div class="dz-message">{{ "new_course.editor.upload.drop_here"|trans }}</div>
+                            </div>
+                            <div class="fallback">
+                                <input type="file" name="file"/>
+                            </div>
+                            <input type="hidden" name="type" value="mobile" />
+                            <input type="hidden" name="chapter_id" value="" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- VIDEO FILES CHAPTER TYPE - END -->

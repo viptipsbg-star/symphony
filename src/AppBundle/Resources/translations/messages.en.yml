@@ -1,0 +1,25 @@
+menu:
+    home: Homepage
+    materials: Mokymų medžiaga
+    vl_material_1: Besimokančiųjų laiškai
+    vl_material_2: Užsiėmimų aprašymai
+    course: Courses
+    new_course: New course
+    course_list: Course list
+    categories: Categories
+    reports: Reports
+    my_courses: My courses
+    available_courses: Available courses
+    students: Students
+    groups: Groups
+    employees: Employees
+    import: Import
+    report:
+        course_listening: Course listening
+        course: Course
+        attendance: Attendance
+        my_diary: Gradebook
+    profile: Profile
+    change_password: Change password
+    logout: Logout
+

@@ -1,0 +1,243 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: app.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@ElearningCoursesBundle/Resources/config/admin.yml" }
+    - { resource: "@ElearningCompaniesBundle/Resources/config/admin.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    #    locale: en
+    sonata.user.admin.user.class: Elearning\UserBundle\Admin\Model\UserAdmin
+
+framework:
+    #esi:             ~
+    translator: { fallbacks: ["en"] }
+    secret: "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ["twig"]
+        #assets_version: SomeVersionScheme
+    default_locale: "%locale%"
+    trusted_hosts: ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id: ~
+    fragments: ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    globals:
+        company_info: "%company_info%"
+        locales: "%localization.locales%"
+
+# Assetic Configuration
+assetic:
+    debug: "%kernel.debug%"
+    use_controller: false
+    bundles:
+        [
+            ElearningCoursesBundle,
+            ElearningCompaniesBundle,
+            FOSUserBundle,
+            ElearningUserBundle,
+            ElearningMainBundle,
+            SonataAdminBundle,
+            SonataCoreBundle,
+            SonataUserBundle,
+        ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite:
+            apply_to: '\.css$'
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+        lessphp:
+            apply_to: '\.less$'
+            # Formatter options: compressed, lessjs, classic
+            formatter: "compressed"
+            preserver_comments: false
+        #less:
+        #    node: /usr/bin/node
+        #    node_paths: [/usr/local/lib/node_modules]
+    assets:
+        bootstrap_js:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/js/bootstrap.js"
+        bootstrap_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap.css"
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css"
+            filters: [cssrewrite]
+
+        bootstrap_glyphicons_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf"
+            output: "fonts/glyphicons-halflings-regular.ttf"
+        bootstrap_glyphicons_eot:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.eot"
+            output: "fonts/glyphicons-halflings-regular.eot"
+        bootstrap_glyphicons_svg:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.svg"
+            output: "fonts/glyphicons-halflings-regular.svg"
+        bootstrap_glyphicons_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff"
+            output: "fonts/glyphicons-halflings-regular.woff"
+        bootstrap_glyphicons_woff2:
+            inputs:
+                - "%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2"
+            output: "fonts/glyphicons-halflings-regular.woff2"
+
+        jquery:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
+
+        font_awesome_css:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/css/font-awesome.min.css"
+            filters: [cssrewrite]
+        font_awesome_ttf:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf"
+            output: "fonts/fontawesome-webfont.ttf"
+        font_awesome_woff:
+            inputs:
+                - "%kernel.root_dir%/../vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff"
+            output: "fonts/fontawesome-webfont.woff"
+        summernote_css:
+            inputs:
+                - "%kernel.root_dir%/Resources/public/css/summernote.css"
+            filters: [cssrewrite]
+
+#        app_resources_img:
+#            inputs:
+#                - %kernel.root_dir%/../app/Resources/public/images/logo.png
+#            output: "images/logo.png"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: "%database_host%"
+        port: "%database_port%"
+        dbname: "%database_name%"
+        user: "%database_user%"
+        password: "%database_password%"
+        charset: UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: true
+                mappings:
+                    gedmo_tree:
+                        type: yml
+                        prefix: Gedmo\Tree\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                        alias: GedmoTree
+                        is_bundle: false
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host: "%mailer_host%"
+    username: "%mailer_user%"
+    password: "%mailer_password%"
+    encryption: "%mailer_encryption%"
+    auth_mode: "%mailer_auth_mode%"
+    spool: { type: memory }
+
+sonata_user:
+    security_acl: true
+    manager_type: orm
+    class:
+        user: Elearning\UserBundle\Entity\User
+        group: Elearning\UserBundle\Entity\Group
+
+    profile: # Profile Form (firstname, lastname, etc ...)
+#        form:
+#            type: elearning_user_profile
+#            handler: sonata.user.profile.form.handler.default
+#            name: sonata_user_profile_form
+#            validation_groups: [Profile]
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+        sonata.user.block.menu: # used to display the menu in profile pages
+        sonata.block.service.text:
+        # Your other blocks
+        elearning.user.block.login:
+
+fos_user:
+    db_driver: orm # can be orm or odm
+    firewall_name: main
+    user_class: Elearning\UserBundle\Entity\User
+
+    group:
+        group_class: Elearning\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+    from_email: "%mailer_from_email%"
+
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: AppBundle:Menu:knp_menu.html.twig
+
+knp_paginator:
+    page_range: 5 # default page range used in pagination control
+    default_options:
+        page_name: page # page query parameter name
+        sort_field_name: sort # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: AppBundle:Pagination:pagination.html.twig
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+jms_i18n_routing:
+    default_locale: "%localization.default_locale%"
+    locales: "%localization.locales%"
+    strategy: prefix_except_default
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            tree: true
+            timestampable: false

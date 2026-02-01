@@ -1,0 +1,22 @@
+Elearning\CompaniesBundle\Entity\Company:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: text
+            length: 255
+            nullable: false
+
+    oneToMany:
+        employees:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            mappedBy: company
+        groups:
+            targetEntity: Elearning\CompaniesBundle\Entity\Group
+            mappedBy: company

@@ -1,0 +1,675 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <div class="employees-page">
+        <h1>
+            {{ "employees.list.title"|trans }}
+        </h1>
+
+        <div class="content-container">
+            <div class="body-panel employees-list">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#list-employees" aria-controls="list-employees"
+                                                              role="tab"
+                                                              data-toggle="tab">{{ "employees.list.tab_employees"|trans }}</a>
+                    </li>
+                    <li role="presentation"><a href="#list-managers" aria-controls="list-managers" role="tab"
+                                               data-toggle="tab">{{ "employees.list.tab_managers"|trans }}</a></li>
+                    {% if administrators %}
+                    <li role="presentation"><a href="#list-administrators" aria-controls="list-admionistrators" role="tab"
+                                               data-toggle="tab">{{ "employees.list.tab_administrators"|trans }}</a></li>
+                    {% endif %}
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="list-table tab-pane active" id="list-employees">
+                        <div class="table-header search">
+                            <form class="search-form" method="post">
+                                <div class="field-container">
+                                    <input type="text" class="keyword" name="search"
+                                           placeholder="{{ "groups.all_employees.search_text"|trans }}"
+                                            value="{% if search and search['type'] == "employees" %}{{ search['keyword'] }}{% endif %}"/>
+                                    <input type="submit" value="" class="search-submit"/>
+                                    <input type="hidden" name="listtype" value="employees" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered employees-table no-mobile-head">
+                                <thead>
+                                <tr>
+                                    <th class="mobile-only"></th>
+                                    <th>{{ "employees.list.code"|trans }}</th>
+                                    <th>{{ "employees.list.name"|trans }}</th>
+                                    <th>{{ "employees.list.surname"|trans }}</th>
+                                    <th>{{ "employees.list.username"|trans }}</th>
+                                    <th>{{ "employees.list.email"|trans }}</th>
+                                    <th>{{ "employees.list.position"|trans }}</th>
+                                    <th>{{ "employees.list.birthday"|trans }}</th>
+                                    <th>{{ "employees.list.active"|trans }}</th>
+                                    <th class="nowrap" width="100"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for employee in employees %}
+                                    <tr data-id="{{ employee.id }}" class="empl-{{ employee.id }}">
+                                        <td class="mobile-only">{{ employee.getFieldValue('name') }} {{ employee.getFieldValue('surname') }}</td>
+                                        <td class="code">{{ employee.getFieldValue('code') }}</td>
+                                        <td class="name">{{ employee.getFieldValue('name') }}</td>
+                                        <td class="surname">{{ employee.getFieldValue('surname') }}</td>
+                                        <td>{{ employee.getUser().getUsername() }}</td>
+                                        <td class="email">{{ employee.getUser().getEmail() }}</td>
+                                        <td class="position">{{ employee.getFieldValue('position') }}</td>
+                                        <td class="birthday">{{ employee.getFieldValue('birthday') }}</td>
+                                        <td class="active">
+                                            {% if employee.user.enabled %}
+                                                <span class="active green-boolean glyphicon glyphicon-ok"
+                                                      aria-hidden="true"></span>
+                                            {% else %}
+                                                <span class="inactive red-boolean glyphicon glyphicon-remove"
+                                                      aria-hidden="true"></span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="nowrap">
+                                            <a href="#" class="btn-sm btn-green message-employee"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn-sm btn-green edit-employee"
+                                               title="{{ "employees.list.edit"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn-sm btn-orange change-password-employee"
+                                               title="{{ "employees.list.change_password"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn-sm btn-red delete-employee"
+                                               title="{{ "employees.list.remove"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            {{ knp_pagination_render(employees) }}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="list-table tab-pane" id="list-managers">
+                        <div class="table-header search">
+                            <form class="search-form" method="post">
+                                <div class="field-container">
+                                    <input type="text" class="keyword" name="search"
+                                           placeholder="{{ "groups.all_employees.search_text"|trans }}"
+                                           value="{% if search and search['type'] == "managers" %}{{ search['keyword'] }}{% endif %}"/>
+                                    <input type="submit" value="" class="search-submit"/>
+                                    <input type="hidden" name="listtype" value="managers" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered employees-table">
+                                <thead>
+                                <tr>
+                                    <th class="mobile-only"></th>
+                                    <th>{{ "employees.list.code"|trans }}</th>
+                                    <th>{{ "employees.list.name"|trans }}</th>
+                                    <th>{{ "employees.list.surname"|trans }}</th>
+                                    <th>{{ "employees.list.username"|trans }}</th>
+                                    <th>{{ "employees.list.email"|trans }}</th>
+                                    <th>{{ "employees.list.position"|trans }}</th>
+                                    <th>{{ "employees.list.birthday"|trans }}</th>
+                                    <th>{{ "employees.list.active"|trans }}</th>
+                                    <th class="nowrap" width="100"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for employee in managers %}
+                                    <tr data-id="{{ employee.id }}" class="empl-{{ employee.id }}">
+                                        <td class="mobile-only">{{ employee.getFieldValue('name') }} {{ employee.getFieldValue('surname') }}</td>
+                                        <td class="code">{{ employee.getFieldValue('code') }}</td>
+                                        <td class="name">{{ employee.getFieldValue('name') }}</td>
+                                        <td class="surname">{{ employee.getFieldValue('surname') }}</td>
+                                        <td>{{ employee.getUser().getUsername() }}</td>
+                                        <td class="email">{{ employee.getUser().getEmail() }}</td>
+                                        <td class="position">{{ employee.getFieldValue('position') }}</td>
+                                        <td class="birthday">{{ employee.getFieldValue('birthday') }}</td>
+                                        <td class="active">
+                                            {% if employee.user.enabled %}
+                                                <span class="active green-boolean glyphicon glyphicon-ok"
+                                                      aria-hidden="true"></span>
+                                            {% else %}
+                                                <span class="inactive red-boolean glyphicon glyphicon-remove"
+                                                      aria-hidden="true"></span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="nowrap">
+                                            <a href="#" class="btn btn-green message-employee"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn btn-green edit-employee"
+                                               title="{{ "employees.list.edit"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn btn-orange change-password-employee"
+                                               title="{{ "employees.list.change_password"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn btn-red delete-employee"
+                                               title="{{ "employees.list.remove"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            {{ knp_pagination_render(managers) }}
+                        </div>
+                    </div>
+
+                    {% if administrators %}
+                        <div role="tabpanel" class="list-table tab-pane" id="list-administrators">
+                        <div class="table-header search">
+                            <form class="search-form" method="post">
+                                <div class="field-container">
+                                    <input type="text" class="keyword" name="search"
+                                           placeholder="{{ "groups.all_employees.search_text"|trans }}"
+                                           value="{% if search and search['type'] == "administrators" %}{{ search['keyword'] }}{% endif %}"/>
+                                    <input type="submit" value="" class="search-submit"/>
+                                    <input type="hidden" name="listtype" value="administrators" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered employees-table">
+                                <thead>
+                                <tr>
+                                    <th class="mobile-only"></th>
+                                    <th>{{ "employees.list.code"|trans }}</th>
+                                    <th>{{ "employees.list.name"|trans }}</th>
+                                    <th>{{ "employees.list.surname"|trans }}</th>
+                                    <th>{{ "employees.list.username"|trans }}</th>
+                                    <th>{{ "employees.list.email"|trans }}</th>
+                                    <th>{{ "employees.list.position"|trans }}</th>
+                                    <th>{{ "employees.list.birthday"|trans }}</th>
+                                    <th>{{ "employees.list.active"|trans }}</th>
+                                    <th class="nowrap" width="100"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for employee in administrators %}
+                                    <tr data-id="{{ employee.id }}" class="empl-{{ employee.id }}">
+                                        <td class="mobile-only">{{ employee.getFieldValue('name') }} {{ employee.getFieldValue('surname') }}</td>
+                                        <td class="code">{{ employee.getFieldValue('code') }}</td>
+                                        <td class="name">{{ employee.getFieldValue('name') }}</td>
+                                        <td class="surname">{{ employee.getFieldValue('surname') }}</td>
+                                        <td>{{ employee.getUser().getUsername() }}</td>
+                                        <td class="email">{{ employee.getUser().getEmail() }}</td>
+                                        <td class="position">{{ employee.getFieldValue('position') }}</td>
+                                        <td class="birthday">{{ employee.getFieldValue('birthday') }}</td>
+                                        <td class="active">
+                                            {% if employee.user.enabled %}
+                                                <span class="active green-boolean glyphicon glyphicon-ok"
+                                                      aria-hidden="true"></span>
+                                            {% else %}
+                                                <span class="inactive red-boolean glyphicon glyphicon-remove"
+                                                      aria-hidden="true"></span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="nowrap">
+                                            <a href="#" class="btn btn-green message-employee"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn btn-green edit-employee"
+                                               title="{{ "employees.list.edit"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn btn-orange change-password-employee"
+                                               title="{{ "employees.list.change_password"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                                            <a href="#" class="btn btn-red delete-employee"
+                                               title="{{ "employees.list.remove"|trans }}"
+                                               data-id="{{ employee.id }}"><span
+                                                        class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            {{ knp_pagination_render(administrators) }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="new-employee col-md-5">
+                    <h2>{{ "groups.employees.new.title"|trans }}</h2>
+
+                    <div class="alert alert-success message" style="display: none"></div>
+                    <form action="{{ path("elearning_companies_add_employee") }}"
+                          class="employee_form" method="post">
+                        {% form_theme new_employee_fields_form"bootstrap_3_layout.html.twig" %}
+                        {{ form_widget(new_employee_fields_form) }}
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-orange"
+                                   value="{{ "groups.employees.new.add"|trans }}"/>
+                        </div>
+                    </form>
+                </div>
+                {% if showTree %}
+                    <div class="col-md-6">
+                        {% for admin in adminsTree %}
+                            {% if admin.lvl > 0 %}
+                                {% for i in 0..admin.lvl - 1 %}
+                                    &rarr;
+                                {% endfor %}
+                            {% else %}
+                                <br>
+                            {% endif %}
+                                {{ admin }}
+                            <br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="edit-employee-popup-container" style="display:none">
+            <div class="edit-employee-popup popup-content">
+                <form action="#"
+                      class="employee_form" method="post" enctype="multipart/form-data">
+                    {% form_theme employee_fields_form"bootstrap_3_layout.html.twig" %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <b>{% trans %}employees.edit.groups{% endtrans %}:</b> <span id="employee-groups-info"></span>
+                            </div>
+                            <div class="form-group">
+                                <b>{% trans %}employees.edit.courses{% endtrans %}:</b> <span id="employee-courses-info"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <img id="default-avatar" src="{{ asset('images/avatar.png') }}"/>
+                            <img id="avatar" style="display: none;" src=""/>
+                        </div>
+                    </div>
+                    {{ form_widget(employee_fields_form) }}
+                    <div class="form-group">
+                        <input type="hidden" id="employee_id" name="employee[id]" value=""/>
+                        <input type="submit" class="btn btn-orange"
+                               value="{{ "employees.edit.update"|trans }}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div style="display: none;">
+            <div id="message-popup" class="inline-popup">
+                {{ form_start(message_form) }}
+                <div class="form-group">
+                    {{ form_label(message_form.subject) }}
+                    {{ form_errors(message_form.subject) }}
+                    {{ form_widget(message_form.subject, {attr: {'class': 'form-control'}} ) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(message_form.text) }}
+                    {{ form_errors(message_form.text) }}
+                    {{ form_widget(message_form.text, {attr: {'class': 'form-control'}} ) }}
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="employee_id" id="employee_id" value=""/>
+                    <input type="submit" class="btn btn-orange" value="{{ "employees.send_email.send"|trans }}" />
+                </div>
+                {{ form_end(message_form) }}
+            </div>
+        </div>
+
+        <div class="change-password-employee-popup-container" style="display:none">
+            <div class="change-password-employee-popup popup-content">
+                <form action="#"
+                      class="employee_password_form" method="post">
+                    <div class="form-group">
+                        <label class="control-label" for="password">{{ "employees.password.new_password"|trans }}</label>
+                        <input type="password" id="password" name="password" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password_repeat">{{ "employees.password.repeat_password"|trans }}</label>
+                        <input type="password" id="password_repeat" name="password_repeat" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="inform_user">
+                            <input type="checkbox" id="inform_user" name="inform_user" value="1" />
+                            {{ "employees.password.inform_user_about_password_change"|trans }}
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" id="employee_id" name="employee_id" value=""/>
+                        <input type="submit" class="btn btn-orange"
+                               value="{{ "employees.password.update"|trans }}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="confirm-delete-employee-popup-container" style="display:none">
+            <div class="confirm-delete-employee-popup popup-content">
+                <h2>{{ "employees.delete.confirm"|trans }}</h2>
+
+                <div class="buttons">
+                    <a href="#" class="confirm-yes btn btn-orange">{{ "employees.delete.yes"|trans }}</a>
+                    <a href="#" class="confirm-no btn btn-orange">{{ "employees.delete.no"|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets
+    '../app/Resources/public/css/magnific-popup.css'
+    '../app/Resources/public/css/stacktable.css'
+    '@ElearningCompaniesBundle/Resources/less/styles.less'
+    'bundles/elearningcompanies/css/chosen.min.css' filter="cssrewrite"
+    '@ElearningCompaniesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '../app/Resources/public/js/showmessage.js'
+    '../app/Resources/public/js/jquery.magnific-popup.min.js'
+    '@ElearningCompaniesBundle/Resources/public/js/chosen.jquery.min.js'
+    '../app/Resources/public/js/stacktable.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+    <script>
+        $(function () {
+            $('table.employees-table').stacktable();
+
+            var target = location.hash;
+            if (target && (target == "#employees" || target == "#managers" || target == "#administrators")) {
+                $('.nav-tabs a[href=#list-' + target.substr(1) + ']').tab('show');
+            }
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href");
+                location.hash = target.substr(("#list-").length);
+            });
+
+            $('#list-employees .pagination ul li a').each(function(){
+                $(this).attr('href', $(this).attr('href') + "#employees");
+            });
+            $('#list-managers .pagination ul li a').each(function(){
+                $(this).attr('href', $(this).attr('href') + "#managers");
+            });
+            $('#list-administrators .pagination ul li a').each(function(){
+                $(this).attr('href', $(this).attr('href') + "#administrators");
+            });
+
+
+            $('.employees-list .list-table table ').on('click', 'a.edit-employee', function (e) {
+                e.preventDefault();
+                var employee_id = $(this).data('id');
+                $.ajax({
+                    url: Routing.generate("elearning_companies_employees_get_employee", {
+                        'employee_id': employee_id
+                    }),
+                    method: "get",
+                    data: {},
+                    success: function (response) {
+                        if (response.success) {
+                            var form = $('.edit-employee-popup form');
+                            form.find('.position-select').chosen({
+                                width: '100%',
+                                create_option: true,
+                                persistent_create_option: true,
+                                skip_no_results: true,
+                                allow_single_deselect: true,
+                                placeholder_text: "{{ "new_employee.fields.select_position"|trans }}",
+                                create_option_text: "{{ "new_employee.fields.create_new_position"|trans }}"
+                            });
+                            $.each(response.employee, function (name, value) {
+                                var field = form.find("#employee_" + name);
+                                if (field.length > 0) {
+                                    field.val(value);
+                                }
+                                if (name == "birthday" && value) {
+                                    var parts = value.split(".");
+                                    if (parts.length == 1) {
+                                        parts = value.split("-");
+                                    }
+                                    form.find('#employee_' + name + "_year").val(parseInt(parts[0], 10));
+                                    form.find('#employee_' + name + "_month").val(parseInt(parts[1], 10));
+                                    form.find('#employee_' + name + "_day").val(parseInt(parts[2], 10));
+                                }
+                                else {
+                                    form.find('#employee_' + name + "_year").val("");
+                                    form.find('#employee_' + name + "_month").val("");
+                                    form.find('#employee_' + name + "_day").val("");
+                                }
+                                if (name == "position") {
+                                    form.find('.position-select').trigger("chosen:updated");
+                                }
+                                if (name == "groups") {
+                                    form.find('#employee-groups-info').text(value.join(', '));
+                                }
+                                if (name == "courses") {
+                                    form.find('#employee-courses-info').text(value.join(', '));
+                                }
+                                if (name == "image") {
+                                    if (value) {
+                                        form.find('#avatar').attr('src', value).show();
+                                        form.find('#default-avatar').hide();
+                                    } else {
+                                        form.find('#avatar').hide();
+                                        form.find('#default-avatar').show();
+                                    }
+                                }
+                            });
+                            form.find('#employee_id').val(employee_id);
+                            $.magnificPopup.open({
+                                items: {
+                                    src: ".edit-employee-popup",
+                                    type: "inline"
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+
+            $('.employees-list .list-table table ').on('click', 'a.message-employee', function (e) {
+                e.preventDefault();
+                var employee_id = $(this).data('id');
+                $('#message-popup input#employee_id').val(employee_id);
+                $.magnificPopup.open({
+                    items: {
+                        src: "#message-popup",
+                        type: "inline"
+                    }
+                });
+            });
+
+            $('#message-popup form').submit(function(e){
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: "{{ path("elearning_companies_employees_send_email") }}",
+                    data: form.serialize(),
+                    method: 'post',
+                    success: function(data) {
+                        if (data.success) {
+                            showmessage(data.message, "success");
+                            $.magnificPopup.close();
+                        }
+                        else {
+                            showmessage(data.message, "danger");
+                            $.magnificPopup.close();
+                        }
+                    }
+                });
+            });
+
+            $('.employees-list .list-table table ').on('click', 'a.change-password-employee', function (e) {
+                e.preventDefault();
+                var employee_id = $(this).data('id');
+                $('.change-password-employee-popup input[type=password]').val("");
+                $('.change-password-employee-popup input[type=checkbox]').prop("checked", false);
+                $('.change-password-employee-popup input#employee_id').val(employee_id);
+                $.magnificPopup.open({
+                    items: {
+                        src: ".change-password-employee-popup",
+                        type: "inline"
+                    }
+                });
+            });
+
+            $('.change-password-employee-popup form').submit(function(e){
+                e.preventDefault();
+                var employee_id = $(this).find('input#employee_id').val();
+                var password = $(this).find('input#password').val();
+                var password_repeat = $(this).find('input#password_repeat').val();
+                var inform_user = $(this).find('input#inform_user').is(":checked");
+                $.ajax({
+                    url: "{{ path("elearning_companies_employees_change_password") }}",
+                    data: {
+                        'employee_id': employee_id,
+                        'password': password,
+                        'password_repeat': password_repeat,
+                        'inform_user': inform_user ? 1 : 0
+                    },
+                    method: 'post',
+                    success: function(data) {
+                        if (data.success) {
+                            showmessage(data.message, "success");
+                        }
+                        else {
+                            showmessage(data.message, "danger");
+                        }
+                    }
+                });
+            });
+
+            $('.edit-employee-popup form').submit(function (e) {
+                e.preventDefault();
+                var employee_id = $(this).find('#employee_id').val();
+                $.ajax({
+                    url: Routing.generate("elearning_companies_employees_update_employee", {
+                        'employee_id': employee_id
+                    }),
+                    method: "post",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: new FormData(this),
+                    success: function (response) {
+                        if (response.success) {
+                            showmessage("{{ "employees.edit.success"|trans }}", "success")
+                            if (response.employee) {
+                                var row = $('.employees-list table tr[data-id=' + response.employee_id + ']');
+                                row.find('.code').html(response.employee['code']);
+                                row.find('.name').html(response.employee['name']);
+                                row.find('.surname').html(response.employee['surname']);
+                                row.find('.email').html(response.employee['email']);
+                                row.find('.position').html(response.employee['position']);
+                                row.find('.birthday').html(response.employee['birthday']);
+                                if (response.employee['active'] == "active") {
+                                    row.find('.active').html('<span class="active green-boolean glyphicon glyphicon-ok" aria-hidden="true"></span>');
+                                }
+                                else {
+                                    row.find('.active').html('<span class="inactive red-boolean glyphicon glyphicon-remove" aria-hidden="true"></span>');
+                                }
+                                if (response.rolechanged) {
+                                    location.reload();
+                                }
+                            }
+                        }
+                    }
+                })
+            });
+
+            $('.employees-list .list-table table').on('click', ' a.delete-employee', function (e) {
+                e.preventDefault();
+                var employee_id = $(this).data('id');
+                $.magnificPopup.open({
+                    items: {
+                        src: ".confirm-delete-employee-popup",
+                        type: "inline"
+                    }
+                });
+                $('.confirm-delete-employee-popup .confirm-no').unbind('click').on('click', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+                $('.confirm-delete-employee-popup .confirm-yes').unbind('click').on('click', function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: Routing.generate("elearning_companies_employees_delete_employee", {
+                            'employee_id': employee_id
+                        }),
+                        method: "post",
+                        data: {},
+                        success: function (response) {
+                            if (response.success) {
+                                showmessage("{{ "employees.delete.success"|trans }}", "success")
+                                location.reload();
+                            }
+                            else {
+                                showmessage("{{ "employees.delete.error"|trans }}", "danger")
+                            }
+                            $.magnificPopup.close();
+                        }
+                    });
+                })
+            });
+
+            $('form.employee_form').submit(function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: "post",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: new FormData(this),
+                    success: function (response) {
+                        $form.siblings('.message').html(response.message).show();
+                        if (response.success) {
+                            $form.siblings('.message').removeClass('alert-danger').addClass('alert-success');
+                            location.reload();
+                        }
+                        else {
+                            $form.siblings('.message').removeClass('alert-success').addClass('alert-danger');
+                        }
+                    }
+                });
+            });
+            $('.new-employee .position-select').chosen({
+                create_option: true,
+                persistent_create_option: true,
+                skip_no_results: true,
+                allow_single_deselect: true,
+                placeholder_text: "{{ "new_employee.fields.select_position"|trans }}",
+                create_option_text: "{{ "new_employee.fields.create_new_position"|trans }}"
+            });
+
+        });
+    </script>
+{% endblock %}
+
+

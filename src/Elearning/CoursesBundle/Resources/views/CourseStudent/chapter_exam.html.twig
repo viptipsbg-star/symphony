@@ -1,0 +1,345 @@
+{% extends "ElearningCoursesBundle:CourseStudent:course_listen.html.twig" %}
+
+{% block chaptercontent %}
+<div class="student-exam">
+    <div class="row">
+        <div class="col-xs-10">
+            <div class="question-numbers">
+                {% for question in questions %}
+                    {% set checked = answers[question.id] is defined %}
+                    <a href="#" class="question-number {% if checked %}completed{% endif %}">{{ loop.index }}</a>
+                {% endfor %}
+
+                {% if not incorrectAnswers %}
+                    <a href="#" class="question-number end-exam" title="{{ "student_courses.course_listen.exam.complete_exam"|trans }}">
+                        <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% if not incorrectAnswers %}
+            <div class="col-xs-2">
+                <div class="timer">
+                    00:00
+                </div>
+            </div>
+            {% if course.canPauseExams %}
+                <div class="pull-right">
+                <a href="{{ path('elearning_course_pause_exam', { 'attempt_id': attempt.id }) }}" class="btn btn-orange">
+                    {% trans %}student_courses.course_listen.exam.pause{% endtrans %}
+                </a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="questions">
+        <form class="exam-form">
+            {% for question in questions %}
+            <div class="question" style="display:none">
+                <div class="question-text">
+                    {{ question.getQuestion|raw }}
+                </div>
+                <div class="answers noselect">
+                    {% set inputtype = question.isMultipleCorrect ? "checkbox" : "radio" %}
+                    {% for answer in question.getAnswers()|shuffle %}
+                    <div class="choice">
+                        {% set checked = answers[question.id] is defined ? answer.getId in answers[question.id] : false %}
+                        <input
+                                type="{{ inputtype }}"
+                                class="custom-{{ inputtype }} {% if incorrectAnswers and answer.correct %}correct{% endif %}"
+                                id="answer_{{ answer.getId }}"
+                                name="answers[{{ question.getId }}]"
+                                value="{{ answer.getId }}"
+                                {% if checked %}checked{% endif %}
+                                {% if incorrectAnswers %}disabled="disabled"{% endif %}
+                        />
+                        <label for="answer_{{ answer.getId }}">
+                            {{ answer.getAnswer }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="question_id" value="{{ question.getId }}" />
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+    <input type="hidden" name="attempt_id" value="" />
+
+    {% if not incorrectAnswers %}
+
+        <div class="bottom-controls">
+            <a href="#" class="btn btn-orange exam-navigation prev-question">{{ "student_courses.course_listen.exam.previous_question"|trans }}</a>
+            <a href="#" class="btn btn-orange exam-navigation next-question">{{ "student_courses.course_listen.exam.next_question"|trans }}</a>
+            <a href="#" class="btn btn-orange exam-navigation complete-exam" style="display:none">{{ "student_courses.course_listen.exam.complete_exam"|trans }}</a>
+        </div>
+
+        <div id="exam-rules-popup-container" style="display:none">
+            <div class="exam-rules-popup">
+                <h2>{{ "student_courses.course_listen.exam.rules"|trans }}</h2>
+                <div class="content">
+                    {{ exam.getOptions.rules|raw }}
+                </div>
+                <div class="button">
+                    <a href="#" class="btn btn-orange start-exam">{{ "student_courses.course_listen.exam.start_exam"|trans }}</a>
+                    <a href="{{ lastCompletedChapterId and not attempt.getStarttime() ? path("elearning_course_listen", { 'listening_id': listening.id, 'next': lastCompletedChapterId }) : path("elearning_my_courses_list_student") }}" class="btn btn-gray">{{ "student_courses.course_listen.exam.cancel"|trans }}</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="time-ended-popup-container" style="display:none">
+            <div class="time-ended-popup popup-content">
+                <h2>{{ "student_courses.course_listen.exam.time_ended"|trans }}</h2>
+                <div class="content">
+                </div>
+                <div class="button">
+                    <a href="#" class="btn btn-orange complete-exam">{{ "student_courses.course_listen.exam.complete_exam"|trans }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="exam-end-confirm-popup-container" style="display:none">
+            <div class="exam-end-confirm-popup popup-content">
+                <h2>{{ "student_courses.course_listen.exam.confirm_end"|trans }}</h2>
+                <div class="content">
+
+                </div>
+                <div class="button">
+                    <a href="#" class="btn btn-orange complete-exam-confirm">{{ "student_courses.course_listen.exam.yes"|trans }}</a>
+                    <a href="#" class="btn btn-orange popup-close">{{ "student_courses.course_listen.exam.no"|trans }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="exam-end-questions-confirm-popup-container" style="display:none">
+            <div class="exam-end-questions-confirm-popup popup-content">
+                <h2>{{ "student_courses.course_listen.exam.confirm_end_empty_questions"|trans }}</h2>
+                <div class="content">
+
+                </div>
+                <div class="button">
+                    <a href="#" class="btn btn-orange complete-exam-confirm">{{ "student_courses.course_listen.exam.yes"|trans }}</a>
+                    <a href="#" class="btn btn-orange popup-close">{{ "student_courses.course_listen.exam.no"|trans }}</a>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% javascripts
+    '../app/Resources/public/js/jquery.magnific-popup.min.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script>
+jQuery(document).ready(function($){
+    var currentQuestionIndex = 0;
+
+    {% if incorrectAnswers %}
+        showCurrentQuestion();
+    {% endif %}
+
+    $('.student-exam .question-numbers .question-number:not(.end-exam)').on('click', function(e){
+        e.preventDefault();
+        checkMarkQuestionAsComplete();
+        currentQuestionIndex = $(this).index();
+        showCurrentQuestion();
+    })
+
+    function showCurrentQuestion() {
+        $('.student-exam .questions .question').hide();
+        $('.student-exam .questions .question').eq(currentQuestionIndex).show();
+        $('.student-exam .question-numbers .question-number').removeClass('current');
+        $('.student-exam .question-numbers .question-number').eq(currentQuestionIndex).addClass('current');
+        if (currentQuestionIndex == $('.student-exam .questions .question').length - 1) {
+            $('.bottom-controls .next-question').hide();
+            $('.bottom-controls .complete-exam').show();
+        }
+        else {
+            $('.bottom-controls .next-question').show();
+            $('.bottom-controls .complete-exam').hide();
+        }
+    }
+
+    function checkMarkQuestionAsComplete() {
+        if ($('.student-exam .questions .question').eq(currentQuestionIndex).find('.choice input:checked').length > 0) {
+            $('.student-exam .question-numbers .question-number').eq(currentQuestionIndex).addClass('completed');
+        }
+    }
+
+    {% if not incorrectAnswers %}
+        $.magnificPopup.open({
+            items: {
+                src: ".exam-rules-popup",
+                type: "inline"
+            },
+            modal: true
+        });
+
+
+        var timer = {
+            timeleft:0,
+            timerContainer: $('.student-exam .timer'),
+            timerInterval: null,
+
+            start: function() {
+                if (timer.interval) {
+                    return false;
+                }
+
+                timer.timerInterval = window.setInterval(function(){
+                    if (timer.timeleft > 0) {
+                        timer.timeleft--;
+                        var hours = Math.floor(timer.timeleft / 3600);
+                        var minutes = Math.floor((timer.timeleft - hours * 3600) / 60);
+                        var seconds = (timer.timeleft - hours * 3600 - minutes * 60);
+
+                        var texttime = timer.pad(minutes, true)+':'+timer.pad(seconds);
+                        if (hours > 0) {
+                            texttime = hours + ":" + texttime;
+                        }
+                        timer.timerContainer.html(texttime);
+                    }
+                    else {
+                        timer.complete();
+                    }
+                }, 1000);
+            },
+            pad: function(n, singlecharonly) {
+                return ("0" + n).substr(-2);
+            },
+            complete: function() {
+                window.clearInterval(timer.timerInterval);
+                timer.interval = null;
+                $.magnificPopup.open({
+                    items: {
+                        src: ".time-ended-popup"
+                    },
+                    modal:true
+                });
+            }
+        };
+
+        function saveAnswer(callback) {
+            var currentQuestion = $('.student-exam .questions .question').eq(currentQuestionIndex);
+            var attempt_id = $('.student-exam input[name=attempt_id]').val();
+            var question_id = currentQuestion.find('input[name=question_id]').val();
+            var answers = [];
+            currentQuestion.find('.answers .choice input:checked').each(function(){
+                answers.push($(this).val());
+            });
+            $.ajax({
+                url: "{{ path("elearning_courses_save_exam_question_answer") }}",
+                method: "post",
+                data: {
+                    'attempt_id': attempt_id,
+                    'question_id': question_id,
+                    'answers': answers
+                },
+                success: function(response) {
+                    if (callback) {
+                        callback();
+                    }
+                }
+            });
+        }
+
+        $('.start-exam').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ path("elearning_courses_start_exam")}}",
+                method: "post",
+                data: {
+                    'listening_id': {{ listening.getId }},
+                    'exam_id': {{ exam.getId }}
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $.magnificPopup.close();
+                        $('.student-exam input[name=attempt_id]').val(response.attempt_id);
+                        timer.timeleft = response.left_time;
+                        timer.start();
+                        currentQuestionIndex = 0;
+                        showCurrentQuestion();
+                    }
+                    else if (response.reason == "maxtime") {
+                        $.magnificPopup.close();
+                        var attempt_id = response.attempt_id;
+                        var form = $('<form action="{{ path("elearning_courses_exam_completed") }}" method="post"></form>');
+                        form.append('<input type="hidden" name="attempt_id" value="'+attempt_id+'" />')
+                        form.appendTo('body').submit();
+                    }
+                }
+            });
+
+        });
+
+        $('.prev-question').on('click', function(e){
+            e.preventDefault();
+            checkMarkQuestionAsComplete();
+            currentQuestionIndex--;
+            if (currentQuestionIndex < 0) {
+                currentQuestionIndex = 0;
+            }
+            showCurrentQuestion();
+        });
+        $('.next-question').on('click', function(e){
+            e.preventDefault();
+            checkMarkQuestionAsComplete();
+            currentQuestionIndex++;
+            showCurrentQuestion();
+        });
+
+        $('.student-exam .bottom-controls .complete-exam, .student-exam .question-numbers .end-exam, .time-ended-popup .complete-exam').on('click', function(e){
+            e.preventDefault();
+            var form = ".exam-end-confirm-popup";
+            if ($('.student-exam .question-numbers .question-number:not(.completed):not(.end-exam)').length > 0) {
+                form = ".exam-end-questions-confirm-popup";
+            }
+            $.magnificPopup.open({
+                items: {
+                    src: form,
+                    type: "inline"
+                },
+                modal: true
+            });
+        });
+
+        $('.complete-exam-confirm').on('click', function(e){
+            e.preventDefault();
+            var attempt_id = $('.student-exam input[name=attempt_id]').val();
+            var form = $('<form action="{{ path("elearning_courses_exam_completed") }}" method="post"></form>');
+            form.append('<input type="hidden" name="attempt_id" value="'+attempt_id+'" />')
+            form.appendTo('body').submit();
+        });
+
+        $('.popup-close').on('click', function(e){
+            e.preventDefault();
+            $.magnificPopup.close();
+        });
+
+        $('.student-exam .questions .exam-form .question input').change(function(e){
+            console.log("CHANGED ANSWER");
+            saveAnswer();
+            var question_index = $(this).parents('.question').index();
+            if ($(this).parents('.question').find('input:checked').length > 0) {
+                $('.student-exam .question-numbers .question-number').eq(question_index).addClass('completed');
+            }
+            else {
+                $('.student-exam .question-numbers .question-number').eq(question_index).removeClass('completed');
+            }
+        });
+    {% endif %}
+});
+</script>
+
+{% endblock %}

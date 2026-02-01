@@ -1,0 +1,536 @@
+common:
+    yes: Taip
+    no: Ne
+    from: iš
+new_course:
+    title: Naujas kursas
+    groups: Grupės
+    steps:
+        step1_information: INFORMACIJA
+        step2_content: TURINYS
+        step3_confirmation: PATVIRTINIMAS
+
+
+    form:
+        name: Kurso pavadinimas
+        category: Pasirinkite kategoriją
+        duration: Kurso trukmė (val)
+        listenperiod: Kursą išklausyti per (dienų)
+        description: Aprašymas
+        image: Kurso nuotrauka
+        duration_tooltip: Įveskite kurso valandų skaičių
+        course_files: Kurso failai
+        certificate_needed: Generuoti sertifikatą
+        flexible_order: Laisvas kurso klausimas
+        can_pause_exams: Galimybė stabdyti egzaminą
+        show_on_courses_page: Rodyti kursų puslapyje
+        error_uploading_image_file: Klaida įkeliant kurso nuotrauką
+        course_files_popup:
+            title: Kurso failai
+            filename: Pavadinimas
+            filesize: Dydis
+            delete: Ištrinti
+            drop_here: TEMPKITE FAILUS ČIA ARBA SPAUSKITE ĮKĖLIMUI
+            upload_error: Klaida įkeliant failą
+            file_deleted: Failas ištrintas
+        show_category: Rodyti kategoriją
+        show_active_date_to: Rodyti "Aktyvus iki"
+        show_exams_count: Rodyti "Laikyta egzaminų"
+        show_certificate_needed: Rodyti "Išduodamas sertifikatas"
+        active_date_to: Aktyvus iki
+
+    save_and_continue: IŠSAUGOTI IR TĘSTI
+
+    editor:
+        ok: Gerai
+        error: Klaida
+        create: Sukurti
+        successfully_saved: Skyrius sėkmingai išsaugotas
+        exam_already_created: Šiame kurse jau yra sukurtas vienas egzamino skyrius. Vienas kursas negali turėti daugiau nei vieno egzamino skyriaus.
+        unsaved_changes: Jūs atlikote pakeitimus šiame skyriuje, tačiau jų neišsaugojote. Ar tikrai norite palikti šį skyrių? Palikdami jūs prarasite visus atliktus pakeitimus.
+        select_chapters: Pasirinkite skyrių
+        types:
+            video: Video
+            video_files: Video įkėlimas
+            quiz: Apklausa
+            lesson: Tekstinė pamoka
+            exam: Egzaminas
+            feedback: Atgalinis ryšys
+            material: Kurso failai
+            slides: Skaidrės
+        chapters:
+            list: Skyrių sąrašas
+            new_chapter: NAUJAS SKYRIUS
+            new:
+                type: Tipas
+                name: Pavadinimas
+            rename: Pervadinti
+            delete: Ištrinti
+            rename_success: Skyrius sėkmingai pervadintas
+
+        upload:
+            instructor: Instruktoriaus failai
+            slides: Skaidrių failai
+            drop_here: TEMPKITE FAILUS ČIA ARBA SPAUSKITE ĮKĖLIMUI
+            remove: IŠTRINTI
+            invalid_file_type: Blogas failo formatas
+            error: Klaida įkeliant failą.
+            video_format_error: Į sistemą leidžiama įkelti tik mp4 ir webm formatų video failus
+            audio_format_error: Į sistemą leidžiama įkelti tik mp3 formato audio failus
+            mp4_full: Full .mp4
+            webm_full: .webm
+            mp4_mobile: Mobile .mp4
+        slides:
+            files: Skaidrės
+
+        video:
+            start_synchronization: PRADĖTI VIDEO SINCHRONIZACIJĄ
+            back_to_files: GRĮŽTI Į FAILUS
+            video_editor: Video redaktorius
+            instructor_monitor: INSTRUKTORIAUS VAIZDAS
+            current_slide: DABARTINĖ SKAIDRĖ
+            next_slide: SEKANTI SKAIDRĖ
+            next_file: PERJUNGTI FAILĄ
+            instructor_progressbar: INSTRUKTORIAUS LAIKO JUOSTA
+            slides_progressbar: SKAIDRIŲ LAIKO JUOSTA
+            clear: Išvalyti
+
+        quiz:
+            quiz: Apklausa
+            quiz_type: Apklausos būdas
+            type_quiz: Testas
+            type_connect: Sujungimas
+            file_upload:
+                new: Pridėti paveikslėlį
+                update: Pakeisti paveikslėlį
+            connect:
+                text_type: Tekstas
+                image_type: Paveiksliukas
+                upload: TEMPKITE FAILUS ČIA ARBA SPAUSKITE ĮKĖLIMUI
+                add_question: PRIDĖTI KLAUSIMĄ
+            quiz_quiz:
+                question: Klausimas
+                answer: Atsakymas
+                correct: Teisingas
+                add_answer: PRIDĖTI ATSAKYMĄ
+                add_question: PRIDĖTI KLAUSIMĄ
+            preview:
+                answer: Atsakyti
+                incorrect: Neteisingai
+                correct: Teisingai
+        feedback:
+            feedback: Atgalinis ryšys
+            choices: Pasirinkimai
+            question: Klausimas
+            types:
+                text: Teksto laukas
+                select: Pasirinkimai
+            add_question: Pridėti klausimą
+            add_choice: Pridėti pasirinkimą
+        exam:
+            exam: Egzaminas
+            question: Klausimas
+            options_title: Nustatymai
+            questions: Klausimai
+            answer: Atsakymas
+            correct: Teisingas
+            add_answer: PRIDĖTI ATSAKYMĄ
+            add_question: PRIDĖTI KLAUSIMĄ
+            options:
+                maxtime: Maksimali egzamino trukmė (min)
+                numberofretries: Bandymų skaičius
+                waittime: Perlaikymo laukimo laikas (val)
+                questionsorder: Klausimų tvarka
+                serial: Iš eilės
+                shuffle: Išmaišyti
+                rules: Taisyklės
+                passcriteria: Išlaikymo kriterijus (proc. teisingų atsakymų)
+                numberofquestions: Klausimų skaičius
+
+        lesson:
+            text_lesson: Tekstinė pamoka
+
+
+        material:
+            title_label: Pavadinimas
+            add_file: Pridėti failą
+            preview: Peržiūrėti
+            fill_all_fields: Užpildykite visus laukus
+            error_saving_files: Klaida saugant failus. Leidžiama kelti tik doc, docx, pdf, xls, xlsx, ppt, pptx, txt, jpg, jpeg, png, gif, mp4, webm formatų failus
+
+
+        save: IŠSAUGOTI
+        preview: PERŽIŪRĖTI
+
+        save_continue: IŠSAUGOTI IR TĘSTI
+
+        confirm:
+            status: Kurso statusas
+            start_processing: Pradėti apdorojimą
+            processing_progress: Apdorojimo progresas
+            chapters_to_process: Skyriai
+            all: Visi
+            none: Nei vienas
+            start_success: Skyrių apdorojimas pradėtas sėkmingai
+            success: Skyriai apdoroti sėkmingai ir yra pasiekiami naudojimui
+            publish: Aktyvinti
+            unpublish: Paslėpti
+
+course_list:
+    title: Kursai
+    filter:
+        status: Būsena
+        all: Visi
+        published: Aktyvūs
+        unpublished: Ne Publikuoti
+        trash: Ištrinti
+
+        filter: Filtruoti
+
+    new_course: Naujas kursas
+    delete_confirm: Ar tikrai norite ištrinti kursą?
+
+    course:
+        id: ID
+        name: Pavadinimas
+        category: Kategorija
+        status: Būsena
+        questions: Klausimai
+        show_questions: Klausimai
+        faq: D.U.K.
+        feedbacks: Atsiliepimai
+        edit: Redaguoti
+        publish: Publikuoti
+        unpublish: Paslėpti
+        trash: Ištrinti
+
+    states:
+        trashed: Ištrintas
+        initiated: Inicijuotas
+        published: Aktyvus
+        unpublished: Neaktyvus
+        expired: Pasibaigęs
+
+questions:
+    title: Klausimai
+
+    question:
+        question: Klausimas
+        question_date: Klausimo data
+        answer_date: Atsakymo data
+        show: Parodyti
+        created: Sukurtas
+        copy_to_faq: Perkelti į D.U.K.
+        faq: D.U.K.
+        delete: Trinti
+    no_questions: Klausimų nėra
+
+faq_questions:
+    title: Dažnai užduodami klausimai
+    new_question: Naujas
+
+question:
+    title: Klausimas
+    question: Klausimas
+    answer: Atsakymas
+    save: Išsaugoti
+
+
+feedbacks:
+    title: Atsiliepimai apie kursą
+    no_feedbacks: Atsiliepimų nėra
+
+
+student_courses:
+    available_courses:
+        title: Kursai
+        filter:
+            label: Filtruoti:
+        course_info: Informacija
+        course_questions_notice: Yra naujų atsakytų klausimų
+
+    course_info:
+        progress: Kurso išklausymas
+        to_course_listen: Į kurso klausymą
+        course_category: Kurso kategorija:
+        about_course: Apie kursą
+        course_files: Kurso failai
+        frequently_asked_questions: Dažniausiai užduodami klausimai
+        your_questions: Tavo klausimai
+        ask_question: Užduok klausimą
+        question:
+            write_here: Įrašykite čia
+            send: Siųsti
+        certificate_needed: Išduodamas sertifikatas
+        active_date_to: Aktyvus iki
+        exam_count: Laikyta egzaminų
+        always_active: nėra datos
+
+    my_courses:
+        title: Mano kursai
+        course_info: Informacija
+        duration_unit: val
+
+    no_courses: Kursų nėra
+
+    course_listen:
+        skip_chapter_forbidden: Draudžiama praleisti skyrių
+        listen_chapter_and_click_continue: Prašome peržiūrėti esamą skyrių ir spausti mygtuką <strong>"Tęsti"</strong>
+        listen_chapter: Prašome išklausyti esamą skyrių. Išklausius būsite automatiškai nukreipti į sekantį skyrių.
+        exam_in_progress: Vyksta egzaminas
+        not_allowed_to_change_chapter_during_exam: Draudžiama pereiti į kitą skyrių laikant egzaminą
+        quiz:
+            answer: Atsakyti
+            wrong_answer: Atsakėte neteisingai, bandykite dar kartą
+            correct_answer: Atsakėte teisingai. Sveikiname!
+            ok: Gerai
+        text_lesson:
+            continue: Tęsti
+
+        exam:
+            previous_question: Ankstesnis
+            next_question: Kitas
+            complete_exam: Pabaigti egzaminą
+            start_exam: Pradėti
+            cancel: Atšaukti
+            rules: Egzamino laikymo taisyklės
+            confirm_end: Ar tikrai norite pabaigti egzaminą?
+            confirm_end_empty_questions: Jūs neatsakėte į visus klausimus, ar tikrai norite pabaigti egzaminą?
+            yes: Taip
+            no: Ne
+            time_ended: Egzamino laikas baigėsi
+            exam_passed: Egzaminas sėkmingai išlaikytas
+            exam_failed: Egzaminas neišlaikytas
+            result: Rezultatas:
+            continue: Tęsti kursą
+            you_can_retry_after: Galėsite bandyti iš naujo už: 
+            hours: val.
+            course_list: Kursų sąrašas
+            you_wont_be_able_to_retry: Jūs nebegalėsite pakartoti egzamino laikymo. Kurso klausymas baigtas
+            show_incorrect: Neteisingų atsakymų
+            pause: Stabdyti egzaminą
+
+        feedback:
+            answer: Atsakyti
+            note_before: Prašome užpildyti šią apklausą apie kursą
+
+        material:
+            continue: Tęsti
+            title: Pavadinimas
+            file: Failas
+            review_these_course_files: Prašome peržiūrėti ir susipažinti su šiais failais
+
+    course_completed:
+        successfully_completed_course: Jūs sėkmingai išklausėte kursą!
+        you_can_download_certificate: Galite parsisiųsti sertifikatą
+        certificate: Sertifikatas
+
+reports:
+    extended_version: Extended
+    student_courses:
+        title: Kursų klausymo istorija
+        name: Pavadinimas
+        category: Kategorija
+        completion_date: Išklausymo data
+        certificate: Sertifikatas
+        course_hours: Išklausytos kurso valandos
+        no_entries: Įrašų nėra
+        manual_course_hours: Gyvų mokymų valandos:
+        total: Iš viso valandų
+    supervisor_courses:
+        title: Kursų ataskaita
+        no_entries: Įrašų nėra
+        name: Pavadinimas
+        category: Kategorija
+        status: Statusas
+        duration: Trukmė (val)
+        students: Studentų skaičius
+        started_count: Pradėjusių skaičius
+        completed_count: Pabaigusių skaičius
+        faq_questions: D.U.K. klausimų skaičius
+        student_questions: Studentų klausimų skaičius
+        detail: Detaliau
+        user_name: Vardas Pavardė
+        received: Gautas
+        started: Pradėtas
+        questions_count: Klausimų skaičius
+        completed: Pabaigtas
+        avg_result: Vidutinis egzaminų rezultatas
+        course_name: Kursas
+        exam_result: Egzamino rezultatas
+        start_exam: Pradėta
+        end_exam: Pabaigta
+        correct: Correct answers
+        incorrect: Incorrect answers
+        available: Available/ unavailable
+        employed: Employed/ unemployed
+        position: Pareigos
+        workplace_address: Adresas
+        number_ckk_mpk: Number CKK/MPK
+        departament: Departament
+        region: Region
+        superior: Superior
+    supervisor_listening:
+        title: Kursų klausymo ataskaita
+        no_entries: Įrašų nėra
+        name: Grupės Pavadinimas
+        employees_count: Darbuotojų skaičius
+        managers_count: Vadybininkų skaičius
+        courses_count: Courses number
+        avg_result: Average exam result
+        avg_attendance: Average attendance
+        detail: Detaliau
+    supervisor_listening_group:
+        title: Kursų klausymo ataskaita
+        no_entries: Įrašų nėra
+        name: Vardas Pavardė
+        course_count: Kursų skaičius
+        completed_course_count: Pabaigtų kursų skaičius
+        completed_course_hours: Pabaigtų kursų valandos
+        real_course_hours: Gyvų mokymų valandos
+        average_exam_result: Vidutinis egzaminų rezultatas
+        last_action: Paskutinis veiksmas
+        detail: Detaliau
+    supervisor_listening_employee:
+        name: Kurso pavadinimas
+        started: Pradėta
+        last_listen_date: Paskutinio klausymo data
+        course_hours: Įgytos kurso valandos
+        completed: Pabaigta
+        exam_results: Egzamino rezultatai
+        certificate: Sertifikatas
+        detail: Detaliau
+        average_exam_result: Vidutinis egzamino rezultatas:
+        manual_course_hours: Gyvų mokymų valandos:
+        completed_course_hours: Išklausytų kursų valandos:
+    manager_courses:
+        title: Kursų klausymo ataskaita
+        user_name: Vardas Pavardė
+        course_name: Kursas
+        assigned_time: Priskirta
+        start_time: Pradėta
+        completed_time: Pabaigta
+        exam_result: Egzamino Rezultatas
+        questions_count: Klausimų skaičius
+        certificate: Sertifikatas
+        detail: Detaliau
+
+    manager_courses_empl:
+        title: Darbuotojo kurso klausymo ataskaita
+        chapter_title: Skyrius
+        chapter_type: Tipas
+        last_listen_date: Paskutinė peržiūros data
+        completed: Pabaigtas
+        exam: Egzaminas
+        video: Video pamoka
+        quiz: Apklausa
+        lesson: Tekstinė pamoka
+        exam_completion: Egzamino laikymas
+        exam_start_date: Laikymo pradžios data
+        exam_end_date: Laikymo pabaigos data
+        exam_result: Rezultatas
+        exam_correct_answers_all: Teisingi atsakymai / klausimų skaičius
+
+    manager_courses_info:
+        title: Kursų ataskaita
+        course_name: Pavadinimas
+        category: Kategorija
+        number_of_employees_started: Pradėję klausyti darbuotojai
+        number_of_employees_completed: Pabaigę klausyti darbuotojai
+        average_listen_time: Vidutinis kurso klausymo laikas
+        average_exam_result: Vidutinis egzamino rezultatas
+
+    attendance:
+        title: Lankomumo suvestinė
+        active: Aktyvūs
+        exp: Nutraukė
+        expelled: Nutraukė mokymus
+        add_subject: Pridėti paskaitos tema
+        subject: Užsiėmimų turinys / Parengiamukai
+        search: Paieškos
+        name: Vardas, pavardė
+        date: Data
+        subject_title: Pavadinimas
+        code: Kodas
+        subject_statuses: Statusai
+        confirm: Ar tikrai?
+        contract: Sutartis
+        export_excell: Eksportuoti
+
+diary:
+    title: Vertinimas
+    rate_description: "Vertinimo skalė: 5 - puikiai taiko ir atitinka kriterijų; 4 - atitinka kriterijų; 3 - daugiau atitinka, nei neatitinka (vidutiniškai); 2 - nepakankamai atitinka; 1 - neatitinka, netaiko. \"-\" nebuvo poreikio taikyti."
+    add_topic: Pridėti pokalbio tema
+    date: Data
+    supervisor: Supervizorius
+    topic: Pokalbio tema
+    comment: PASTABOS
+    export_excell: Eksportuoti
+
+categories:
+    title: Kategorijos
+    new_category: Nauja kategorija
+    list:
+        title: Pavadinimas
+    form:
+        name: Pavadinimas
+        parent: Tėvinė kategorija
+        save: Išsaugoti
+        show_on_courses_page: Rodyti kursų puslapyje
+
+
+emails:
+    new_question:
+        subject: Užduotas naujas klausimas kurse %coursename%
+        message: |
+            Sveiki,
+
+            Užduotas naujas klausimas apie kursą %coursename%.
+            Peržiūrėti ir atsakyti galite <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Pagarbiai,
+            Komanda.
+
+    new_answer:
+        subject: Atsakytas jūsų klausimas kurse %coursename%
+        message: |
+            Sveiki,
+
+            Instruktorius atsakė į jūsų klausimą kurse %coursename%.
+            Peržiūrėti atsakymą galite <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Pagarbiai,
+            Komanda.
+
+    course_ending:
+        subject: Jūsų klausomo kurso terminas baigsis už 3 dienų
+        message: |
+            Sveiki,
+
+            Jūsų klausomo kurso "%coursename%" klausymo terminas baigsis už 3 dienų.
+            Kursas klausomas <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Pagarbiai,
+            Komanda.
+
+    exam_retake:
+        subject: Baigėsi egzamino perlaikymo laukimo laikas
+        message: |
+            Sveiki,
+
+            Baigėsi jūsų laikyto kurso "%coursename%" egzamino perlaikymo laukimo laikas ir jūs galite bandyti laikyti egzaminą dar kartą.
+            Egzaminą laikyti galite <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Pagarbiai,
+            Komanda.
+
+    course_assigned:
+        subject: Jums buvo priskirtas kursas
+        message: |
+            Sveiki,
+
+            Jums buvo priskirtas klausymui kursas "%coursename%".
+            Kursą klausyti galite <a href="%viewlink%" target="_blank">ČIA</a>
+
+            Pagarbiai,
+            Komanda.

@@ -1,0 +1,340 @@
+/* TODO this not needed in this file, cause it is imported in global style.less */
+@import "../../../../../app/Resources/less/mixins.less";
+
+.groups-page {
+    .groups-list {
+        padding:30px;
+        border-bottom:1px solid #e7e5dd;
+        table th.normal {
+            font-weight: normal;
+            vertical-align: middle;
+        }
+        .add-new-container {
+            text-align:right;
+        }
+        .groups {
+            margin-top:30px;
+            white-space:nowrap;
+            overflow-x:auto;
+            .group-item {
+                width:205px;
+                height:135px;
+                background-color:#f0eee8;
+                .border-radius(3px);
+                display:inline-block;
+                overflow:hidden;
+                .title {
+                    padding:0 20px;
+                    font-size:16px;
+                    color:#453228;
+                    font-weight:bold;
+                    margin-top:15px;
+                    height:40px;
+                    white-space: normal;
+                }
+                .count {
+                    padding:0 20px;
+                    color:#453228;
+                }
+                .no-margin {
+                    margin-bottom: -16px;
+                    color:#a94442 !important;
+                }
+                .bottom-options {
+                    background-color:#fff;
+                    margin:17px 2px 2px;
+                    padding:5px;
+                    overflow:hidden;
+                    a {
+                        padding:5px 8px;
+                        text-transform:uppercase;
+                        font-size:13px;
+                        &.open-group {
+                            float:left;
+                        }
+                        &.delete-group {
+                            float:right;
+                        }
+                        &:after {
+                            content:" ";
+                            display:block;
+                            clear:both;
+                        }
+                    }
+                }
+                & + .group-item {
+                    margin-left:30px;
+                }
+                &.current {
+                    background-color:#fff;
+                    border:2px solid #fa8f00;
+                    .title,
+                    .count {
+                        color:#fa8f00;
+                    }
+                }
+            }
+        }
+        .managers {
+            height: auto !important;
+            white-space: normal;
+        }
+    }
+    .group-users,
+    .add-to-group {
+        h2 {
+            color:#453228;
+            font-size:22px;
+            margin-top:0;
+        }
+        table {
+            border:none;
+            th, td {
+                padding:12px 28px;
+                vertical-align:middle;
+                color:#666666;
+                .nowrap {
+                    white-space: nowrap;
+                }
+            }
+            thead {
+                th {
+                    background-color:#f2f1eb;
+                    color:#453228;
+                    border-bottom-width:1px;
+                    &:first-child {
+                        border-left:none;
+                    }
+                    &:last-child {
+                        border-right:none;
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        &:first-child {
+                            border-left:none;
+                        }
+                        &:last-child {
+                            border-right:none;
+                        }
+                        &.center {
+                            text-align:center;
+                        }
+                    }
+                    &.hidden {
+                        display:none;
+                    }
+                }
+                tr:nth-of-type(odd) {
+                    background-color:#fff;
+                }
+                tr:nth-of-type(even) {
+                    background-color:#fcfbf9;
+                }
+            }
+        }
+
+    }
+    .group-users {
+        padding:30px;
+        .nav-tabs {
+            margin-bottom:30px;
+        }
+        table {
+            thead {
+                th.normal {
+                    font-weight: normal;
+                }
+                th.fixed-width {
+                    min-width: 120px;
+                }
+            }
+            td.name {
+                border-right:none;
+            }
+            select:disabled {
+                color: darkgrey;
+                cursor: not-allowed;
+            }
+        }
+    }
+    .assign-course-container {
+        padding:30px 30px 0;
+    }
+    .add-to-group {
+        table {
+            border-top:1px solid #e7e5dd;
+        }
+    }
+
+}
+
+.std-page {
+    .control-group {
+        padding: 30px;
+    }
+    table {
+        thead {
+            th {
+               background-color: #f2f1eb;
+               font-weight: normal !important;
+            }
+            th:first-child {
+                font-weight: bold !important;
+            }
+        }
+        textarea {
+            resize: none;
+            width: 100%;
+            min-width: 160px;
+        }
+        tr.group-title {
+            td {
+                background-color: whitesmoke;
+                font-weight: bold;
+                border-right: none !important;
+            }
+        }
+        td {
+            p {
+                font-weight: normal;
+                margin: 0;
+            }
+            span.comment {
+                margin-top: -30px;
+                margin-left: 10px;
+                float: left;
+            }
+            select:disabled {
+                color: darkgrey;
+                cursor: not-allowed;
+            }
+        }
+        .nowrap {
+            white-space: nowrap;
+        }
+    }
+    .data-table {
+        padding: 0 30px 30px 30px;
+    }
+}
+
+.table-header {
+    background-color:#f2f1eb;
+    padding:15px 30px;
+    .field-container {
+        padding:8px 20px;
+        background-color:#fff;
+        border:1px solid #dfdfdf;
+        .border-radius(3px);
+        width:310px;
+        input {
+            display:inline-block;
+            border:none;
+            background:none;
+            vertical-align:middle;
+            outline:0;
+            &[type=text] {
+                width:250px;
+            }
+            &[type=submit] {
+                width:13px;
+                height:13px;
+                background:url('../../bundles/elearningcompanies/images/search-ico.png') no-repeat center center;
+            }
+        }
+    }
+
+}
+.groups-page,
+.employees-page {
+    .new-employee {
+        margin: 0 30px 30px;
+        border-top: 2px solid #e7e5dd;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        h2 {
+            color: #453228;
+            font-size: 22px;
+            margin-top: 0;
+        }
+        form {
+            max-width: 390px;
+            input[type=submit] {
+                text-transform: uppercase;
+            }
+        }
+    }
+    table {
+        th, td {
+            &.nowrap {
+                white-space: nowrap;
+            }
+            &.email {
+                font-size: 12px;
+            }
+            a.change-password-employee {
+                padding:7px 10px;
+            }
+        }
+    }
+}
+
+.new-group-page {
+    form.group-form {
+        padding:30px 30px 0;
+        input[type=submit] {
+            margin-top:25px;
+            padding:6px 23px;
+        }
+    }
+}
+
+#courses-popup {
+    min-height:300px;
+    max-width:500px;
+    margin:0 auto;
+    background-color:#fff;
+    padding:20px;
+    table {
+        td.left {
+            text-align:left;
+        }
+        td.assign {
+            .course-cancel {
+                display:block;
+                color:#ff0000;
+            }
+        }
+    }
+}
+
+
+.employees-upload-form-container {
+    padding:30px 0;
+    #employees-upload-form {
+        .upload-container {
+            border:2px solid #fa8f00;
+            .border-radius(5px);
+            margin:0 30px;
+            padding:40px 0;
+            color:#fa8f00;
+            font-weight:bold;
+            cursor:pointer;
+            text-align:center;
+        }
+    }
+}
+
+.employees-list {
+    padding:30px;
+}
+.change-password-employee-popup,
+.edit-employee-popup {
+    padding:30px;
+    form {
+        text-align:left;
+    }
+}

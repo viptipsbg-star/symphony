@@ -1,0 +1,30 @@
+Elearning\CoursesBundle\Entity\ExamQuestion:
+    type: entity
+    table: crs_exam_questions
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        exam_id:
+            type: integer
+            nullable: false
+        question:
+            type: text
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+    oneToMany:
+        answers:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamAnswer
+            mappedBy: question
+    manyToOne:
+        exam:
+            targetEntity: Elearning\CoursesBundle\Entity\Exam
+            inversedBy: questions
+            joinColumn:
+                name: exam_id
+                referencedColumnName: id

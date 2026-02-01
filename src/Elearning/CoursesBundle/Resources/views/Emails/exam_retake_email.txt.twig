@@ -1,0 +1,11 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'emails.exam_retake.subject'|trans }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'emails.exam_retake.message'|trans({'%coursename%': coursename, '%viewlink%': viewlink}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

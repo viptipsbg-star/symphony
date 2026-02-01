@@ -1,0 +1,108 @@
+<!-- EXAM CHAPTER TYPE - START -->
+<div class="exam-chapter" style="display:none">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="exam-edit-panel">
+                <div class="heading">{{ "new_course.editor.exam.exam"|trans }}</div>
+                <div class="panel-body">
+                    <form class="exam-chapter-form">
+                        <h2>{{ "new_course.editor.exam.options_title"|trans }}</h2>
+
+                        <div class="exam-options">
+                            <div class="form-group">
+                                <label for="exammaxtime">{{ "new_course.editor.exam.options.maxtime"|trans }}</label>
+                                <input type="text" class="form-control" id="exammaxtime" name="options[maxtime]"
+                                       required data-rule-number="true" data-rule-min="1"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="numberofretries">{{ "new_course.editor.exam.options.numberofretries"|trans }}</label>
+                                <input type="text" class="form-control" id="numberofretries"
+                                       name="options[numberofretries]" required data-rule-number="true"
+                                       data-rule-min="1"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="passcriteria">{{ "new_course.editor.exam.options.passcriteria"|trans }}</label>
+                                <input type="text" class="form-control" id="passcriteria" name="options[passcriteria]"
+                                       required data-rule-number="true" data-rule-min="1" data-rule-max="100"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="waittime">{{ "new_course.editor.exam.options.waittime"|trans }}</label>
+                                <input type="text" class="form-control" id="waittime" name="options[waittime]" required
+                                       required data-rule-number="true" data-rule-min="0"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="numberofquestions">{{ "new_course.editor.exam.options.numberofquestions"|trans }}</label>
+                                <input type="text" class="form-control" id="numberofquestions"
+                                       name="options[numberofquestions]" required data-rule-number="true"
+                                       data-rule-min="1"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="rules">{{ "new_course.editor.exam.options.rules"|trans }}</label>
+                                <textarea class="form-control" id="rules" name="options[rules]" rows="5"
+                                          required></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" class="exam_id" value=""/>
+
+                        <div class="exam-type">
+                            <h2>{{ "new_course.editor.exam.questions"|trans }}</h2>
+
+                            <div class="questions">
+                                <div class="question">
+                                    <div class="question-number">
+                                        <span class="number">1</span>
+                                        <a href="#" class="btn btn-red remove-exam-question"><span
+                                                    class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ "new_course.editor.exam.question"|trans }}</label>
+                                        <textarea name="question" class="form-control question" rows="3"></textarea>
+                                    </div>
+                                    <div class="choices">
+                                        <div class="form-group choice">
+                                            <label>{{ "new_course.editor.exam.answer"|trans }}</label>
+
+                                            <div class="row">
+                                                <div class="col-md-9 col-xs-6">
+                                                    <input type="text" name="choice[]" value=""
+                                                           class="form-control text"/>
+                                                </div>
+                                                <div class="col-md-2 col-xs-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="correct[]"
+                                                                   class="correct"> {{ "new_course.editor.exam.correct"|trans }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1 col-xs-2">
+                                                    <a href="#" class="btn btn-red remove-exam-choice"><span
+                                                                class="glyphicon glyphicon-trash"
+                                                                aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="#"
+                                           class="btn btn-orange-empty add-exam-choice">{{ "new_course.editor.exam.add_answer"|trans }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="#"
+                                   class="btn btn-orange-empty add-exam-question">{{ "new_course.editor.exam.add_question"|trans }}</a>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="submit" value="{{ "new_course.editor.save"|trans }}" class="btn btn-orange"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EXAM CHAPTER TYPE - END -->

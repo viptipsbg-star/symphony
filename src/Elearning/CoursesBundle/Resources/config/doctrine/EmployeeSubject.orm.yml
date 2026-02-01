@@ -1,0 +1,36 @@
+Elearning\CoursesBundle\Entity\EmployeeSubject:
+    type: entity
+    table: employee_subject
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        employee_id:
+            type: integer
+            nullable: false
+        subject_id:
+            type: integer
+            nullable: false
+        subject_status_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        subject:
+            targetEntity: Elearning\CoursesBundle\Entity\Subject
+            inversedBy: employeeSubject
+            joinColumn:
+                name: subject_id
+                referencedColumnName: id
+        employee:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            joinColumn:
+                name: employee_id
+                referencedColumnName: id
+        subjectStatus:
+            targetEntity: Elearning\CoursesBundle\Entity\SubjectStatus
+            joinColumn:
+                name: subject_status_id
+                referencedColumnName: id
+

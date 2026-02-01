@@ -1,0 +1,30 @@
+parameters:
+    system_id:
+    app_config:
+        attendance: true
+        attendance_calc_strategy: percent
+        diary: true
+        group_courses: true
+        disabled_chapter_types: [video]
+        flexible_courses_enabled: true
+        reports_default_version: standard
+        rewind_forward: false
+        extended_admins_structure: false
+    company_info:
+        logo_images:
+            #image1: logo.png
+            #image2: logo2.png
+            #image3: logo3.png
+        front_page:
+            title: Emokymai.vaikulinija.lt
+            slogan: Sveiki atvykę į elektroninę mokymų sistemą - tobulėjimo ir žinių šaltinį
+            header: Emokymų sistema
+        footer:
+            copyright:
+            url:
+            url_title:
+            image:
+            title:
+        cert_image: cert.jpg
+    localization.default_locale: lt
+    localization.locales: [lt, pl, en]

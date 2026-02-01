@@ -1,0 +1,7 @@
+AuthName "emokymai.vaikulinija.lt statistics"
+AuthType Basic
+AuthUserFile /home/emokymai/.stats-htpasswd
+require valid-user
+<Files .stats-htpasswd>
+deny from all
+</Files>

@@ -1,0 +1,28 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<h1>{{ 'question.title'|trans }}</h1>
+<div class="content-container">
+    <div class="row">
+        <div class="col-lg-12">
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(form, {'attr': {'class':'form-narrow question-form'}}) }}
+        {{ form_widget(form) }}
+            <div class="form-group">
+                <input type="submit" class="btn btn-orange btn-block" value="{{ 'question.save'|trans }}" />
+            </div>
+        {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less' filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}

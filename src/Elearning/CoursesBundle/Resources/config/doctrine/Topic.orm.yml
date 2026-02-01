@@ -1,0 +1,21 @@
+Elearning\CoursesBundle\Entity\Topic:
+    type: entity
+    table: topics
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        text:
+            type: string
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    oneToMany:
+        diaryTopics:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryTopic
+            mappedBy: topic

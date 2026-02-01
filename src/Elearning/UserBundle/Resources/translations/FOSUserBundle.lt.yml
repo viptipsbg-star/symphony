@@ -1,0 +1,128 @@
+# Group
+group:
+    edit:
+        submit: Atnaujinti grupę
+    show:
+        name: Grupės vardas
+    new:
+        submit: Sukurti grupę
+    flash:
+        updated: Grupė buvo atnaujinta
+        created: Grupė buvo sukurta
+        deleted: Grupė buvo ištrinta
+
+# Security
+"Bad credentials.": Neteisingas vartotojo vardas arba slaptažodis
+"Your session has timed out, or you have disabled cookies.": Jūsų sesijos laikas baigėsi arba jūs esate užblokavę cookies
+"Invalid CSRF token.": Neteisingas CSRF raktas
+
+credentials:
+    title: Atnaujinkite informaciją
+    email: "El. pašto adresas:"
+    new_password: "Slaptažodis:"
+    new_password_confirmation: "Patvirtinti slaptažodį:"
+    submit: Atnaujinti
+
+
+security:
+    login:
+        username: "Naudotojas"
+        email: "El. pašto adresas"
+        password: "Slaptažodis"
+        remember_me: Atsiminti mane
+        submit: JUNGTIS
+        remind_password: PRIMINTI SLAPTAŽODĮ
+        panel_heading: PRISIJUNKITE
+
+# Profile
+profile:
+    show:
+        username: Naudotojo vardas
+        email: El. paštas
+    edit:
+        submit: Atnaujinti
+    flash:
+        updated: Profilis buvo atnaujintas
+
+# Password change
+change_password:
+    title: Pasikeisti slaptažodį
+    submit: Pakeisti slaptažodi
+    flash:
+        success: Slaptažodis buvo pakeistas
+
+# Registration
+registration:
+    check_email: Buvo išsiūstas el. paštas adresu %email%. Jame rasite nuorodą kurią aplankę aktyvuosite savo paskyrą.
+    confirmed: Sveikiname %username%, jusu paskyra buvo aktyvuota.
+    back: Gryžti i praeitą puslapi.
+    submit: Registruotis
+    flash:
+        user_created: Naudotojas buvo sukurtas sėkmingai
+    email:
+        subject: Sveiki %username%!
+        message: |
+            Sveiki %username%!
+
+            Kad pabaigtumėte savo paskyros aktyvavymą - prašome apsilankyti %confirmationUrl%
+
+            Pagarbiai,
+            Komanda.
+
+    user_add_email:
+        subject: Jums sukurtas naudotojas emokymų sistemoje
+        message: |
+            Sveiki,
+
+            Jums buvo sukurtas naudotojas emokymų sistemoje.
+            Prisijungimo duomenys:
+            Vartotojo vardas: %username%
+            Slaptažodis: %password%
+
+            Prisijungus rekomenduojame pasikeisti slaptažodį.
+
+            Pagarbiai,
+            Komanda.
+
+
+# Password resetting
+resetting:
+    password_already_requested: Slaptažodis šitam naudotojui jau buvo prašytas pakeisti per pastarąsias 24 valandas.
+    check_email: Laiškas buvo išsiųstas el. pašto adresu %email%. Jame rasite nuorodą kurią paspaudus galėsite pakeisti savo slaptažodį.
+    request:
+        invalid_username: El. paštas "%username%" neegzistuoja.
+        username: "El. paštas:"
+        submit: Nustatyti slaptažodi
+    reset:
+        submit: Pakeisti slaptažodi
+    flash:
+        success: Slaptažodis pakeistas sėkmingai
+    email:
+        subject: Nustatyti slaptažodi
+        message: |
+            Sveiki %username%!
+
+            Kad pakeistumėte savo slaptažodį - prašome apsilankyti %confirmationUrl%
+
+            Pagarbiai,
+            Komanda.
+    title: Slaptažodžio priminimas
+
+# Global strings
+layout:
+    logout: Atsijungti
+    login: Prisijungti
+    register: Registruotis
+    logged_in_as: Prisijungęs kaip %username%
+
+# Form field labels
+form:
+    group_name: "Grupės vardas:"
+    username: "Naudotojas:"
+    email: "El. paštas:"
+    current_password: "Dabartinis slaptažodis:"
+    password: "Slaptažodis:"
+    password_confirmation: "Patvirtinti:"
+    new_password: "Naujas slaptažodis:"
+    new_password_confirmation: "Patvirtinti:"
+    birthday: "Gimimo data"

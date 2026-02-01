@@ -1,0 +1,69 @@
+services:
+    course.admin.category:
+        class: Elearning\CoursesBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Courses", label: "Category" }
+        arguments:
+            - ~
+            - Elearning\CoursesBundle\Entity\Category
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCoursesBundle]]
+
+    course.admin.course:
+        class: Elearning\CoursesBundle\Admin\CourseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Courses", label: "Course" }
+        arguments:
+            - ~
+            - Elearning\CoursesBundle\Entity\Course
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCoursesBundle]]
+
+
+    course.admin.chapter:
+        class: Elearning\CoursesBundle\Admin\ChapterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Courses", label: "Chapter" }
+        arguments:
+            - ~
+            - Elearning\CoursesBundle\Entity\Chapter
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCoursesBundle]]
+
+
+    course.admin.lesson:
+        class: Elearning\CoursesBundle\Admin\LessonAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Courses", label: "Lesson" }
+        arguments:
+            - ~
+            - Elearning\CoursesBundle\Entity\Lesson
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCoursesBundle]]
+
+    course.admin.quiz:
+        class: Elearning\CoursesBundle\Admin\QuizAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Courses", label: "Quiz" }
+        arguments:
+            - ~
+            - Elearning\CoursesBundle\Entity\Quiz
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCoursesBundle]]
+
+
+    course.admin.video:
+        class: Elearning\CoursesBundle\Admin\VideoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Courses", label: "Video" }
+        arguments:
+            - ~
+            - Elearning\CoursesBundle\Entity\Video
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCoursesBundle]]

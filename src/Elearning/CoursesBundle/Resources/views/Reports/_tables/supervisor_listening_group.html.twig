@@ -1,0 +1,132 @@
+{% extends view == 'html' ? "ElearningCoursesBundle:Reports:supervisor_report.html.twig" : "ElearningCoursesBundle:Reports:xlsx_base.html.twig" %}
+
+{% block reporttitle %}
+    {{ "reports.supervisor_listening.title"|trans }}
+{% endblock %}
+
+{% block xlsxlink %}
+    <a href="{{ path("elearning_courses_report_supervisor_listening_group", {group_id: group.id, 'view': 'xlsx'}) }}" class="btn btn-orange">{{ "reports.attendance.export_excell"|trans }}</a>
+{% endblock %}
+
+{% block versionlink %}
+    <a href="{{ path("elearning_courses_report_supervisor_listening_group", {group_id: group.id, 'version' : 'extended'}) }}" class="btn btn-orange">{{ "reports.extended_version"|trans }}</a>
+{% endblock %}
+
+{% block table %}
+    {% if employees is empty %}
+        <h3 class="no-entries">{{ "reports.supervisor_listening.no_entries"|trans }}</h3>
+    {% else %}
+        <div class="list-table">
+            <table class="table table-striped table-bordered report-table">
+                <thead>
+                <tr>
+                    <th width="200">{{ "reports.supervisor_listening_group.name"|trans }}</th>
+                    <th>{{ "reports.supervisor_listening_group.course_count"|trans }}</th>
+                    <th>{{ "reports.supervisor_listening_group.completed_course_count"|trans }}</th>
+                    <th>{{ "reports.supervisor_listening_group.completed_course_hours"|trans }}</th>
+                    <th>{{ "reports.supervisor_listening_group.average_exam_result"|trans }}</th>
+                    <th>{{ "reports.supervisor_listening_group.real_course_hours"|trans }}</th>
+                    <th>{{ "reports.supervisor_listening_group.last_action"|trans }}</th>
+                    {% if view == 'html' %}
+                        <th>{{ "reports.supervisor_listening_group.detail"|trans }}</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.getFieldValue('name') }} {{ employee.getFieldValue('surname') }}</td>
+                        <td>{{ employee.id in coursecounts|keys ? coursecounts[employee.id]['num'] : "0" }}</td>
+                        <td>{{ employee.id in completedcoursecounts|keys ? completedcoursecounts[employee.id]['num'] : "0" }}</td>
+                        <td>{{ employee.id in completedcoursehours|keys ? completedcoursehours[employee.id]['hours'] : "0" }}</td>
+                        <td>{{ employee.id in avgexamresults|keys ? avgexamresults[employee.id]['average']|number_format(2) : "0" }}
+                            %
+                        </td>
+                        <td>
+                            <span class="hours">
+                                {{ employee.id in manualcoursehours|keys ? manualcoursehours[employee.id]['hours'] : "0" }}
+                            </span>
+                            {% if view == 'html' %}
+                                <a href="#" class="edit-manual-hours"><span class="glyphicon glyphicon-pencil"
+                                                                            aria-hidden="true"></span></a>
+
+                                <form class="hours-form form-inline" style="display:none">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <input type="text" name="hours"
+                                                   value=" {{ employee.id in manualcoursehours|keys ? manualcoursehours[employee.id]['hours'] : "0" }}"
+                                                   class="form-control small-hours-input"/>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="hidden" name="employee_id" value="{{ employee.id }}"/>
+                                            <button type="submit" class="btn btn-green"><span
+                                                        class="glyphicon glyphicon-ok"
+                                                        aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </td>
+                        <td>{{ employee.id in lastactions|keys ? lastactions[employee.id]['last_action'] : "0" }}</td>
+                        {% if view == 'html' %}
+                            <td>
+                                <a href="{{ path("elearning_courses_report_supervisor_listening_employee", {group_id:group.id, employee_id: employee.id}) }}">{{ "reports.supervisor_listening.detail"|trans }}</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if view == 'html' %}
+                <div class="pagination">
+                    {{ knp_pagination_render(employees) }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@ElearningCoursesBundle/Resources/less/styles.less'
+    '@ElearningCoursesBundle/Resources/less/responsive.less'
+    '../app/Resources/public/css/stacktable.css'filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        jQuery(document).ready(function ($) {
+            $('table.report-table').stacktable();
+            $('.edit-manual-hours').on('click', function (e) {
+                e.preventDefault();
+                $(this).parents('td').find('form.hours-form').show();
+                $(this).parents('td').find('.hours').hide();
+                $(this).parents('td').find('.edit-manual-hours').hide();
+            });
+
+            $('.hours-form').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: "{{ path("elearning_courses_enter_manual_hours") }}",
+                    method: "post",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            form.find('input[name=hours]').val(response.hours);
+                            form.parents('td').find('.hours').html(response.hours).show();
+                            form.parents('td').find('.edit-manual-hours').show();
+                            form.parents('td').find('form.hours-form').hide();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+Elearning\CoursesBundle\Entity\DiaryCriterion:
+    type: entity
+    table: diary_criterions
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        criterion_group_id:
+            type: integer
+            nullable: true
+        text:
+            type: string
+            nullable: false
+        max_rate:
+            type: integer
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    manyToOne:
+        criterion_group:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryCriterionGroup
+            inversedBy: criteria
+            joinColumn:
+                name: criterion_group_id
+                referencedColumnName: id

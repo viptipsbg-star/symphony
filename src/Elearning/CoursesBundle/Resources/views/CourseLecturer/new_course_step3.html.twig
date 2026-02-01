@@ -1,0 +1,134 @@
+{% extends "ElearningCoursesBundle:CourseLecturer:new_course_base.html.twig" %}
+
+{% block course_content %}
+<div class="col-lg-12">
+    <div class="panel-body form-horizontal course-processing">
+        <div class="form-group">
+            <label class="col-sm-2">{{ "new_course.editor.confirm.status"|trans }}</label>
+            <div class="col-sm-6">
+                {% if course.status == "trash" %}
+                <span class="state state-red">
+                    {{ "course_list.states.trashed"|trans }}
+                </span>
+                {% elseif course.status == "published" %}
+                <span class="state state-green">
+                    {{ "course_list.states.published"|trans }}
+                </span>
+                {% elseif course.status == "initiated" %}
+                <span class="state state-yellow">
+                    {{ "course_list.states.initiated"|trans }}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2">{{ "new_course.editor.confirm.chapters_to_process"|trans }}</label>
+            <div class="col-sm-10">
+                <div>
+                    <a href="#" class="select-filter select-all">{{ "new_course.editor.confirm.all"|trans }}</a> | 
+                    <a href="#" class="select-filter select-none">{{ "new_course.editor.confirm.none"|trans }}</a>
+                </div>
+                <select multiple class="form-control chapters-select">
+                    {% for chapter in chapters %}
+                    <option value="{{ chapter.id}}">{{ chapter.name }} {% if chapter.dirty %}*{% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2">{{ "new_course.editor.confirm.start_processing"|trans }}</label>
+            <div class="col-sm-3">
+                <a href="{{ path("elearning_course_start_processing", {course_id: course.getId()}) }}" class="btn btn-orange start-process">{{ "new_course.editor.confirm.start_processing"|trans }}</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2">{{ "new_course.editor.confirm.processing_progress"|trans }}</label>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    {% javascripts 
+                   '../app/Resources/public/js/showmessage.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+<script>
+$(function(){
+    var previousprogress = null;
+    var startedprocessing = false;
+    function showProgress() {
+        $.ajax({
+            url: "{{ path('elearning_course_processing_progress', {course_id: course.getId()})}}",
+            success: function(response) {
+                if (response.success) {
+                    $('.progress-bar').attr('aria-valuenow', response.progress).width(response.progress + "%");
+                    if (!response.end) {
+                        window.setTimeout(showProgress, 12000);
+                    }
+                    else if (previousprogress !== null || startedprocessing) {
+                        $('.panel-body .state').addClass('state-green').html("{{ "course_list.states.published"|trans }}");
+                        showmessage("{{ "new_course.editor.confirm.success"|trans }}", "success");
+                    }
+                    previousprogress = response.progress;
+                }
+                else {
+                    showmessage("ERROR", "danger");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                showmessage("ERROR: " + textStatus + errorThrown, "danger");
+            }
+        });
+    }
+    showProgress();
+    $('.start-process').on('click', function(e){
+        e.preventDefault();
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+        startedprocessing = true;
+        var chaptersSelect = $('select.chapters-select');
+        selectedChapters = chaptersSelect.val();
+        if (selectedChapters == null) {
+            showmessage("{{ "new_course.editor.select_chapters"|trans }}", "danger");
+            return false;
+        }
+        $(this).addClass('disabled');
+        $.ajax({
+            url: "{{ path('elearning_course_start_processing', {course_id: course.getId()}) }}",
+            data: {
+                'selectedchapters': selectedChapters
+            },
+            method: 'post',
+            success: function(response) {
+                if (response.success) {
+                    showmessage("{{ "new_course.editor.confirm.start_success"|trans }}", "success");
+                    showProgress();
+                }
+                else {
+                    showmessage("ERROR: " + response.message, "danger");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                showmessage("ERROR: " + textStatus + errorThrown, "danger");
+            }
+        });
+    });
+    $('.select-filter').on('click', function(e){
+        e.preventDefault();
+        if ($(this).is('.select-all')) {
+            $('select.chapters-select option').prop('selected', true);
+        }
+        else if ($(this).is('.select-none')) {
+            $('select.chapters-select option').prop('selected', false);
+        }
+    });
+});
+</script>
+{% endblock %}

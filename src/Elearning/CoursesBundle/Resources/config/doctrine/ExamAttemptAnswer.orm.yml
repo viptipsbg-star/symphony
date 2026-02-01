@@ -1,0 +1,35 @@
+Elearning\CoursesBundle\Entity\ExamAttemptAnswer:
+    type: entity
+    table: crs_exam_attempt_answers
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        attempt_id:
+            type: integer
+            nullable: false
+        question_id:
+            type: integer
+            nullable: false
+        answer_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        attempt:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamAttempt
+            joinColumn:
+                name: attempt_id
+                referencedColumnName: id
+        question:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamQuestion
+            joinColumn:
+                name: question_id
+                referencedColumnName: id
+        answer:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamAnswer
+            joinColumn:
+                name: answer_id
+                referencedColumnName: id

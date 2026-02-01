@@ -1,0 +1,24 @@
+Elearning\CoursesBundle\Entity\Video:
+    type: entity
+    table: crs_videos
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        file_id:
+            type: integer
+            nullable: false
+        endtime:
+            type: integer
+            nullable: false
+    oneToOne:
+        file:
+            targetEntity: Elearning\CoursesBundle\Entity\File
+            inversedBy: video
+            joinColumn:
+                name: file_id
+                referencedColumnName: id
+                onDelete: CASCADE
+

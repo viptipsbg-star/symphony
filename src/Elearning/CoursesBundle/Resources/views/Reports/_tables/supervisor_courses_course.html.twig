@@ -1,0 +1,103 @@
+{% extends view == 'html' ? "ElearningCoursesBundle:Reports:supervisor_report.html.twig" : "ElearningCoursesBundle:Reports:xlsx_base.html.twig" %}
+
+{% block reporttitle %}
+    {{ course.name }}
+{% endblock %}
+
+{% block xlsxlink %}
+    <a href="{{ path("elearning_courses_report_supervisor_course", {course_id : course.id, 'view' : 'xlsx'}) }}" class="btn btn-orange">{{ "reports.attendance.export_excell"|trans }}</a>
+{% endblock %}
+
+{% block versionlink %}
+    <a href="{{ path("elearning_courses_report_supervisor_course", {course_id : course.id, 'version' : 'extended'}) }}" class="btn btn-orange">{{ "reports.extended_version"|trans }}</a>
+{% endblock %}
+
+
+{% block table %}
+    {% if listenings is empty %}
+        <h3 class="no-entries">{{ "reports.supervisor_courses.no_entries"|trans }}</h3>
+    {% else %}
+    <div class="list-table">
+        <table class="table table-striped table-bordered report-table">
+            <thead>
+                <tr>
+                    <th>{{ "reports.supervisor_courses.user_name"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.workplace_address"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.received"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.started"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.exam_result"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.completed"|trans }}</th>
+                    <th>{{ "reports.supervisor_courses.questions_count"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for listening in listenings %}
+                <tr>
+                    <td>{{ listening.user.employee.getFieldValue('name') }} {{ listening.user.employee.getFieldValue('surname') }}</td>
+                    <td>{{ listening.user.employee.getFieldValue('address') }}</td>
+                    <td>{{ listening.created|date("Y-m-d H:i:s") }}</td>
+                    <td>{{ listening.started|date("Y-m-d H:i:s") }}</td>
+                    <td>
+                        {% set attemptsCnt = [] %}
+                        {% if examsInfo[listening.id] is defined %}
+                            {% set attemptsCnt = examsInfo[listening.id] %}
+                        {% endif %}
+
+                        {% for exam in courseExams %}
+                            {% if not loop.first %}<br>{% endif %}
+                            {{ exam.chapter.name }}:
+                            {{ attemptsCnt[exam.id] is defined ? attemptsCnt[exam.id].cnt : '0' }}/{{ exam.options.numberofretries }}
+                            {% if attemptsCnt[exam.id] is defined and attemptsCnt[exam.id].completed_cnt %}
+                                {% if view == 'html' %}
+                                    (<span class="green-boolean"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>)
+                                {% else %}
+                                    (+)
+                                {% endif %}
+                            {% else %}
+                                {% if view == 'html' %}
+                                    (<span class="red-boolean"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>)
+                                {% else %}
+                                    (-)
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if listening.completed %}
+                            {% if view == 'html' %}
+                                <span class="green-boolean"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>
+                            {% else %}
+                                +
+                            {% endif %}
+                        {% else %}
+                            {% if view == 'html' %}
+                                <span class="red-boolean"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ listening.questions|length }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if view == 'html' %}
+            <div class="pagination">
+                {{ knp_pagination_render(listenings) }}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function ($) {
+            $('table.report-table').stacktable();
+        });
+    </script>
+{% endblock %}

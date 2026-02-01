@@ -1,0 +1,57 @@
+Elearning\CoursesBundle\Entity\Chapter:
+    type: entity
+    table: crs_chapters
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+        type:
+            type: string
+            length: 255
+            nullable: false
+        course_id:
+            type: integer
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+        process_id:
+            type: integer
+            nullable: true
+        progress:
+            type: integer
+            nullable: true
+        state:
+            type: string
+            nullable: false
+        old_id:
+            type: integer
+            nullable: true
+        dirty:
+            type: boolean
+            nullable: true
+
+    oneToMany:
+        coursefiles:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseFile
+            mappedBy: chapter
+
+    manyToOne:
+        course:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            joinColumn:
+                name: course_id
+                referencedColumnName: id
+    oneToOne:
+        oldChapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            joinColumn:
+                name: old_id
+                referencedColumnName: id
+

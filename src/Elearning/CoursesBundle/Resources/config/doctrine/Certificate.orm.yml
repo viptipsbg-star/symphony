@@ -1,0 +1,26 @@
+Elearning\CoursesBundle\Entity\Certificate:
+    type: entity
+    table: crs_course_certificates
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        listen_id:
+            type: integer
+            nullable: false
+        issue_date:
+            type: date
+            nullable: false
+        code:
+            type: string
+            nullable: false
+    oneToOne:
+        courseListen:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseListening
+            inversedBy: certificate
+            joinColumn:
+                name: listen_id
+                referencedColumnName: id

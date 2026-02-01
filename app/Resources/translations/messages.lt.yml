@@ -1,0 +1,13 @@
+front:
+    title: Emokymai.vaikulinija.lt
+    slogan: Sveiki atvykę į elektroninę mokymų sistemą - tobulėjimo ir žinių šaltinį
+
+header:
+    logo_title: Apmokymai
+
+site_title: Emokymų sistema
+footer:
+    solution: Esolution by Infosauga
+validation:
+    errors:
+        blank: Wypełnienie tego pola

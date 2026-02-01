@@ -1,0 +1,77 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+    <h1>
+        {{ "employees.import.title"|trans }}
+    </h1>
+    <div class="content-container">
+        <div class="employees-upload-form-container">
+            <form action="{{ path("elearning_companies_upload_employees") }}" id="employees-upload-form">
+                <div class="upload-container">
+                    <div class="dz-message message">{{ "employees.import.drop_here"|trans }}</div>
+                    <div class="fallback">
+                        <input type="file" name="file" multiple/>
+                    </div>
+                    <div class="previews" style="display:none"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets
+    '../app/Resources/public/css/magnific-popup.css'
+    '@ElearningCompaniesBundle/Resources/less/styles.less'
+    '@ElearningCompaniesBundle/Resources/less/responsive.less' %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '../app/Resources/public/js/jquery.pajinate.min.js'
+    '../app/Resources/public/js/showmessage.js'
+    '../app/Resources/public/js/jquery.magnific-popup.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@ElearningCoursesBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function () {
+            var dropzoneOptions = {
+                addRemoveLinks: false,
+                dictInvalidFileType: '{{ "employees.import.invalid_file_type"|trans }}',
+                previewsContainer: ".upload-container .previews",
+                clickable: true,
+                acceptedFiles:"application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                init: function () {
+                    this.on('success', function (file, response) {
+                        if (response.success) {
+                            showmessage('{{ "employees.import.employees_import_success"|trans }}' + response.count, 'success');
+                        }
+                        else {
+                            var message = '{{ "employees.import.employees_import_error"|trans }}';
+                            if (response.message) {
+                                message += ": " + message;
+                            }
+                            showmessage(message, 'danger');
+                        }
+                    });
+
+                    this.on('error', function (data, message, xhr) {
+                        showmessage('{{ "employees.import.upload_error"|trans }}', 'danger');
+                    });
+
+                }
+            };
+
+            $('#employees-upload-form').dropzone(dropzoneOptions);
+        });
+    </script>
+{% endblock %}
+
+

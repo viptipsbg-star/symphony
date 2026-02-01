@@ -1,0 +1,75 @@
+Elearning\CompaniesBundle\Entity\Employee:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        company_id:
+            type: integer
+            nullable: false
+        user_id:
+            type: integer
+            nullable: false
+        type:
+            type: string
+            nullable: false
+        state:
+            type: string
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+    oneToMany:
+        fields:
+            targetEntity: Elearning\CompaniesBundle\Entity\EmployeeProfileField
+            mappedBy: employee
+            cascade: [persist, remove]
+        manualCourseHours:
+            targetEntity: Elearning\CoursesBundle\Entity\ManualCourseEntry
+            mappedBy: employee
+            cascade: [remove]
+        employeeSubject:
+            targetEntity: Elearning\CoursesBundle\Entity\EmployeeSubject
+            mappedBy: employee
+            cascade: [remove]
+        diaryTopics:
+            targetEntity: Elearning\CoursesBundle\Entity\DiaryTopic
+            mappedBy: employee
+            cascade: [remove]
+
+    manyToOne:
+        company:
+            targetEntity: Elearning\CompaniesBundle\Entity\Company
+            inversedBy: employees
+            joinColumn:
+                name: company_id
+                referencedColumn: id
+
+    manyToMany:
+        groups:
+            targetEntity: Elearning\CompaniesBundle\Entity\Group
+            inversedBy: employees
+            joinTable:
+                name: employees_groups
+                joinColumns:
+                    employee_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    group_id:
+                        referencedColumnName: id
+
+    oneToOne:
+        user:
+            targetEntity: Elearning\UserBundle\Entity\User
+            inversedBy: employee
+            cascade: [remove]
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+

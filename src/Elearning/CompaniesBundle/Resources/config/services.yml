@@ -1,0 +1,22 @@
+services:
+    elearning_companies.companies_manager:
+        class: Elearning\CompaniesBundle\Model\CompaniesManager
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@security.token_storage"
+    elearning.message_service:
+        class: Elearning\CompaniesBundle\Services\MessageService
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@mailer"
+            - "%mailer_from_email%"
+    elearning.admin_service:
+        class: Elearning\CompaniesBundle\Services\AdminService
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+    elearning_companies.form.type.position:
+        class: Elearning\CompaniesBundle\Form\PositionType
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type, alias: elearning_companies_position }

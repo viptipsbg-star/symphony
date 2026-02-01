@@ -1,0 +1,26 @@
+Elearning\CompaniesBundle\Entity\EmployeeProfileField:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        employee_id:
+            type: integer
+            nullable: false
+        fieldname:
+            type: string
+            nullable: false
+        fieldvalue:
+            type: string
+            nullable: false
+    manyToOne:
+        employee:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            inversedBy: fields
+            joinColumn:
+                name: employee_id
+                referencedColumn: id

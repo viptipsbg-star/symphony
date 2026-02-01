@@ -1,0 +1,39 @@
+Elearning\CoursesBundle\Entity\Category:
+    type: entity
+    table: crs_categories
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+        parent_id:
+            type: integer
+            nullable: true
+        main_page:
+            type: boolean
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+        state:
+            type: string
+            nullable: false
+    oneToMany:
+        children:
+            orderBy: {'ordering': 'ASC'}
+            targetEntity: Elearning\CoursesBundle\Entity\Category
+            mappedBy: parent
+        courses:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            mappedBy: category
+    manyToOne:
+        parent:
+            targetEntity: Elearning\CoursesBundle\Entity\Category
+            inversedBy: children
+
+

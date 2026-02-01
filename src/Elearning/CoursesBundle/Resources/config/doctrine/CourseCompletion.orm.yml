@@ -1,0 +1,36 @@
+Elearning\CoursesBundle\Entity\CourseCompletion:
+    type: entity
+    table: crs_course_completion
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        listen_id:
+            type: integer
+            nullable: false
+        chapter_id:
+            type: integer
+            nullable: false
+        completed:
+            type: boolean
+            nullable: false
+        completion:
+            type: integer
+            nullable: true
+        updatetime:
+            type: datetime
+            nullable: false
+    manyToOne:
+        courseListen:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseListening
+            joinColumn:
+                name: listen_id
+                referencedColumnName: id
+        chapter:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            joinColumn:
+                name: chapter_id
+                referencedColumnName: id

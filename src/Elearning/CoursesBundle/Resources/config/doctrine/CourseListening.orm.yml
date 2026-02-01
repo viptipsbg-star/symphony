@@ -1,0 +1,70 @@
+Elearning\CoursesBundle\Entity\CourseListening:
+    type: entity
+    table: crs_course_listening
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        course_id:
+            type: integer
+            nullable: false
+        user_id:
+            type: integer
+            nullable: false
+        group_course_id:
+            type: integer
+            nullable: true
+        created:
+            type: datetime
+        started:
+            type: datetime
+            nullable: true
+        last_listen:
+            type: datetime
+            nullable: true
+        completed:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+    oneToOne:
+        certificate:
+            targetEntity: Elearning\CoursesBundle\Entity\Certificate
+            mappedBy: courseListen
+            cascade: [remove]
+    manyToOne:
+        course:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            joinColumn:
+                name: course_id
+                referencedColumnName: id
+        user:
+            targetEntity: Elearning\UserBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        groupCourse:
+            targetEntity: Elearning\CoursesBundle\Entity\GroupCourse
+            joinColumn:
+                name: group_course_id
+                referencedColumnName: id
+
+    oneToMany:
+        completion:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseCompletion
+            mappedBy: courseListen
+            cascade: [remove]
+        questions:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseQuestion
+            mappedBy: courseListening
+            cascade: [remove]
+        examAttempts:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamAttempt
+            mappedBy: courseListen
+            cascade: [remove]
+
+
+    lifecycleCallbacks: {  }

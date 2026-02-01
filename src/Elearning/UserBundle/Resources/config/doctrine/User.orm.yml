@@ -1,0 +1,92 @@
+Elearning\UserBundle\Entity\User:
+    type:  entity
+    table: fos_user
+#    repositoryClass: Elearning\UserBundle\Entity\UserRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+
+    attributeOverride:
+        emailCanonical:
+            name: emailCanonical
+            type: string
+            length: 255
+            unique: false
+            column: email_canonical
+            nullable: false
+#        username:
+#            type: string
+#            length: 255
+#        usernameCanonical:
+#            type: string
+#            length: 255
+#            unique: true
+#            column: username_canonical
+#        email:
+#            type: string
+#            length: 255
+#        emailCanonical:
+#            type: string
+#            length: 255
+#            unique: true
+#            column: email_canonical
+#        enabled:
+#            type: boolean
+#        salt:
+#            type: string
+#        password:
+#            type: string
+#        lastLogin:
+#            type: datetime
+#            nullable: true
+#            column: last_login
+#        locked:
+#            type: boolean
+#        expired:
+#            type: boolean
+#        expiresAt:
+#            type: datetime
+#            nullable: true
+#            column: expires_at
+#        confirmationToken:
+#            type: string
+#            nullable: true
+#            column: confirmation_token
+#        passwordRequestedAt:
+#            type: datetime
+#            nullable: true
+#            column: password_requested_at
+#        roles:
+#            type: array
+#        credentialsExpired:
+#            type: boolean
+#            column: credentials_expired
+#        credentialsExpireAt:
+#            type: datetime
+#            nullable: true
+#            column: credentials_expire_at
+#
+    manyToMany:
+        groups:
+            targetEntity: Elearning\UserBundle\Entity\Group
+            inversedBy: users
+            joinTable:
+                name: fos_user_user_groups
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    group_id:
+                        referencedColumnName: id
+    oneToMany:
+        courseListenings:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseListening
+            mappedBy: user
+            cascade: [remove]
+    oneToOne:
+        employee:
+            targetEntity: Elearning\CompaniesBundle\Entity\Employee
+            mappedBy: user
+            cascade: [persist]

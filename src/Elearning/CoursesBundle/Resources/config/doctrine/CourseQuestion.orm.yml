@@ -1,0 +1,33 @@
+Elearning\CoursesBundle\Entity\CourseQuestion:
+    type: entity
+    table: crs_course_questions
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        listening_id:
+            type: integer
+            nullable: false
+        question:
+            type: text
+            nullable: false
+        answer:
+            type: text
+            nullable: true
+        createdtime:
+            type: datetime
+        answeredtime:
+            type: datetime
+            nullable: true
+        viewed:
+            type: boolean
+            nullable: false
+    manyToOne:
+        courseListening:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseListening
+            joinColumn:
+                name: listening_id
+                referencedColumnName: id

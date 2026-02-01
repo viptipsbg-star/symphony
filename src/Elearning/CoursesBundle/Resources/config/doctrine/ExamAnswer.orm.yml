@@ -1,0 +1,29 @@
+Elearning\CoursesBundle\Entity\ExamAnswer:
+    type: entity
+    table: crs_exam_answers
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        question_id:
+            type: integer
+            nullable: false
+        answer:
+            type: text
+            nullable: false
+        correct:
+            type: boolean
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+    manyToOne:
+        question:
+            targetEntity: Elearning\CoursesBundle\Entity\ExamQuestion
+            inversedBy: answers
+            joinColumn:
+                name: question_id
+                referencedColumnName: id

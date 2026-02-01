@@ -1,0 +1,11 @@
+cd /home/emokymai
+
+git reset --hard HEAD
+git pull edu master
+
+php app/console assetic:dump --env=prod
+php app/console cache:clear --env=prod --no-warmup
+
+chown -R emokymai:emokymai /home/emokymai/app/cache
+
+

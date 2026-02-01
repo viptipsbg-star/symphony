@@ -1,0 +1,107 @@
+Elearning\CoursesBundle\Entity\Course:
+    type: entity
+    repositoryClass: Elearning\CoursesBundle\Entity\CourseRepository
+    table: crs_courses
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+        status:
+            type: string
+            length: 255
+            nullable: false
+        listenperiod:
+            type: integer
+            nullable: true
+        duration:
+            type: integer
+            nullable: true
+        certificate_needed:
+            type: boolean
+            nullable: false
+        flexible_order:
+            type: boolean
+            nullable: false
+        can_pause_exams:
+            type: boolean
+            nullable: false
+        show_exams_count:
+            type: boolean
+            nullable: false
+        show_category:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+        show_certificate_needed:
+            type: boolean
+            nullable: false
+        active_date_to:
+            type: date
+            nullable: true
+        show_active_date_to:
+            type: boolean
+            nullable: false
+        creator_user_id:
+            type: integer
+            nullable: false
+        category_id:
+            type: integer
+            nullable: false
+        description:
+            type: text
+            nullable: false
+        main_page:
+            type: boolean
+            nullable: false
+        image:
+            type: string
+            length: 255
+            nullable: false
+        ordering:
+            type: integer
+            nullable: false
+    manyToOne:
+        category:
+            targetEntity: Elearning\CoursesBundle\Entity\Category
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+
+        creator:
+            targetEntity: Elearning\UserBundle\Entity\User
+            joinColumn:
+                name: creator_user_id
+                referencedColumnName: id
+    oneToMany:
+        groupCourses:
+            targetEntity: Elearning\CoursesBundle\Entity\GroupCourse
+            mappedBy: course
+        questions:
+            targetEntity: Elearning\CoursesBundle\Entity\CourseFaq
+            mappedBy: course
+        chapters:
+            targetEntity: Elearning\CoursesBundle\Entity\Chapter
+            mappedBy: course
+        uploads:
+            targetEntity: Elearning\CoursesBundle\Entity\Upload
+            mappedBy: course
+
+    properties:
+        imagefile:
+            - Image: ~
+
+    lifecycleCallbacks:
+        # These do not work if other entity fields are not modified
+        # prePersist: [preUpload]
+        # preUpdate: [preUpload]
+        # postPersist: [upload]
+        # postUpdate: [upload]
+        postRemove: [postRemove]
+

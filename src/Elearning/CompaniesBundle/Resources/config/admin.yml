@@ -1,0 +1,24 @@
+services:
+    company.admin.company:
+        class: Elearning\CompaniesBundle\Admin\CompanyAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Companies", label: "Company" }
+        arguments:
+            - ~
+            - Elearning\CompaniesBundle\Entity\Company
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCompaniesBundle]]
+
+    company.admin.employee:
+        class: Elearning\CompaniesBundle\Admin\EmployeeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Companies", label: "Employee" }
+        arguments:
+            - ~
+            - Elearning\CompaniesBundle\Entity\Employee
+            - ~
+        calls:
+            - [ setTranslationDomain, [ElearningCompaniesBundle]]
+
+
