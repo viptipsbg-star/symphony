@@ -29,21 +29,15 @@
         {%- set classes = classes|merge([options.lastClass]) %}
     {%- endif %}
 
-{# building the class of the children #}
-    {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
-    {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
-
 {# adding classes for dropdown #}
     {%- if is_dropdown %}
         {%- set classes = classes|merge(['dropdown']) %}
-        {%- set childrenClasses = childrenClasses|merge(['dropdown-menu']) %}
     {%- endif %}
 
 {# putting classes together #}
     {%- if classes is not empty %}
         {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
     {%- endif %}
-    {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
 
 {# displaying the item #}
     <li{{ macros.attributes(attributes) }}>
@@ -61,6 +55,25 @@
     {%- if divider_append %}
         {{ block('dividerElement') }}
     {%- endif %}
+{% endif %}
+{% endblock %}
+
+{% block list %}
+{% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+    {% import "knp_menu.html.twig" as macros %}
+    
+    {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+    {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
+    
+    {%- if item.attribute('dropdown') %}
+        {%- set childrenClasses = childrenClasses|merge(['dropdown-menu']) %}
+    {%- endif %}
+    
+    {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+    
+    <ul{{ macros.attributes(listAttributes) }}>
+        {{ block('children') }}
+    </ul>
 {% endif %}
 {% endblock %}
 
@@ -82,3 +95,4 @@
 {% endblock %}
 
 {% block label %}{{ item.label|trans }}{% endblock %}
+
