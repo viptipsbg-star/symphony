@@ -10,10 +10,12 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
         {% stylesheets
-        '../app/Resources/less/style.less'
-        '../app/Resources/less/responsive.less' %}
+            '../app/Resources/less/style.less'
+            '../app/Resources/less/responsive.less'
+        %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
         {% endstylesheets %}
+
         {% block stylesheets %}{% endblock %}
     </head>
     <body class="{% block bodyclass %}{% endblock %}">
@@ -53,7 +55,11 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            {{ knp_menu_render('main') }}
+
+                            {{ knp_menu_render('main', {
+                                'currentClass': 'active',
+                                'template': 'KnpMenuBundle::menu.html.twig'
+                            }) }}
                         </div>
                     </div>
                 </div>
@@ -71,7 +77,8 @@
                             &copy; {{ company_info.footer.copyright }}
                         </div>
                         <div id="footer-solution" class="col-sm-6">
-                            {{ company_info.footer.title }}: <a href="{{ company_info.footer.url }}">{{ "footer.solution"|trans }}</a>
+                            {{ company_info.footer.title }}:
+                            <a href="{{ company_info.footer.url }}">{{ "footer.solution"|trans }}</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +86,7 @@
         {% endblock %}
         </div>
 
-
+        {# само jQuery + Bootstrap; НИТО ЕДИН custom JS файл #}
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
