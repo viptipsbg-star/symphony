@@ -112,20 +112,33 @@
         {% block javascripts %}{% endblock %}
         
         <script>
-        // Simple dropdown toggle
+        // Simple dropdown toggle with debugging
         jQuery(document).ready(function($) {
+            console.log('=== DROPDOWN DEBUG START ===');
+            console.log('jQuery version:', $.fn.jquery);
+            console.log('Dropdown toggles found:', $('a.dropdown-toggle').length);
+            console.log('Dropdown li elements:', $('li.dropdown').length);
+            
             // Click on dropdown toggle
             $('body').on('click', 'a.dropdown-toggle', function(e) {
+                console.log('DROPDOWN CLICKED!');
                 e.preventDefault();
+                
                 var $parent = $(this).parent('li');
+                console.log('Parent li found:', $parent.length);
+                console.log('Parent has dropdown class:', $parent.hasClass('dropdown'));
+                
                 var wasOpen = $parent.hasClass('open');
+                console.log('Was open:', wasOpen);
                 
                 // Close all dropdowns
                 $('li.dropdown').removeClass('open');
+                console.log('Closed all dropdowns');
                 
                 // Open this one if it wasn't open
                 if (!wasOpen) {
                     $parent.addClass('open');
+                    console.log('Opened dropdown, parent classes:', $parent.attr('class'));
                 }
                 
                 return false;
@@ -137,6 +150,8 @@
                     $('li.dropdown').removeClass('open');
                 }
             });
+            
+            console.log('=== DROPDOWN DEBUG END ===');
         });
         </script>
     </body>
