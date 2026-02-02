@@ -82,26 +82,37 @@
 
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        {% block javascripts %}{% endblock %}
         
         <script>
+        // Dropdown initialization - runs AFTER all page-specific scripts
         jQuery(function($) {
-            // Wait for DOM to be fully loaded
-            setTimeout(function() {
+            function initDropdowns() {
+                var dropdowns = $('a.dropdown-toggle');
+                
+                if (dropdowns.length === 0) {
+                    // Retry after 200ms if dropdowns not found
+                    setTimeout(initDropdowns, 200);
+                    return;
+                }
+                
                 // Remove any existing click handlers
-                $('a.dropdown-toggle').off('click');
+                dropdowns.off('click');
                 
                 // Add new click handler
-                $('a.dropdown-toggle').on('click', function(e) {
+                dropdowns.on('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     var $li = $(this).closest('li.dropdown');
+                    var wasOpen = $li.hasClass('open');
                     
                     // Close all dropdowns first
                     $('li.dropdown').removeClass('open');
                     
                     // Open this one if it wasn't open
-                    if (!$li.hasClass('open')) {
+                    if (!wasOpen) {
                         $li.addClass('open');
                     }
                     
@@ -117,10 +128,11 @@
                 $('li.dropdown').on('click', function(e) {
                     e.stopPropagation();
                 });
-            }, 100);
+            }
+            
+            // Start initialization with delay to ensure DOM is ready
+            setTimeout(initDropdowns, 100);
         });
         </script>
-
-        {% block javascripts %}{% endblock %}
     </body>
 </html>
