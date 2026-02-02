@@ -18,27 +18,15 @@ group:
 
 credentials:
     title: Update information
-    email: "Email address:"
-    new_password: "Password:"
-    new_password_confirmation: "Confirm password:"
-    submit: Update
-
-
-security:
-    login:
-        username: "Username"
-        email: "Email address"
-        password: "Password"
-        remember_me: Remember me
-        submit: SUBMIT
-        remind_password: REMIND PASSWORD
-        panel_heading: LOG IN
+    submit: Update information
+    flash:
+        success: Information updated
 
 # Profile
 profile:
     show:
         username: Username
-        email: Email address
+        email: Email
     edit:
         submit: Update
     flash:
@@ -46,72 +34,57 @@ profile:
 
 # Password change
 change_password:
-    title: Change password
     submit: Change password
     flash:
-        success: Password changed
+        success: Password was changed
 
 # Registration
 registration:
-    check_email: Check your email %email%. Jame rasite nuorodą kurią aplankę aktyvuosite savo paskyrą.
-    confirmed: Hello %username%, your account was activated.
-    back: Back to previous page.
+    check_email: |
+        An email was sent to %email%. It contains an activation link you must click to activate your account.
+    confirmed: Congratulations %username%, your account is now activated.
+    back: Back to the originating page.
     submit: Register
     flash:
-        user_created: User created successfully
+        user_created: User was successfully created
     email:
-        subject: Hello %username%!
+        subject: Welcome %username%!
         message: |
             Hello %username%!
 
-            To activate your account – please press %confirmationUrl%
+            To finish activating your account - please visit %confirmationUrl%
 
-            Best regards,
-            Team.
-
-    user_add_email:
-        subject: Jums sukurtas naudotojas emokymų sistemoje
-        message: |
-            Hello,
-
-            Jums buvo sukurtas naudotojas emokymų sistemoje.
-            Connection data:
-            Username: %username%
-            Pasword: %password%
-
-            We recommend to change your password.
-
-            Best regards,
-            Team.
-
+            Regards,
+            the Team.
 
 # Password resetting
 resetting:
-    password_already_requested: Slaptažodis šitam naudotojui jau buvo prašytas pakeisti per pastarąsias 24 valandas.
-    check_email: Letter was sent to your email %email%. Jame rasite nuorodą kurią paspaudus galėsite pakeisti savo slaptažodį.
+    check_email: |
+        An email was sent. It contains a link you must click to reset your password.
+        Note: You can only request a new password once within %tokenLifetime% hours.
+
+        If you don't get an email check your spam folder or try again.
     request:
-        invalid_username: Invalid Email address "%username%".
-        username: "Email:"
-        submit: Set password
+        username: "Username or email:"
+        submit: Reset password
     reset:
         submit: Change password
     flash:
-        success: Password changed successfully
+        success: Password was successfully reset
     email:
-        subject: Set password
+        subject: Reset Password
         message: |
             Hello %username%!
 
-            To change your password – please click %confirmationUrl%
+            To reset your password - please visit %confirmationUrl%
 
-            Best regards,
-            Team.
-    title: Pasword reminder
+            Regards,
+            the Team.
 
 # Global strings
 layout:
-    logout: Log out
-    login: Log in
+    logout: Logout
+    login: Login
     register: Register
     logged_in_as: Logged in as %username%
 
@@ -130,44 +103,43 @@ form:
 # Reflection
 reflection:
     student:
-        list_title: 'My Reflections'
-        create_title: 'Write New Reflection'
-        no_reflections: 'You haven\'t written any reflections yet.'
-        create_button: 'New Reflection'
-        create_help: 'Write your thoughts about what you have learned, what was difficult, and what you plan to improve.'
+        list_title: "My Reflections"
+        create_title: "Write New Reflection"
+        no_reflections: "You haven''t written any reflections yet."
+        create_button: "New Reflection"
+        create_help: "Write your thoughts about what you have learned, what was difficult, and what you plan to improve."
     teacher:
-        list_title: 'Student Reflections'
-        view_title: 'Review Reflection'
-        your_response: 'Your Response'
-        no_reflections: 'No student reflections found.'
+        list_title: "Student Reflections"
+        view_title: "Review Reflection"
+        your_response: "Your Response"
+        no_reflections: "No student reflections found."
     list:
-        course: 'Course'
-        student: 'Student'
-        date: 'Date'
-        status: 'Status'
-        actions: 'Actions'
+        course: "Course"
+        student: "Student"
+        date: "Date"
+        status: "Status"
+        actions: "Actions"
     status:
-        responded: 'Responded'
-        pending: 'Pending'
-        needs_response: 'Needs Response'
+        responded: "Responded"
+        pending: "Pending"
+        needs_response: "Needs Response"
     action:
-        view: 'View'
-        respond: 'Respond'
-        back_list: 'Back to List'
-        back: 'Back'
-        cancel: 'Cancel'
+        view: "View"
+        respond: "Respond"
+        back_list: "Back to List"
+        back: "Back"
+        cancel: "Cancel"
     view:
-        student_reflection: 'Reflection'
-        teacher_response: 'Teacher Response'
-        waiting_for_response: 'Waiting for teacher response...'
+        student_reflection: "Reflection"
+        teacher_response: "Teacher Response"
+        waiting_for_response: "Waiting for teacher response..."
     form:
-        course: 'Course'
-        choose_course: 'Choose a course...'
-        student_text: 'Your Reflection'
-        teacher_response: 'Your Response'
-        submit: 'Submit Reflection'
-        submit_response: 'Send Response'
+        course: "Course"
+        choose_course: "Choose a course..."
+        student_text: "Your Reflection"
+        teacher_response: "Your Response"
+        submit: "Submit Reflection"
+        submit_response: "Send Response"
     flash:
-        created: 'Reflection created successfully.'
-        response_sent: 'Response sent successfully.'
-
+        created: "Reflection created successfully."
+        response_sent: "Response sent successfully."
