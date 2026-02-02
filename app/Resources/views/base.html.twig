@@ -33,12 +33,26 @@
             border-radius: 4px;
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
         }
+        
+        /* Show dropdown on hover */
+        .dropdown:hover > .dropdown-menu,
+        li.dropdown:hover > .dropdown-menu {
+            display: block !important;
+        }
+        
+        /* Also show when has open class (for compatibility) */
         .dropdown.open > .dropdown-menu,
         li.dropdown.open > .dropdown-menu {
             display: block !important;
         }
+        
         .dropdown-toggle {
             cursor: pointer;
+        }
+        
+        /* Prevent dropdown link from navigating */
+        .dropdown-toggle[href="#"] {
+            pointer-events: auto;
         }
         </style>
     </head>
@@ -108,70 +122,5 @@
 
 
         {% block javascripts %}{% endblock %}
-        
-        <script>
-        // Pure vanilla JavaScript dropdown - no jQuery dependency
-        (function() {
-            'use strict';
-            
-            function initDropdowns() {
-                // Find all dropdown toggles
-                var dropdownToggles = document.querySelectorAll('a.dropdown-toggle');
-                
-                alert('Dropdown toggles found: ' + dropdownToggles.length);
-                
-                if (dropdownToggles.length === 0) {
-                    // Retry after 100ms if not found
-                    setTimeout(initDropdowns, 100);
-                    return;
-                }
-                
-                // Add click handler to each dropdown toggle
-                dropdownToggles.forEach(function(toggle) {
-                    toggle.addEventListener('click', function(e) {
-                        alert('Dropdown clicked!');
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        var parentLi = this.closest('li.dropdown');
-                        if (!parentLi) return false;
-                        
-                        var wasOpen = parentLi.classList.contains('open');
-                        
-                        // Close all dropdowns
-                        var allDropdowns = document.querySelectorAll('li.dropdown');
-                        allDropdowns.forEach(function(dropdown) {
-                            dropdown.classList.remove('open');
-                        });
-                        
-                        // Toggle this dropdown
-                        if (!wasOpen) {
-                            parentLi.classList.add('open');
-                        }
-                        
-                        return false;
-                    });
-                });
-                
-                // Close dropdowns when clicking outside
-                document.addEventListener('click', function(e) {
-                    var isDropdown = e.target.closest('.dropdown');
-                    if (!isDropdown) {
-                        var allDropdowns = document.querySelectorAll('li.dropdown');
-                        allDropdowns.forEach(function(dropdown) {
-                            dropdown.classList.remove('open');
-                        });
-                    }
-                });
-            }
-            
-            // Start when DOM is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initDropdowns);
-            } else {
-                initDropdowns();
-            }
-        })();
-        </script>
     </body>
 </html>
