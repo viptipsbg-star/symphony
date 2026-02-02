@@ -135,6 +135,44 @@
 
 
 
+
         {% block javascripts %}{% endblock %}
+        
+        <script>
+        // DISABLE all Bootstrap dropdown JavaScript
+        (function() {
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', disableDropdownJS);
+            } else {
+                disableDropdownJS();
+            }
+            
+            function disableDropdownJS() {
+                // Find all dropdown toggles
+                var dropdownToggles = document.querySelectorAll('a.dropdown-toggle, a[data-toggle="dropdown"]');
+                
+                // Remove all click handlers and prevent default
+                dropdownToggles.forEach(function(toggle) {
+                    // Clone and replace to remove all event listeners
+                    var newToggle = toggle.cloneNode(true);
+                    toggle.parentNode.replaceChild(newToggle, toggle);
+                    
+                    // Add new click handler that does nothing
+                    newToggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        return false;
+                    }, true);
+                });
+                
+                // Disable Bootstrap dropdown plugin if it exists
+                if (typeof jQuery !== 'undefined' && jQuery.fn.dropdown) {
+                    jQuery.fn.dropdown = function() { return this; };
+                }
+            }
+        })();
+        </script>
     </body>
 </html>
