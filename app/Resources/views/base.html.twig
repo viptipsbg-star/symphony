@@ -82,6 +82,40 @@
 
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script>
+        // Manual dropdown handling for Bootstrap 3
+        $(document).ready(function() {
+            // Handle dropdown toggle clicks
+            $(document).on('click', '.dropdown-toggle', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var $parent = $(this).parent('.dropdown');
+                var isOpen = $parent.hasClass('open');
+                
+                // Close all other dropdowns
+                $('.dropdown.open').removeClass('open');
+                
+                // Toggle current dropdown
+                if (!isOpen) {
+                    $parent.addClass('open');
+                    $(this).attr('aria-expanded', 'true');
+                } else {
+                    $parent.removeClass('open');
+                    $(this).attr('aria-expanded', 'false');
+                }
+            });
+            
+            // Close dropdowns when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('.dropdown.open').removeClass('open');
+                    $('.dropdown-toggle').attr('aria-expanded', 'false');
+                }
+            });
+        });
+        </script>
 
         {% block javascripts %}{% endblock %}
     </body>
