@@ -86,53 +86,40 @@
         {% block javascripts %}{% endblock %}
         
         <script>
-        // Dropdown initialization - runs AFTER all page-specific scripts
-        jQuery(function($) {
-            function initDropdowns() {
-                var dropdowns = $('a.dropdown-toggle');
+        // Dropdown initialization - uses event delegation to avoid conflicts
+        (function($) {
+            // Use event delegation from document level with namespace
+            $(document).off('click.dropdownInit').on('click.dropdownInit', 'a.dropdown-toggle', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
                 
-                if (dropdowns.length === 0) {
-                    // Retry after 200ms if dropdowns not found
-                    setTimeout(initDropdowns, 200);
-                    return;
+                var $li = $(this).closest('li.dropdown');
+                var wasOpen = $li.hasClass('open');
+                
+                // Close all dropdowns
+                $('li.dropdown').removeClass('open');
+                
+                // Toggle this dropdown
+                if (!wasOpen) {
+                    $li.addClass('open');
                 }
                 
-                // Remove any existing click handlers
-                dropdowns.off('click');
-                
-                // Add new click handler
-                dropdowns.on('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    var $li = $(this).closest('li.dropdown');
-                    var wasOpen = $li.hasClass('open');
-                    
-                    // Close all dropdowns first
-                    $('li.dropdown').removeClass('open');
-                    
-                    // Open this one if it wasn't open
-                    if (!wasOpen) {
-                        $li.addClass('open');
-                    }
-                    
-                    return false;
-                });
-                
-                // Close on outside click
-                $(document).on('click', function() {
-                    $('li.dropdown').removeClass('open');
-                });
-                
-                // Prevent dropdown from closing when clicking inside
-                $('li.dropdown').on('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
+                return false;
+            });
             
-            // Start initialization with delay to ensure DOM is ready
-            setTimeout(initDropdowns, 100);
-        });
+            // Close dropdowns when clicking outside
+            $(document).off('click.dropdownClose').on('click.dropdownClose', function(e) {
+                if (!$(e.target).closest('li.dropdown').length) {
+                    $('li.dropdown').removeClass('open');
+                }
+            });
+            
+            // Prevent dropdown from closing when clicking inside menu
+            $(document).off('click.dropdownMenu').on('click.dropdownMenu', 'li.dropdown .dropdown-menu', function(e) {
+                e.stopPropagation();
+            });
+        })(jQuery);
         </script>
     </body>
 </html>
