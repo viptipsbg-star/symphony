@@ -109,41 +109,65 @@
 
         {% block javascripts %}{% endblock %}
         
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        
         <script>
-        // Dropdown functionality - loaded LAST to avoid conflicts
+        // Pure vanilla JavaScript dropdown - no jQuery dependency
         (function() {
-            if (typeof jQuery === 'undefined') return;
+            'use strict';
             
-            jQuery(document).ready(function($) {
-                // Dropdown click handler
-                $(document).on('click', '.dropdown-toggle', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    var $parent = $(this).closest('li.dropdown');
-                    var wasOpen = $parent.hasClass('open');
-                    
-                    // Close all dropdowns
-                    $('.dropdown').removeClass('open');
-                    
-                    // Toggle this dropdown
-                    if (!wasOpen) {
-                        $parent.addClass('open');
-                    }
-                    
-                    return false;
+            function initDropdowns() {
+                // Find all dropdown toggles
+                var dropdownToggles = document.querySelectorAll('a.dropdown-toggle');
+                
+                if (dropdownToggles.length === 0) {
+                    // Retry after 100ms if not found
+                    setTimeout(initDropdowns, 100);
+                    return;
+                }
+                
+                // Add click handler to each dropdown toggle
+                dropdownToggles.forEach(function(toggle) {
+                    toggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var parentLi = this.closest('li.dropdown');
+                        if (!parentLi) return false;
+                        
+                        var wasOpen = parentLi.classList.contains('open');
+                        
+                        // Close all dropdowns
+                        var allDropdowns = document.querySelectorAll('li.dropdown');
+                        allDropdowns.forEach(function(dropdown) {
+                            dropdown.classList.remove('open');
+                        });
+                        
+                        // Toggle this dropdown
+                        if (!wasOpen) {
+                            parentLi.classList.add('open');
+                        }
+                        
+                        return false;
+                    });
                 });
                 
-                // Close dropdowns on outside click
-                $(document).on('click', function(e) {
-                    if (!$(e.target).closest('.dropdown').length) {
-                        $('.dropdown').removeClass('open');
+                // Close dropdowns when clicking outside
+                document.addEventListener('click', function(e) {
+                    var isDropdown = e.target.closest('.dropdown');
+                    if (!isDropdown) {
+                        var allDropdowns = document.querySelectorAll('li.dropdown');
+                        allDropdowns.forEach(function(dropdown) {
+                            dropdown.classList.remove('open');
+                        });
                     }
                 });
-            });
+            }
+            
+            // Start when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initDropdowns);
+            } else {
+                initDropdowns();
+            }
         })();
         </script>
     </body>
