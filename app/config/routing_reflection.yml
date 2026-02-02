@@ -1,7 +1,19 @@
-reflection:
-  resource: "@ElearningCoursesBundle/Controller/StudentReflectionController.php"
-  type: annotation
+student_reflection_list:
+  path: /reflections
+  defaults: { _controller: ElearningCoursesBundle:StudentReflection:list }
 
-teacher_reflection:
-  resource: "@ElearningCoursesBundle/Controller/TeacherReflectionController.php"
-  type: annotation
+student_reflection_create:
+  path: /reflections/create
+  defaults: { _controller: ElearningCoursesBundle:StudentReflection:create }
+
+student_reflection_view:
+  path: /reflections/{id}
+  defaults: { _controller: ElearningCoursesBundle:StudentReflection:view }
+
+teacher_reflection_list:
+  path: /teacher/reflections
+  defaults: { _controller: ElearningCoursesBundle:TeacherReflection:list }
+
+teacher_reflection_respond:
+  path: /teacher/reflections/{id}/respond
+  defaults: { _controller: ElearningCoursesBundle:TeacherReflection:respond }

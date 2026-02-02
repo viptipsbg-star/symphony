@@ -6,6 +6,10 @@ elearning_courses:
     resource: "@ElearningCoursesBundle/Resources/config/routing.yml"
     prefix: /
 
+elearning_reflections:
+    resource: "routing_reflection.yml"
+    prefix: /
+
 elearning_main:
     resource: "@ElearningMainBundle/Resources/config/routing.yml"
     prefix: /
