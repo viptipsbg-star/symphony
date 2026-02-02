@@ -1,0 +1,7 @@
+reflection:
+  resource: "@ElearningCoursesBundle/Controller/StudentReflectionController.php"
+  type: annotation
+
+teacher_reflection:
+  resource: "@ElearningCoursesBundle/Controller/TeacherReflectionController.php"
+  type: annotation

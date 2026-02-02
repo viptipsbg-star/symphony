@@ -126,3 +126,48 @@ form:
     new_password: "New password:"
     new_password_confirmation: "Confirm:"
     birthday: "Birth date"
+
+# Reflection
+reflection:
+    student:
+        list_title: 'My Reflections'
+        create_title: 'Write New Reflection'
+        no_reflections: 'You haven\'t written any reflections yet.'
+        create_button: 'New Reflection'
+        create_help: 'Write your thoughts about what you have learned, what was difficult, and what you plan to improve.'
+    teacher:
+        list_title: 'Student Reflections'
+        view_title: 'Review Reflection'
+        your_response: 'Your Response'
+        no_reflections: 'No student reflections found.'
+    list:
+        course: 'Course'
+        student: 'Student'
+        date: 'Date'
+        status: 'Status'
+        actions: 'Actions'
+    status:
+        responded: 'Responded'
+        pending: 'Pending'
+        needs_response: 'Needs Response'
+    action:
+        view: 'View'
+        respond: 'Respond'
+        back_list: 'Back to List'
+        back: 'Back'
+        cancel: 'Cancel'
+    view:
+        student_reflection: 'Reflection'
+        teacher_response: 'Teacher Response'
+        waiting_for_response: 'Waiting for teacher response...'
+    form:
+        course: 'Course'
+        choose_course: 'Choose a course...'
+        student_text: 'Your Reflection'
+        teacher_response: 'Your Response'
+        submit: 'Submit Reflection'
+        submit_response: 'Send Response'
+    flash:
+        created: 'Reflection created successfully.'
+        response_sent: 'Response sent successfully.'
+

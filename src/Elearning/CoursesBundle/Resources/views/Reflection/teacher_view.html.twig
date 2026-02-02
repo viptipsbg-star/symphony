@@ -1,0 +1,37 @@
+{% extends 'bodybase.html.twig' %}
+
+{% block bodycontainer %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ 'reflection.teacher.view_title'|trans({}, 'FOSUserBundle') }}</h2>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ reflection.student.username }} - {{ reflection.course.name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>{{ 'reflection.view.student_reflection'|trans({}, 'FOSUserBundle') }} <small>({{ reflection.studentCreatedAt|date('Y-m-d H:i') }})</small></h4>
+                            <div class="well">
+                                {{ reflection.studentText|nl2br }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>{{ 'reflection.teacher.your_response'|trans({}, 'FOSUserBundle') }}</h4>
+                            
+                            {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                {# Submit button is inside form #}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                
+                    <a href="{{ path('teacher_reflection_list') }}" class="btn btn-default" style="margin-top:20px;">
+                        {{ 'reflection.action.back_list'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

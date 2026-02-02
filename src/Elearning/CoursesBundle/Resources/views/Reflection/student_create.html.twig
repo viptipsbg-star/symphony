@@ -1,0 +1,35 @@
+{% extends 'bodybase.html.twig' %}
+
+{% block bodycontainer %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ 'reflection.student.create_title'|trans({}, 'FOSUserBundle') }}</h2>
+            
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        
+                        <div class="form-group">
+                            {{ form_label(form.course) }}
+                            {{ form_widget(form.course, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.course) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(form.studentText) }}
+                            {{ form_widget(form.studentText) }}
+                            {{ form_errors(form.studentText) }}
+                            <p class="help-block">{{ 'reflection.student.create_help'|trans({}, 'FOSUserBundle') }}</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_widget(form.submit) }}
+                            <a href="{{ path('student_reflection_list') }}" class="btn btn-default">{{ 'reflection.action.cancel'|trans({}, 'FOSUserBundle') }}</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
