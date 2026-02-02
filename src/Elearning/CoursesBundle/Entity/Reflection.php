@@ -1,4 +1,5 @@
 <?php
+// Reflection Entity v1.0
 
 namespace Elearning\CoursesBundle\Entity;
 
