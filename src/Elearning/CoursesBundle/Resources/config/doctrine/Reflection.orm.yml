@@ -1,47 +1,47 @@
 Elearning\CoursesBundle\Entity\Reflection:
-  type: entity
-  table: reflection
-  repositoryClass: Elearning\CoursesBundle\Entity\ReflectionRepository
-  id:
+    type: entity
+    table: reflection
+    repositoryClass: Elearning\CoursesBundle\Entity\ReflectionRepository
     id:
-      type: integer
-      generator:
-        strategy: AUTO
-  fields:
-    studentText:
-      type: text
-      column: student_text
-    teacherResponse:
-      type: text
-      column: teacher_response
-      nullable: true
-    studentCreatedAt:
-      type: datetime
-      column: student_created_at
-    teacherRespondedAt:
-      type: datetime
-      column: teacher_responded_at
-      nullable: true
-    isReadByTeacher:
-      type: boolean
-      column: is_read_by_teacher
-    isReadByStudent:
-      type: boolean
-      column: is_read_by_student
-  manyToOne:
-    student:
-      targetEntity: Elearning\UserBundle\Entity\User
-      joinColumn:
-        name: student_id
-        referencedColumnName: id
-    teacher:
-      targetEntity: Elearning\UserBundle\Entity\User
-      joinColumn:
-        name: teacher_id
-        referencedColumnName: id
-      nullable: true
-    course:
-      targetEntity: Elearning\CoursesBundle\Entity\Course
-      joinColumn:
-        name: course_id
-        referencedColumnName: id
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        studentText:
+            type: text
+            column: student_text
+        teacherResponse:
+            type: text
+            column: teacher_response
+            nullable: true
+        studentCreatedAt:
+            type: datetime
+            column: student_created_at
+        teacherRespondedAt:
+            type: datetime
+            column: teacher_responded_at
+            nullable: true
+        isReadByTeacher:
+            type: boolean
+            column: is_read_by_teacher
+        isReadByStudent:
+            type: boolean
+            column: is_read_by_student
+    manyToOne:
+        student:
+            targetEntity: Elearning\UserBundle\Entity\User
+            joinColumn:
+                name: student_id
+                referencedColumnName: id
+        teacher:
+            targetEntity: Elearning\UserBundle\Entity\User
+            joinColumn:
+                name: teacher_id
+                referencedColumnName: id
+            nullable: true
+        course:
+            targetEntity: Elearning\CoursesBundle\Entity\Course
+            joinColumn:
+                name: course_id
+                referencedColumnName: id
