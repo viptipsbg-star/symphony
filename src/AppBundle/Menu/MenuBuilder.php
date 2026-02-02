@@ -58,16 +58,14 @@ class MenuBuilder
                 $menu[$courseMenuName]->addChild($this->translator->trans("menu.course_list"), array('route' => 'elearning_courses_list_lecturer'));
                 $menu[$courseMenuName]->addChild($this->translator->trans("menu.categories"), array('route' => 'elearning_courses_categories'));
 
-                // Add Reflections for Teachers
-                $menu->addChild($this->translator->trans("reflection.teacher.list_title"), array('route' => 'teacher_reflection_list'))->setAttribute('class', 'nav-btn');
+
             } else if ($userIsStudent) {
                 $courseMenuName = $this->translator->trans("menu.course");
                 $menu->addChild($courseMenuName)->setAttribute('dropdown', true)->setAttribute('class', 'nav-btn');
                 $menu[$courseMenuName]->addChild($this->translator->trans("menu.my_courses"), array('route' => 'elearning_my_courses_list_student'));
                 $menu[$courseMenuName]->addChild($this->translator->trans("menu.available_courses"), array('route' => 'elearning_available_courses_list_student'));
 
-                // Add Reflections for Students
-                $menu->addChild($this->translator->trans("reflection.student.list_title"), array('route' => 'student_reflection_list'))->setAttribute('class', 'nav-btn');
+
 
                 $reportsMenuName = $this->translator->trans("menu.reports");
                 $menu->addChild($reportsMenuName)->setAttribute('dropdown', true)->setAttribute('class', 'nav-btn');
