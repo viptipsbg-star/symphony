@@ -1,0 +1,21 @@
+{% extends "bodybase.html.twig" %}
+
+{% block bodycontainer %}
+<h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}</h2>
+
+<div class="row">
+    <div class="span12 col-lg-12">
+        <div class="panel">
+            <div class="panel-body">
+                {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+                {% form_theme form 'bootstrap_3_layout.html.twig' %}
+                {{ form_start(form, {'action': path('fos_user_profile_edit'), 'attr': {'class': 'fos_user_profile_edit'}}) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn btn-orange">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

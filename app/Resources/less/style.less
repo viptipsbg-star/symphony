@@ -856,3 +856,27 @@ section {
 .inline-flex {
     display: inline-flex;
 }
+
+/* FORCE DROPDOWN HOVER FUNCTIONALITY */
+.dropdown-menu,
+.menu_level_1.dropdown-menu {
+    display: none !important;
+}
+
+.dropdown:hover>.dropdown-menu,
+li.dropdown:hover>.dropdown-menu,
+.dropdown:hover>.menu_level_1,
+li.dropdown:hover>.menu_level_1,
+.dropdown:hover>ul.dropdown-menu,
+li.dropdown:hover>ul.dropdown-menu {
+    display: block !important;
+}
+
+.dropdown.open>.dropdown-menu,
+li.dropdown.open>.dropdown-menu,
+.dropdown.open>.menu_level_1,
+li.dropdown.open>.menu_level_1,
+.dropdown.open>ul.dropdown-menu,
+li.dropdown.open>ul.dropdown-menu {
+    display: block !important;
+}
