@@ -16,6 +16,7 @@
         {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
         
+        <!-- FORCE DROPDOWN STYLES - MUST BE LAST -->
         <style>
         /* FORCE dropdown menu visibility - override everything */
         .dropdown-menu {
@@ -38,7 +39,9 @@
         .dropdown:hover > .dropdown-menu,
         li.dropdown:hover > .dropdown-menu,
         .dropdown:hover > ul.dropdown-menu,
-        li.dropdown:hover > ul.dropdown-menu {
+        li.dropdown:hover > ul.dropdown-menu,
+        .dropdown:hover > .menu_level_1,
+        li.dropdown:hover > .menu_level_1 {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
@@ -48,7 +51,9 @@
         .dropdown.open > .dropdown-menu,
         li.dropdown.open > .dropdown-menu,
         .dropdown.open > ul.dropdown-menu,
-        li.dropdown.open > ul.dropdown-menu {
+        li.dropdown.open > ul.dropdown-menu,
+        .dropdown.open > .menu_level_1,
+        li.dropdown.open > .menu_level_1 {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
