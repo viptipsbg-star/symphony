@@ -87,11 +87,13 @@
 {% endblock %}
 
 {% block dropdownElement %}
-    {%- set classes = item.linkAttribute('class') is not empty ? [item.linkAttribute('class')] : [] %}
-    {%- set classes = classes|merge(['dropdown-toggle']) %}
+    {%- set classes = item.linkAttribute('class') is not empty ? [item.linkAttribute('class')] : [] %}\n    {%- set classes = classes|merge(['dropdown-toggle']) %}
     {%- set attributes = item.linkAttributes %}
     {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
     {%- set attributes = attributes|merge({'data-toggle': 'dropdown'}) %}
+    {%- set attributes = attributes|merge({'role': 'button'}) %}
+    {%- set attributes = attributes|merge({'aria-haspopup': 'true'}) %}
+    {%- set attributes = attributes|merge({'aria-expanded': 'false'}) %}
     <a href="#"{{ macros.attributes(attributes) }}>{{ block('label') }} <b class="caret"></b></a>
 {% endblock %}
 

@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "edu"]
+	url = https://acket@bitbucket.org/Infosauga_lt/edu.git
+	fetch = +refs/heads/*:refs/remotes/edu/*
+[credential]
+	helper = store
