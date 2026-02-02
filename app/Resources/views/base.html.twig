@@ -118,6 +118,8 @@
                 // Find all dropdown toggles
                 var dropdownToggles = document.querySelectorAll('a.dropdown-toggle');
                 
+                alert('Dropdown toggles found: ' + dropdownToggles.length);
+                
                 if (dropdownToggles.length === 0) {
                     // Retry after 100ms if not found
                     setTimeout(initDropdowns, 100);
@@ -127,6 +129,7 @@
                 // Add click handler to each dropdown toggle
                 dropdownToggles.forEach(function(toggle) {
                     toggle.addEventListener('click', function(e) {
+                        alert('Dropdown clicked!');
                         e.preventDefault();
                         e.stopPropagation();
                         
