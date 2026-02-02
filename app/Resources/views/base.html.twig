@@ -106,53 +106,45 @@
         </div>
 
 
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         {% block javascripts %}{% endblock %}
         
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
         <script>
-        // Simple dropdown toggle with debugging
-        jQuery(document).ready(function($) {
-            console.log('=== DROPDOWN DEBUG START ===');
-            console.log('jQuery version:', $.fn.jquery);
-            console.log('Dropdown toggles found:', $('a.dropdown-toggle').length);
-            console.log('Dropdown li elements:', $('li.dropdown').length);
+        // Dropdown functionality - loaded LAST to avoid conflicts
+        (function() {
+            if (typeof jQuery === 'undefined') return;
             
-            // Click on dropdown toggle
-            $('body').on('click', 'a.dropdown-toggle', function(e) {
-                console.log('DROPDOWN CLICKED!');
-                e.preventDefault();
+            jQuery(document).ready(function($) {
+                // Dropdown click handler
+                $(document).on('click', '.dropdown-toggle', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    var $parent = $(this).closest('li.dropdown');
+                    var wasOpen = $parent.hasClass('open');
+                    
+                    // Close all dropdowns
+                    $('.dropdown').removeClass('open');
+                    
+                    // Toggle this dropdown
+                    if (!wasOpen) {
+                        $parent.addClass('open');
+                    }
+                    
+                    return false;
+                });
                 
-                var $parent = $(this).parent('li');
-                console.log('Parent li found:', $parent.length);
-                console.log('Parent has dropdown class:', $parent.hasClass('dropdown'));
-                
-                var wasOpen = $parent.hasClass('open');
-                console.log('Was open:', wasOpen);
-                
-                // Close all dropdowns
-                $('li.dropdown').removeClass('open');
-                console.log('Closed all dropdowns');
-                
-                // Open this one if it wasn't open
-                if (!wasOpen) {
-                    $parent.addClass('open');
-                    console.log('Opened dropdown, parent classes:', $parent.attr('class'));
-                }
-                
-                return false;
+                // Close dropdowns on outside click
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest('.dropdown').length) {
+                        $('.dropdown').removeClass('open');
+                    }
+                });
             });
-            
-            // Click anywhere else closes dropdowns
-            $('body').on('click', function(e) {
-                if (!$(e.target).closest('.dropdown').length) {
-                    $('li.dropdown').removeClass('open');
-                }
-            });
-            
-            console.log('=== DROPDOWN DEBUG END ===');
-        });
+        })();
         </script>
     </body>
 </html>
