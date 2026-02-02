@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'reflection.student.list_title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ 'reflection.student.list_title'|trans }}</h1>
+    
+    <a href="{{ path('student_reflection_create') }}" class="btn btn-primary">
+        {{ 'reflection.student.create_button'|trans }}
+    </a>
+    
+    <hr>
+    
+    {% if reflections|length > 0 %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{ 'reflection.list.course'|trans }}</th>
+                    <th>{{ 'reflection.list.date'|trans }}</th>
+                    <th>{{ 'reflection.list.status'|trans }}</th>
+                    <th>{{ 'reflection.list.actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reflection in reflections %}
+                <tr>
+                    <td>{{ reflection.course.title }}</td>
+                    <td>{{ reflection.studentCreatedAt|date('Y-m-d H:i') }}</td>
+                    <td>
+                        {% if reflection.teacherResponse %}
+                            <span class="badge badge-success">{{ 'reflection.status.responded'|trans }}</span>
+                        {% else %}
+                            <span class="badge badge-warning">{{ 'reflection.status.pending'|trans }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('student_reflection_view', {'id': reflection.id}) }}" class="btn btn-sm btn-info">
+                            {{ 'reflection.buttons.view'|trans }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{{ 'reflection.student.no_reflections'|trans }}</p>
+    {% endif %}
+</div>
+{% endblock %}
