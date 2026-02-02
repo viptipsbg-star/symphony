@@ -15,6 +15,32 @@
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
         {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
+        
+        <style>
+        /* Force dropdown menu visibility */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            min-width: 160px;
+            padding: 5px 0;
+            margin: 2px 0 0;
+            list-style: none;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 4px;
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        }
+        .dropdown.open > .dropdown-menu,
+        li.dropdown.open > .dropdown-menu {
+            display: block !important;
+        }
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        </style>
     </head>
     <body class="{% block bodyclass %}{% endblock %}">
         <div class="pagemain">
@@ -86,40 +112,32 @@
         {% block javascripts %}{% endblock %}
         
         <script>
-        // Dropdown initialization - uses event delegation to avoid conflicts
-        (function($) {
-            // Use event delegation from document level with namespace
-            $(document).off('click.dropdownInit').on('click.dropdownInit', 'a.dropdown-toggle', function(e) {
+        // Simple dropdown toggle
+        jQuery(document).ready(function($) {
+            // Click on dropdown toggle
+            $('body').on('click', 'a.dropdown-toggle', function(e) {
                 e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                
-                var $li = $(this).closest('li.dropdown');
-                var wasOpen = $li.hasClass('open');
+                var $parent = $(this).parent('li');
+                var wasOpen = $parent.hasClass('open');
                 
                 // Close all dropdowns
                 $('li.dropdown').removeClass('open');
                 
-                // Toggle this dropdown
+                // Open this one if it wasn't open
                 if (!wasOpen) {
-                    $li.addClass('open');
+                    $parent.addClass('open');
                 }
                 
                 return false;
             });
             
-            // Close dropdowns when clicking outside
-            $(document).off('click.dropdownClose').on('click.dropdownClose', function(e) {
-                if (!$(e.target).closest('li.dropdown').length) {
+            // Click anywhere else closes dropdowns
+            $('body').on('click', function(e) {
+                if (!$(e.target).closest('.dropdown').length) {
                     $('li.dropdown').removeClass('open');
                 }
             });
-            
-            // Prevent dropdown from closing when clicking inside menu
-            $(document).off('click.dropdownMenu').on('click.dropdownMenu', 'li.dropdown .dropdown-menu', function(e) {
-                e.stopPropagation();
-            });
-        })(jQuery);
+        });
         </script>
     </body>
 </html>
