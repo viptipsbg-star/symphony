@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test Dropdown</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Test</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">HOME</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">
+                        COURSES <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Course 1</a></li>
+                        <li><a href="#">Course 2</a></li>
+                        <li><a href="#">Course 3</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">
+                        REPORTS <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Report 1</a></li>
+                        <li><a href="#">Report 2</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">
+                        student1 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Change Password</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Dropdown Test Page</h1>
+        <p>Click on COURSES, REPORTS, or student1 to test the dropdowns.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        // Manual dropdown and navbar handling
+        jQuery(document).ready(function ($) {
+            console.log('jQuery loaded:', typeof jQuery);
+            console.log('Bootstrap loaded:', typeof $.fn.dropdown);
+            console.log('Dropdowns found:', $('li.dropdown').length);
+
+            // Handle dropdown toggle clicks on navigation menu
+            $('body').on('click', 'a.dropdown-toggle', function (e) {
+                console.log('Dropdown clicked!');
+                e.preventDefault();
+                e.stopPropagation();
+
+                var $this = $(this);
+                var $parent = $this.parent('li.dropdown');
+
+                if ($parent.length === 0) {
+                    console.log('No parent dropdown found');
+                    return;
+                }
+
+                var isOpen = $parent.hasClass('open');
+                console.log('Is open:', isOpen);
+
+                // Close all dropdowns
+                $('li.dropdown').removeClass('open');
+                $('a.dropdown-toggle').attr('aria-expanded', 'false');
+
+                // Toggle current dropdown
+                if (!isOpen) {
+                    $parent.addClass('open');
+                    $this.attr('aria-expanded', 'true');
+                    console.log('Opened dropdown');
+                }
+
+                return false;
+            });
+
+            // Close dropdowns when clicking outside
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('li.dropdown').length) {
+                    $('li.dropdown').removeClass('open');
+                    $('a.dropdown-toggle').attr('aria-expanded', 'false');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -84,36 +84,40 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <script>
-        // Manual dropdown handling for Bootstrap 3
-        $(document).ready(function() {
-            // Handle dropdown toggle clicks
-            $(document).on('click', '.dropdown-toggle', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
+        jQuery(function($) {
+            // Wait for DOM to be fully loaded
+            setTimeout(function() {
+                // Remove any existing click handlers
+                $('a.dropdown-toggle').off('click');
                 
-                var $parent = $(this).parent('.dropdown');
-                var isOpen = $parent.hasClass('open');
+                // Add new click handler
+                $('a.dropdown-toggle').on('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    var $li = $(this).closest('li.dropdown');
+                    
+                    // Close all dropdowns first
+                    $('li.dropdown').removeClass('open');
+                    
+                    // Open this one if it wasn't open
+                    if (!$li.hasClass('open')) {
+                        $li.addClass('open');
+                    }
+                    
+                    return false;
+                });
                 
-                // Close all other dropdowns
-                $('.dropdown.open').removeClass('open');
+                // Close on outside click
+                $(document).on('click', function() {
+                    $('li.dropdown').removeClass('open');
+                });
                 
-                // Toggle current dropdown
-                if (!isOpen) {
-                    $parent.addClass('open');
-                    $(this).attr('aria-expanded', 'true');
-                } else {
-                    $parent.removeClass('open');
-                    $(this).attr('aria-expanded', 'false');
-                }
-            });
-            
-            // Close dropdowns when clicking outside
-            $(document).on('click', function(e) {
-                if (!$(e.target).closest('.dropdown').length) {
-                    $('.dropdown.open').removeClass('open');
-                    $('.dropdown-toggle').attr('aria-expanded', 'false');
-                }
-            });
+                // Prevent dropdown from closing when clicking inside
+                $('li.dropdown').on('click', function(e) {
+                    e.stopPropagation();
+                });
+            }, 100);
         });
         </script>
 
