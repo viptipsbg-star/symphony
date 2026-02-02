@@ -1,4 +1,5 @@
 <?php
+// Reflections Feature - Student Controller v1.0
 
 namespace Elearning\CoursesBundle\Controller;
 
